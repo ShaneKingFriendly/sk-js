@@ -1,0 +1,13 @@
+language: node_js
+sudo: false # faster builds
+
+node_js:
+  - "4.0"
+before_install:
+  - npm install -g grunt-cli
+
+install:
+  - npm install --dev
+
+script:
+  - npm test

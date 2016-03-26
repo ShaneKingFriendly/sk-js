@@ -1,3 +1,48 @@
+# === System ===
+.DS_Store
+
+# === IDE ===
+# eclipse
+.settings
+.project
+.classpath
+*_mvn_deploy.launch
+
+# idea
+.idea
+*.iml
+
+# === Config ===
+*.cfg.sk.properties
+*.cfg.sk.xml
+
+# === Custom ===
+# mvn
+target
+
+# mysql
+*.mwb
+*.mwb.bak
+
+# sass
+.sass-cache
+
+# === Language ===
+# java
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# === Node ===
 # Logs
 logs
 *.log
