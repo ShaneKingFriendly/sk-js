@@ -37,10 +37,12 @@
     "sk"
   ],
   "dependencies": {
-    "jquery": "^2.2.2"
+    "jquery": "^2.2.2",
+    "jsface": "^2.4.9"
   },
   "devDependencies": {
     "jquery": "^2.2.2",
+    "jsface": "^2.4.9",
     "commitplease": "latest"
   },
   "commitplease": {
