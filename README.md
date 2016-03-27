@@ -1,4 +1,4 @@
-# [JavaScript for ShaneKing][]
+# [jQuery for ShaneKing][]
 More to see [shaneking.org][].
 
 ## Dependencies
@@ -23,31 +23,31 @@ More to see [shaneking.org][].
 ShaneKing is released under [MIT][].
 
 
-[JavaScript for ShaneKing]: http://shaneking.org/c/sk
+[jQuery for ShaneKing]: http://shaneking.org/c/jquery-sk
 [shaneking.org]: http://shaneking.org/
 
 
-[versioneye]:https://www.versioneye.com/user/projects/56f7b5c935630e0029db0995
-[versioneye img]:https://www.versioneye.com/user/projects/56f7b5c935630e0029db0995/badge.svg
+[versioneye]:https://www.versioneye.com/user/projects/56f7d48f35630e0029db099c
+[versioneye img]:https://www.versioneye.com/user/projects/56f7d48f35630e0029db099c/badge.svg
 
 
-[travis]:https://travis-ci.org/ShaneKing/sk
-[travis img]:https://travis-ci.org/ShaneKing/sk.png
+[travis]:https://travis-ci.org/ShaneKing/jquery-sk
+[travis img]:https://travis-ci.org/ShaneKing/jquery-sk.png
 
 
-[coverage]:https://codecov.io/github/ShaneKing/sk?branch=mirror
-[coverage img]:https://codecov.io/github/ShaneKing/sk/coverage.svg?branch=mirror
+[coverage]:https://codecov.io/github/ShaneKing/jquery-sk?branch=mirror
+[coverage img]:https://codecov.io/github/ShaneKing/jquery-sk/coverage.svg?branch=mirror
 [saucelabs]:https://saucelabs.com/u/ShaneKing
 [saucelabs img]:https://saucelabs.com/browser-matrix/ShaneKing.svg
 
 
-[bowerbadge]:http://bower.io/search/?q=sk
-[bowerbadge img]:https://img.shields.io/bower/v/sk.svg
-[npmbadge]:https://www.npmjs.com/package/sk
-[npmbadge img]:https://img.shields.io/npm/v/sk.svg
+[bowerbadge]:http://bower.io/search/?q=jquery-sk
+[bowerbadge img]:https://img.shields.io/bower/v/jquery-sk.svg
+[npmbadge]:https://www.npmjs.com/package/jquery-sk
+[npmbadge img]:https://img.shields.io/npm/v/jquery-sk.svg
 
 
-[gitter]:https://gitter.im/ShaneKing/jquery-validation-sk?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
+[gitter]:https://gitter.im/ShaneKing/jquery-sk?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
 [gitter img]:https://badges.gitter.im/Join%20Chat.svg
 
 

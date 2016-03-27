@@ -1,8 +1,8 @@
 {
-  "name": "sk",
-  "description": "JavaScript for ShaneKing",
+  "name": "jquery-sk",
+  "description": "jQuery for ShaneKing",
   "version": "0.0.1",
-  "homepage": "https://github.com/ShaneKing/sk",
+  "homepage": "https://github.com/ShaneKing/jquery-sk",
   "license": "MIT",
   "author": {
     "name": "ShaneKing",
@@ -11,10 +11,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:ShaneKing/sk.git"
+    "url": "git@github.com:ShaneKing/jquery-sk.git"
   },
   "bugs": {
-    "url": "https://github.com/ShaneKing/sk/issues"
+    "url": "https://github.com/ShaneKing/jquery-sk/issues"
   },
   "licenses": [
     {
@@ -30,8 +30,9 @@
     "src",
     "LICENSE"
   ],
-  "main": "dist/sk.js",
+  "main": "dist/jquery.sk.js",
   "keywords": [
+    "jQuery",
     "ShaneKing",
     "sk"
   ],
