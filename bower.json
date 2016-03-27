@@ -1,0 +1,31 @@
+{
+  "name": "sk",
+  "homepage": "https://github.com/ShaneKing/sk",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ShaneKing/sk.git"
+  },
+  "authors": [
+    "ShaneKing <github@azolla.org>"
+  ],
+  "description": "JavaScript for ShaneKing",
+  "main": [
+    "dist/sk.js"
+  ],
+  "keywords": [
+    "ShaneKing",
+    "sk"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "demo",
+    "lib"
+  ],
+  "dependencies": {
+    "jquery": ">= 2.2.2"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "name": "sk",
+  "description": "JavaScript for ShaneKing",
+  "version": "0.0.1",
+  "homepage": "https://github.com/ShaneKing/sk",
+  "license": "MIT",
+  "author": {
+    "name": "ShaneKing",
+    "email": "github@azolla.org",
+    "url": "http://shaneking.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ShaneKing/sk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ShaneKing/sk/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  ],
+  "scripts": {
+    "test": "grunt"
+  },
+  "files": [
+    "dist",
+    "src",
+    "LICENSE"
+  ],
+  "main": "dist/sk.js",
+  "keywords": [
+    "ShaneKing",
+    "sk"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.2"
+  },
+  "devDependencies": {
+    "jquery": "^2.2.2",
+    "commitplease": "latest"
+  },
+  "commitplease": {
+    "nohook": true
+  }
+}
