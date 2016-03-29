@@ -1,4 +1,4 @@
-# [jQuery for ShaneKing][]
+# [ShaneKing for JavaScript][]
 More to see [shaneking.org][].
 
 ## Dependencies
@@ -23,7 +23,7 @@ More to see [shaneking.org][].
 ShaneKing is released under [MIT][].
 
 
-[jQuery for ShaneKing]: http://shaneking.org/c/jquery-sk
+[ShaneKing for JavaScript]: http://shaneking.org/c/sk-js
 [shaneking.org]: http://shaneking.org/
 
 
@@ -31,23 +31,23 @@ ShaneKing is released under [MIT][].
 [versioneye img]:https://www.versioneye.com/user/projects/56f7d48f35630e0029db099c/badge.svg
 
 
-[travis]:https://travis-ci.org/ShaneKing/jquery-sk
-[travis img]:https://travis-ci.org/ShaneKing/jquery-sk.png
+[travis]:https://travis-ci.org/ShaneKing/sk-js
+[travis img]:https://travis-ci.org/ShaneKing/sk-js.png
 
 
-[coverage]:https://codecov.io/github/ShaneKing/jquery-sk?branch=mirror
-[coverage img]:https://codecov.io/github/ShaneKing/jquery-sk/coverage.svg?branch=mirror
+[coverage]:https://codecov.io/github/ShaneKing/sk-js?branch=mirror
+[coverage img]:https://codecov.io/github/ShaneKing/sk-js/coverage.svg?branch=mirror
 [saucelabs]:https://saucelabs.com/u/ShaneKing
 [saucelabs img]:https://saucelabs.com/browser-matrix/ShaneKing.svg
 
 
-[bowerbadge]:http://bower.io/search/?q=jquery-sk
-[bowerbadge img]:https://img.shields.io/bower/v/jquery-sk.svg
-[npmbadge]:https://www.npmjs.com/package/jquery-sk
-[npmbadge img]:https://img.shields.io/npm/v/jquery-sk.svg
+[bowerbadge]:http://bower.io/search/?q=sk-js
+[bowerbadge img]:https://img.shields.io/bower/v/sk-js.svg
+[npmbadge]:https://www.npmjs.com/package/sk-js
+[npmbadge img]:https://img.shields.io/npm/v/sk-js.svg
 
 
-[gitter]:https://gitter.im/ShaneKing/jquery-sk?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
+[gitter]:https://gitter.im/ShaneKing/sk-js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
 [gitter img]:https://badges.gitter.im/Join%20Chat.svg
 
 
