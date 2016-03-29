@@ -1,16 +1,16 @@
 {
-  "name": "jquery-sk",
-  "homepage": "https://github.com/ShaneKing/jquery-sk",
+  "name": "sk-js",
+  "homepage": "https://github.com/ShaneKing/sk-js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:ShaneKing/jquery-sk.git"
+    "url": "git@github.com:ShaneKing/sk-js.git"
   },
   "authors": [
     "ShaneKing <github@azolla.org>"
   ],
-  "description": "jQuery for ShaneKing",
+  "description": "ShaneKing for JavaScript",
   "main": [
-    "dist/jquery.sk.js"
+    "dist/sk.js"
   ],
   "keywords": [
     "jQuery",
