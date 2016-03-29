@@ -28,7 +28,7 @@
     "lib"
   ],
   "dependencies": {
-    "jquery": ">= 2.2.2",
-    "jsface": ">= 2.4.9"
+    "jsface": ">= 2.4.9",
+    "jquery": ">= 2.2.2"
   }
 }

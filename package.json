@@ -38,12 +38,12 @@
     "sk"
   ],
   "dependencies": {
-    "jquery": "^2.2.2",
-    "jsface": "^2.4.9"
+    "jsface": "^2.4.9",
+    "jquery": "^2.2.2"
   },
   "devDependencies": {
-    "jquery": "^2.2.2",
     "jsface": "^2.4.9",
+    "jquery": "^2.2.2",
     "gulp": "^3.9.1",
     "commitplease": "latest"
   },

@@ -27,12 +27,36 @@
 
   // insert all source code here
   // sk body here
-  $sk.isInValid = function (obj) {
+  $sk.a = function (array) {
+    return $.isArray(array) ? array : [];
+  };
+
+  $sk.b = function (boolean) {
+    return Boolean(boolean);
+  };
+
+  $sk.d = function (date) {
+    return new Date();//TODO
+  };
+
+  $sk.n = function (number) {
+    return isNaN(Number(number)) ? 0 : number;
+  };
+
+  $sk.inValid = function (obj) {
     if (obj === undefined || obj == null || isNaN(obj) ) {
-      return true;
-    } else {
       return false;
+    } else {
+      return true;
     }
+  };
+
+  $sk.o = function (object) {
+    return {};//TODO
+  };
+
+  $sk.s = function (string) {
+    return String(string);
   };
 
   // reset to old $sk
