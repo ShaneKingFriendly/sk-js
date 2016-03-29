@@ -21,6 +21,6 @@ before_install:
 
 before_script:
   - gem install sass
-  - npm install -g grunt-cli
+  - npm install -g gulp
 
 #script: default run: npm test
