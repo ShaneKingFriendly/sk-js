@@ -33,6 +33,7 @@
   "main": "dist/sk.js",
   "keywords": [
     "jQuery",
+    "JSFace",
     "ShaneKing",
     "sk"
   ],
