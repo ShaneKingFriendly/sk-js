@@ -36,7 +36,7 @@
   };
 
   $sk.d = function (date) {
-    return new Date();//TODO
+    return (date instanceof Date) ? (o.toString() == "Invalid Date" ? new Date() : date) : new Date();
   };
 
   $sk.n = function (number) {
@@ -52,7 +52,7 @@
   };
 
   $sk.o = function (object) {
-    return {};//TODO
+    return $.isPlainObject(object) ? object : {};
   };
 
   $sk.s = function (string) {
