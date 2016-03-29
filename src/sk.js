@@ -5,9 +5,9 @@
     // will not require here.
     module.exports = factory;
   } else if (typeof define === 'function' && define.amd) {
-    // AMD. Register as parrot
+    // AMD. Register as sk
     // TODO how to define the jquery plugin here?
-    define('parrot', ['jquery', 'jsface'], factory);
+    define('sk', ['jquery', 'jsface'], factory);
   } else {
     // in browser, global is window.
     // all dependencies were loaded already.
