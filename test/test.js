@@ -25,11 +25,11 @@ describe("1", function(){
   var badValueArray = [null,undefined,NaN,"Invalid Date"];
   describe("a", function(){
     it("array return array", function(){
-      assert.equal($sk.a(['a',1,'b',2]),['a',1,'b',2]);
+      assert.deepEqual($sk.a(['a',1,'b',2]),['a',1,'b',2]);
     });
     it("unarray return array", function(){
       badValueArray.forEach(function (element, index, array) {
-        assert.equal($sk.a(element),[]);
+        assert.deepEqual($sk.a(element),[]);
       });
     });
   });
@@ -70,11 +70,11 @@ describe("1", function(){
   });
   describe("o", function(){
     it("object return object", function(){
-      assert.equal($sk.o({a:1,b:2}),{a:1,b:2});
+      assert.deepEqual($sk.o({a:1,b:2}),{a:1,b:2});
     });
     it("other return object", function(){
       badValueArray.forEach(function (element, index, array) {
-        assert.equal($sk.o(element),{});
+        assert.deepEqual($sk.o(element),{});
       });
     });
   });

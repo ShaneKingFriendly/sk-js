@@ -33,7 +33,7 @@
 
   //just true return true, other return false
   $sk.b = function (boolean) {
-    return boolean && String(boolean) == "true";
+    return boolean && String(boolean) == "true" && boolean != "true";
   };
 
   $sk.d = function (date, defaultDate) {
