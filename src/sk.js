@@ -7,15 +7,15 @@
   } else if (typeof define === 'function' && define.amd) {
     // AMD. Register as sk
     // TODO how to define the jquery plugin here?
-    define('sk', ['jquery', 'jsface'], factory);
+    define('sk', ['jsface', 'jquery'], factory);
   } else {
     // in browser, global is window.
     // all dependencies were loaded already.
     // bootstrap and jquery's plugin are all attached to jquery,
     // expose $sk and all components to window.
-    factory(global, jQuery, jsface);
+    factory(global, jsface, jQuery);
   }
-}(typeof window !== "undefined" ? window : this, function (window, jQuery, jsface, DO_NOT_EXPOSE_SK_TO_GLOBAL) {
+}(typeof window !== "undefined" ? window : this, function (window, jsface, jQuery, DO_NOT_EXPOSE_SK_TO_GLOBAL) {
   var _sk = window.$sk;
   var $sk = {};
   window.$sk = $sk;
