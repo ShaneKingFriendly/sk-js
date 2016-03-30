@@ -19,64 +19,73 @@ global.jQuery = global.$ = require('jquery');
 global.jsface = require('jsface');
 
 var $sk = require('../src/sk')(window, jsface, jQuery);
-var expect = require('expect.js');
+var assert = require('assert');
 
 describe("1", function(){
+  var badValueArray = [null,undefined,NaN,"Invalid Date"];
   describe("a", function(){
     it("array return array", function(){
-      expect($sk.a([])).to.equal([]);
+      assert.equal($sk.a(['a',1,'b',2]),['a',1,'b',2]);
     });
     it("unarray return array", function(){
-      expect($sk.a(null)).to.equal([]);
+      badValueArray.forEach(function (element, index, array) {
+        assert.equal($sk.a(element),[]);
+      });
     });
   });
   describe("b", function(){
     it("true return true", function(){
-      expect($sk.b(true)).to.equal(true);
-      expect($sk.b("true")).to.equal(true);
-      expect($sk.b("everything")).to.equal(true);
+      assert.equal($sk.b(true),true);
     });
     it("other return false", function(){
-      expect($sk.b("false")).to.equal(false);
-      expect($sk.b("")).to.equal(false);
-      expect($sk.b(null)).to.equal(false);
-      expect($sk.b(undefined)).to.equal(false);
-      expect($sk.b(NaN)).to.equal(false);
+      assert.equal($sk.b("true"),false);
+      assert.equal($sk.b("false"),false);
+      assert.equal($sk.b("everything"),false);
+      assert.equal($sk.b(""),false);
+      badValueArray.forEach(function (element, index, array) {
+        assert.equal($sk.b(element),false);
+      });
     });
   });
   describe("d", function(){
+    var date = new Date();
     it("date return date", function(){
-      var date = new Date();
-      expect($sk.d(date)).to.equal(date);
+      assert.equal($sk.d(date), date);
     });
     it("should return false", function(){
-      expect($sk.d("Invalid Date", date)).to.equal(date);
+      badValueArray.forEach(function (element, index, array) {
+        assert.equal($sk.d(element, date), date);
+      });
     });
   });
   describe("n", function(){
     it("number return number", function(){
-      expect($sk.n("1")).to.equal(1);
+      assert.equal($sk.n("1"),1);
     });
     it("other return zero", function(){
-      expect($sk.n("n")).to.equal(0);
+      badValueArray.forEach(function (element, index, array) {
+        assert.equal($sk.n(element),0);
+      });
     });
   });
   describe("o", function(){
     it("object return object", function(){
-      expect($sk.o({})).to.equal({});
+      assert.equal($sk.o({a:1,b:2}),{a:1,b:2});
     });
     it("other return object", function(){
-      expect($sk.o("o")).to.equal({});
+      badValueArray.forEach(function (element, index, array) {
+        assert.equal($sk.o(element),{});
+      });
     });
   });
   describe("s", function(){
     it("string return string", function(){
-      expect($sk.s("s")).to.equal("s");
+      assert.equal($sk.s("s"),"s");
     });
     it("other return empty", function(){
-      expect($sk.s(null)).to.equal("null");
-      expect($sk.s(undefined)).to.equal("undefined");
-      expect($sk.s(NaN)).to.equal("NaN");
+      assert.equal($sk.s(null),"null");
+      assert.equal($sk.s(undefined),"undefined");
+      assert.equal($sk.s(NaN),"NaN");
     });
   });
 

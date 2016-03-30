@@ -31,9 +31,9 @@
     return jQuery.isArray(array) ? array : [];
   };
 
-  $sk.b = function (boolean, defaultBoolean) {
-    // var rtnBoolean = defaultBoolean ? defaultBoolean : false;
-    return Boolean(boolean);
+  //just true return true, other return false
+  $sk.b = function (boolean) {
+    return boolean && String(boolean) == "true";
   };
 
   $sk.d = function (date, defaultDate) {
@@ -41,6 +41,7 @@
     return (date instanceof Date) ? (date.toString() == "Invalid Date" ? rtnDate : date) : rtnDate;
   };
 
+  //can be to Number than return value of number, other return 0
   $sk.n = function (number) {
     return isNaN(Number(number)) ? 0 : Number(number);
   };
