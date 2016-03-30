@@ -1,5 +1,5 @@
 
-var simple = require('../src/sk');
+var $sk = require('../src/sk')(window, jsface, jQuery);;
 var expect = require('expect.js');
 
 describe("1", function(){
