@@ -4,52 +4,53 @@ var expect = require('expect.js');
 
 describe("1", function(){
   describe("a", function(){
-    it("should return true", function(){
-      expect($sk.a([])).to.equal(true);
+    it("array return array", function(){
+      expect($sk.a([])).to.equal([]]);
     });
-    it("should return false", function(){
-      expect($sk.a(null)).to.equal(false);
+    it("unarray return array", function(){
+      expect($sk.a(null)).to.equal([]]);
     });
   });
   describe("b", function(){
-    it("should return true", function(){
-      expect($sk.b(false)).to.equal(true);
-      expect($sk.b("false")).to.equal(false);
+    it("true return true", function(){
+      expect($sk.b(true)).to.equal(true);
+      expect($sk.b("true")).to.equal(true);
     });
-    it("should return false", function(){
+    it("other return false", function(){
       expect($sk.b("b")).to.equal(false);
     });
   });
   describe("d", function(){
-    it("should return true", function(){
-      expect($sk.d(new Date())).to.equal(true);
+    it("date return date", function(){
+      var date = new Date();
+      expect($sk.d(date)).to.equal(date);
     });
     it("should return false", function(){
-      expect($sk.d("Invalid Date")).to.equal(false);
+      expect($sk.d("Invalid Date")).to.equal(new Date());
     });
   });
   describe("n", function(){
-    it("should return true", function(){
-      expect($sk.n("1")).to.equal(true);
+    it("number return number", function(){
+      expect($sk.n("1")).to.equal(1);
     });
-    it("should return false", function(){
-      expect($sk.n("n")).to.equal(false);
+    it("other return zero", function(){
+      expect($sk.n("n")).to.equal(0);
     });
   });
   describe("o", function(){
-    it("should return true", function(){
-      expect($sk.o({})).to.equal(true);
+    it("object return object", function(){
+      expect($sk.o({})).to.equal({}});
     });
-    it("should return false", function(){
-      expect($sk.o("o")).to.equal(false);
+    it("other return object", function(){
+      expect($sk.o("o")).to.equal({}});
     });
   });
   describe("s", function(){
-    it("should return true", function(){
-      expect($sk.s("s")).to.equal(true);
+    it("string return string", function(){
+      expect($sk.s("s")).to.equal("s");
     });
-    it("should return false", function(){
-      expect($sk.s(undefined)).to.equal(false);
+    it("other return empty", function(){
+      expect($sk.s(undefined)).to.equal("");
     });
   });
   
