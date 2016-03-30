@@ -36,7 +36,7 @@
   };
 
   $sk.d = function (date) {
-    return (date instanceof Date) ? (o.toString() == "Invalid Date" ? new Date() : date) : new Date();
+    return (date instanceof Date) ? (date.toString() == "Invalid Date" ? new Date() : date) : new Date();
   };
 
   $sk.n = function (number) {
