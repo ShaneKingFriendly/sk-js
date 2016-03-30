@@ -5,10 +5,10 @@ var expect = require('expect.js');
 describe("1", function(){
   describe("a", function(){
     it("array return array", function(){
-      expect($sk.a([])).to.equal([]]);
+      expect($sk.a([])).to.equal([]);
     });
     it("unarray return array", function(){
-      expect($sk.a(null)).to.equal([]]);
+      expect($sk.a(null)).to.equal([]);
     });
   });
   describe("b", function(){
@@ -39,10 +39,10 @@ describe("1", function(){
   });
   describe("o", function(){
     it("object return object", function(){
-      expect($sk.o({})).to.equal({}});
+      expect($sk.o({})).to.equal({});
     });
     it("other return object", function(){
-      expect($sk.o("o")).to.equal({}});
+      expect($sk.o("o")).to.equal({});
     });
   });
   describe("s", function(){
