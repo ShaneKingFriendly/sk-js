@@ -31,16 +31,18 @@
     return jQuery.isArray(array) ? array : [];
   };
 
-  $sk.b = function (boolean) {
+  $sk.b = function (boolean, defaultBoolean) {
+    // var rtnBoolean = defaultBoolean ? defaultBoolean : false;
     return Boolean(boolean);
   };
 
-  $sk.d = function (date) {
-    return (date instanceof Date) ? (date.toString() == "Invalid Date" ? new Date() : date) : new Date();
+  $sk.d = function (date, defaultDate) {
+    var rtnDate = defaultDate ? defaultDate : new Date();
+    return (date instanceof Date) ? (date.toString() == "Invalid Date" ? rtnDate : date) : rtnDate;
   };
 
   $sk.n = function (number) {
-    return isNaN(Number(number)) ? 0 : number;
+    return isNaN(Number(number)) ? 0 : Number(number);
   };
 
   $sk.inValid = function (obj) {
