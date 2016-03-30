@@ -28,7 +28,7 @@
   // insert all source code here
   // sk body here
   $sk.a = function (array) {
-    return $.isArray(array) ? array : [];
+    return jQuery.isArray(array) ? array : [];
   };
 
   $sk.b = function (boolean) {
@@ -52,7 +52,7 @@
   };
 
   $sk.o = function (object) {
-    return $.isPlainObject(object) ? object : {};
+    return jQuery.isPlainObject(object) ? object : {};
   };
 
   $sk.s = function (string) {
