@@ -1,5 +1,5 @@
 
-var $sk = require('../src/sk')(global, require('jsface'), require('jquery'));
+var $sk = require('../src/sk')(global, require('jsface'), require('jquery')(global));
 var expect = require('expect.js');
 
 describe("1", function(){
@@ -53,5 +53,5 @@ describe("1", function(){
       expect($sk.s(undefined)).to.equal("");
     });
   });
-  
+
 });
