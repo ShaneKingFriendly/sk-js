@@ -44,8 +44,15 @@
   "devDependencies": {
     "jsface": "^2.4.9",
     "jquery": "^2.2.2",
+    
     "gulp": "^3.9.1",
-    "commitplease": "latest"
+    
+    "commitplease": "latest",
+    
+    "expect.js": ">0.3.1",
+    "mocha": ">2.4.5",
+    "istanbul": ">0.4.2",
+    "codecov": ">1.0.1"
   },
   "commitplease": {
     "nohook": true
