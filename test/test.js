@@ -18,17 +18,19 @@ function propagateToGlobal (window) {
 global.jQuery = global.$ = require('jquery');
 global.jsface = require('jsface');
 
-var $sk = require('../src/sk')(window, jsface, jQuery);
+var $sk = require('../src/sk')(window, jsface, jQuery, true);
+$sk.noConflict();
+$sk = require('../src/sk')(window, jsface, jQuery);
 var assert = require('assert');
 
 describe("1", function(){
-  var badValueArray = [null,undefined,NaN,"Invalid Date"];
+  var inValidValueArray = [null,undefined,NaN,"Invalid Date"];
   describe("a", function(){
     it("array return array", function(){
       assert.deepEqual($sk.a(['a',1,'b',2]),['a',1,'b',2]);
     });
     it("unarray return array", function(){
-      badValueArray.forEach(function (element, index, array) {
+      inValidValueArray.forEach(function (element, index, array) {
         assert.deepEqual($sk.a(element),[]);
       });
     });
@@ -42,7 +44,7 @@ describe("1", function(){
       assert.equal($sk.b("false"),false);
       assert.equal($sk.b("everything"),false);
       assert.equal($sk.b(""),false);
-      badValueArray.forEach(function (element, index, array) {
+      inValidValueArray.forEach(function (element, index, array) {
         assert.equal($sk.b(element),false);
       });
     });
@@ -53,7 +55,7 @@ describe("1", function(){
       assert.equal($sk.d(date), date);
     });
     it("should return false", function(){
-      badValueArray.forEach(function (element, index, array) {
+      inValidValueArray.forEach(function (element, index, array) {
         assert.equal($sk.d(element, date), date);
       });
     });
@@ -63,7 +65,7 @@ describe("1", function(){
       assert.equal($sk.n("1"),1);
     });
     it("other return zero", function(){
-      badValueArray.forEach(function (element, index, array) {
+      inValidValueArray.forEach(function (element, index, array) {
         assert.equal($sk.n(element),0);
       });
     });
@@ -73,7 +75,7 @@ describe("1", function(){
       assert.deepEqual($sk.o({a:1,b:2}),{a:1,b:2});
     });
     it("other return object", function(){
-      badValueArray.forEach(function (element, index, array) {
+      inValidValueArray.forEach(function (element, index, array) {
         assert.deepEqual($sk.o(element),{});
       });
     });
@@ -88,5 +90,25 @@ describe("1", function(){
       assert.equal($sk.s(NaN),"NaN");
     });
   });
+});
 
+describe("others", function(){
+  describe("valid",function(){
+    it("should be return true", function(){
+      assert.equal($sk.valid([]),true);
+      assert.equal($sk.valid(true),true);
+      assert.equal($sk.valid(false),true);
+      assert.equal($sk.valid(new Date()),true);
+      assert.equal($sk.valid(1),true);
+      assert.equal($sk.valid(0),true);
+      assert.equal($sk.valid({}}),true);
+      assert.equal($sk.valid("a"),true);
+      assert.equal($sk.valid(""),true);
+    });
+    it("should be return false", function(){
+      inValidValueArray.forEach(function (element, index, array) {
+        assert.equal($sk.valid(element),false);
+      });
+    });
+  });
 });
