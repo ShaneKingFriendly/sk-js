@@ -46,7 +46,7 @@
     return isNaN(Number(number)) ? 0 : Number(number);
   };
 
-  $sk.inValid = function (obj) {
+  $sk.valid = function (obj) {
     if (obj == undefined || obj == null || isNaN(obj) || (obj instanceof Date && obj == "Invalid Date")) {
       return false;
     } else {
