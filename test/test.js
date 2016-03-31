@@ -101,7 +101,7 @@ describe("others", function(){
       assert.equal($sk.valid(new Date()),true);
       assert.equal($sk.valid(1),true);
       assert.equal($sk.valid(0),true);
-      assert.equal($sk.valid({}}),true);
+      assert.equal($sk.valid({}),true);
       assert.equal($sk.valid("a"),true);
       assert.equal($sk.valid(""),true);
     });
