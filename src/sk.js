@@ -47,7 +47,7 @@
   };
 
   $sk.inValid = function (obj) {
-    if (obj === undefined || obj == null || isNaN(obj) ) {
+    if (obj == undefined || obj == null || isNaN(obj) ) {
       return false;
     } else {
       return true;
@@ -63,7 +63,7 @@
   };
 
   // reset to old $sk
-  if (typeof DO_NOT_EXPOSE_SK_TO_GLOBAL != 'undefined' && DO_NOT_EXPOSE_SK_TO_GLOBAL === true) {
+  if (typeof DO_NOT_EXPOSE_SK_TO_GLOBAL != 'undefined' && DO_NOT_EXPOSE_SK_TO_GLOBAL == true) {
     window.$sk = _sk;
   }
   return $sk;
