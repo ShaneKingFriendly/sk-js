@@ -47,7 +47,7 @@
   };
 
   $sk.inValid = function (obj) {
-    if (obj == undefined || obj == null || isNaN(obj) ) {
+    if (obj == undefined || obj == null || isNaN(obj) || (obj instanceof Date && obj == "Invalid Date")) {
       return false;
     } else {
       return true;
