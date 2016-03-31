@@ -8,7 +8,8 @@ More to see [shaneking.org][].
 [![][travis img]][travis]
 
 ## Test
-[![][coverage img]][coverage]
+[![][codecov img]][codecov]
+[![][codacy img]][codacy]
 
 ## Release
 [![][bowerbadge img]][bowerbadge]
@@ -35,8 +36,10 @@ ShaneKing is released under [MIT][].
 [travis img]:https://travis-ci.org/ShaneKing/sk-js.png
 
 
-[coverage]:https://codecov.io/github/ShaneKing/sk-js?branch=mirror
-[coverage img]:https://codecov.io/github/ShaneKing/sk-js/coverage.svg?branch=mirror
+[codecov]:https://codecov.io/github/ShaneKing/sk-js?branch=mirror
+[codecov img]:https://codecov.io/github/ShaneKing/sk-js/coverage.svg?branch=mirror
+[codacy]:https://www.codacy.com/app/ShaneKing/sk-js
+[codacy img]:https://api.codacy.com/project/badge/grade/b3e08d356b334765939b1c77b5360a3f
 [saucelabs]:https://saucelabs.com/u/ShaneKing
 [saucelabs img]:https://saucelabs.com/browser-matrix/ShaneKing.svg
 
