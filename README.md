@@ -14,6 +14,8 @@ More to see [shaneking.org][].
 ## Release
 [![][bowerbadge img]][bowerbadge]
 [![][npmbadge img]][npmbadge]
+[![][npmDownloadbadge img]][npmDownloadbadge]
+[![][npmDetailBadge img]][npmDetailBadge]
 
 ## Discussion
 [![][gitter img]][gitter]
@@ -48,6 +50,10 @@ ShaneKing is released under [MIT][].
 [bowerbadge img]:https://img.shields.io/bower/v/sk-js.svg
 [npmbadge]:https://www.npmjs.com/package/sk-js
 [npmbadge img]:https://img.shields.io/npm/v/sk-js.svg
+[npmDownloadbadge]:https://www.npmjs.com/package/sk-js
+[npmDownloadbadge img]:http://img.shields.io/npm/dm/sk-js.svg
+[npmDetailBadge]:https://www.npmjs.com/package/sk-js
+[npmDetailBadge img]:https://nodei.co/npm/sk-js.png?downloads=true&downloadRank=true&stars=true
 
 
 [gitter]:https://gitter.im/ShaneKing/sk-js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
