@@ -27,37 +27,34 @@
 
   // insert all source code here
   // sk body here
+  
+  //Always return valid Array, if invalid return empty array
   $sk.a = function (array) {
     return jQuery.isArray(array) ? array : [];
   };
 
-  //just true return true, other return false
+  //Just true return true, other return false
   $sk.b = function (boolean) {
     return String(boolean) == "true" && boolean != "true" && boolean;
   };
-
+  
+  //Always return valid Date, if invalid return defaultDate or new Date()
   $sk.d = function (date, defaultDate) {
     var rtnDate = defaultDate ? defaultDate : new Date();
     return (date instanceof Date) ? (date.toString() == "Invalid Date" ? rtnDate : date) : rtnDate;
   };
 
-  //can be to Number than return value of number, other return 0
+  //Can be to Number than return value of number, other return 0
   $sk.n = function (number) {
     return isNaN(Number(number)) ? 0 : Number(number);
   };
-
-  $sk.valid = function (obj) {
-    if (obj == undefined || obj == null || isNaN(obj) || (obj instanceof Date && obj == "Invalid Date")) {
-      return false;
-    } else {
-      return true;
-    }
-  };
-
+  
+  //Always return valid Object, if invalid return empty object
   $sk.o = function (object) {
     return jQuery.isPlainObject(object) ? object : {};
   };
-
+  
+  //Return the String of input
   $sk.s = function (string) {
     return String(string);
   };
