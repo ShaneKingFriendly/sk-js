@@ -15,6 +15,7 @@ More to see [shaneking.org][].
 [![][bowerbadge img]][bowerbadge]
 [![][npmbadge img]][npmbadge]
 [![][npmDownloadbadge img]][npmDownloadbadge]
+
 [![][npmDetailBadge img]][npmDetailBadge]
 
 ## Discussion
