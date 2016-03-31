@@ -23,8 +23,8 @@ $sk.noConflict();
 $sk = require('../src/sk')(window, jsface, jQuery);
 var assert = require('assert');
 
+var inValidValueArray = [null,undefined,NaN,"Invalid Date"];
 describe("1", function(){
-  var inValidValueArray = [null,undefined,NaN,"Invalid Date"];
   describe("a", function(){
     it("array return array", function(){
       assert.deepEqual($sk.a(['a',1,'b',2]),['a',1,'b',2]);
@@ -88,27 +88,6 @@ describe("1", function(){
       assert.equal($sk.s(null),"null");
       assert.equal($sk.s(undefined),"undefined");
       assert.equal($sk.s(NaN),"NaN");
-    });
-  });
-});
-
-describe("others", function(){
-  describe("valid",function(){
-    it("should be return true", function(){
-      assert.equal($sk.valid([]),true);
-      assert.equal($sk.valid(true),true);
-      assert.equal($sk.valid(false),true);
-      assert.equal($sk.valid(new Date()),true);
-      assert.equal($sk.valid(1),true);
-      assert.equal($sk.valid(0),true);
-      assert.equal($sk.valid({}),true);
-      assert.equal($sk.valid("a"),true);
-      assert.equal($sk.valid(""),true);
-    });
-    it("should be return false", function(){
-      inValidValueArray.forEach(function (element, index, array) {
-        assert.equal($sk.valid(element),false);
-      });
     });
   });
 });
