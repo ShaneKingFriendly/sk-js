@@ -4,6 +4,10 @@ More to see [shaneking.org][].
 ## Dependencies
 [![][versioneye img]][versioneye]
 
+[![][david img]][david]
+[![][davidDev img]][davidDev]
+[![][davidPeer img]][davidPeer]
+
 ## Build
 [![][travis img]][travis]
 
@@ -33,6 +37,12 @@ ShaneKing is released under [MIT][].
 
 [versioneye]:https://www.versioneye.com/user/projects/56fa049335630e003e0a8ab9
 [versioneye img]:https://www.versioneye.com/user/projects/56fa049335630e003e0a8ab9/badge.svg
+[david]:https://david-dm.org/ShaneKing/sk-js
+[david img]:https://david-dm.org/ShaneKing/sk-js.svg
+[davidDev]:https://david-dm.org/ShaneKing/sk-js#info=devDependencies
+[davidDev img]:https://david-dm.org/ShaneKing/sk-js/dev-status.svg
+[davidPeer]:https://david-dm.org/ShaneKing/sk-js#info=peerDependencies
+[davidPeer img]:https://david-dm.org/ShaneKing/sk-js/peer-status.svg
 
 
 [travis]:https://travis-ci.org/ShaneKing/sk-js
