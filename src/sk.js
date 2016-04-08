@@ -62,7 +62,7 @@
           }
           // Recurse if we're merging plain objects or arrays
           if (deep && copy && ( jQuery.isPlainObject(copy) ||
-            ( copyIsArray = jQuery.isArray(copy) ) )) {
+            ( copyIsArray = Array.isArray(copy) ) )) {
             if (copyIsArray) {
               copyIsArray = false;
               clone = []//src && jQuery.isArray( src ) ? src : []; //sk different with jQuery
@@ -70,7 +70,7 @@
               clone = src && jQuery.isPlainObject(src) ? src : {};
             }
             // Never move original objects, clone them
-            target[name] = extend(deep, clone, copy);
+            target[name] = $sk.extend(deep, clone, copy);
             // Don't bring in undefined values
           } else if (copy !== undefined) {
             target[name] = copy;
