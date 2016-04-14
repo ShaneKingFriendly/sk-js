@@ -110,23 +110,23 @@ describe('s', function () {
   });
 });
 
-// describe('createResult', function () {
-//   var ro1 = {success: true, code: '', fmt: '', arg: {}, msg: '', data: {}};
-//   var ro2 = {success: true, code: '', fmt: 'Hello, {name}!', arg: {name: 'ShaneKing'}, msg: '', data: {}};
-//   var r1 = $sk.createResult(ro1);
-//   var r2 = $sk.createResult(ro2);
-//   it('get', function () {
-//     assert.deepEqual(r1.result, ro1);
-//   });
-//   it('set', function () {
-//     r1.result = ro2;
-//     assert.deepEqual(r1.result, ro2);
-//   });
-//   it('toString', function () {
-//     assert.deepEqual(r2.fmtMsg(), 'Hello, ShaneKing!');
-//   });
-//   it('success', function () {
-//     assert.equal(r2.success(), true);
-//   });
-//
-// });
+describe('createResult', function () {
+  var ro1 = {success: true, code: '', fmt: '', arg: {}, msg: '', data: {}};
+  var ro2 = {success: true, code: '', fmt: 'Hello, {name}!', arg: {name: 'ShaneKing'}, msg: '', data: {}};
+  var r1 = $sk.createResult(ro1);
+  var r2 = $sk.createResult(ro2);
+  it('get', function () {
+    assert.deepEqual(r1.result, ro1);
+  });
+  it('set', function () {
+    r1.result = ro2;
+    assert.deepEqual(r1.result, ro2);
+  });
+  it('toString', function () {
+    assert.deepEqual(r2.fmtMsg(), 'Hello, ShaneKing!');
+  });
+  it('success', function () {
+    assert.equal(r2.success(), true);
+  });
+
+});
