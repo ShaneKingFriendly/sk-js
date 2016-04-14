@@ -29,6 +29,7 @@
   ],
   "dependencies": {
     "jsface": ">= 2.4.9",
-    "jquery": ">= 2.2.2"
+    "jquery": ">= 2.2.2",
+    "sk-polyfill": ">= 0.0.5"
   }
 }
