@@ -1,7 +1,7 @@
 {
   "name": "sk-js",
   "description": "ShaneKing for JavaScript",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "https://github.com/ShaneKing/sk-js",
   "license": "MIT",
   "author": {
@@ -38,11 +38,9 @@
   ],
   "dependencies": {
     "jquery": "^2.2.2",
-    "sk-polyfill": "^0.0.7"
+    "sk-polyfill": "^0.0.8"
   },
   "devDependencies": {
-    "jquery": "^2.2.2",
-    "sk-polyfill": "^0.0.7",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
     "gulp-rename": "^1.2.2",

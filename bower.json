@@ -28,6 +28,6 @@
   ],
   "dependencies": {
     "jquery": ">= 2.2.2",
-    "sk-polyfill": ">= 0.0.7"
+    "sk-polyfill": ">= 0.0.8"
   }
 }
