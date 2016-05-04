@@ -7,15 +7,15 @@
   } else if (typeof define === 'function' && define.amd) {
     // AMD. Register as sk
     // TODO how to define the jquery plugin here?
-    define('sk', ['jsface', 'jquery'], factory);
+    define('sk', ['jquery'], factory);
   } else {
     // in browser, global is window.
     // all dependencies were loaded already.
     // bootstrap and jquery's plugin are all attached to jquery,
     // expose $sk and all components to window.
-    factory(global, jsface, jQuery);
+    factory(global, jQuery);
   }
-}(typeof window !== 'undefined' ? window : this, function (window, jsface, jQuery, DO_NOT_EXPOSE_SK_TO_GLOBAL) {
+}(typeof window !== 'undefined' ? window : this, function (window, jQuery, DO_NOT_EXPOSE_SK_TO_GLOBAL) {
   var _sk = window.$sk;
   var $sk = {};
   window.$sk = $sk;
@@ -112,35 +112,6 @@
   //Return the String of input
   $sk.s = function (string) {
     return String(string);
-  };
-
-  var SKResult = jsface.Class({
-    constructor: function (result) {
-      this._result = result;
-    },
-
-    result: {
-      get: function () {
-        return this._result;
-      },
-      set: function (result) {
-        this._result = result;
-      }
-    },
-
-    fmtMsg: function () {
-      return this._result.msg ? this._result.msg : this._result.fmt.skFmt(this._result.arg);
-    },
-
-    success: function () {
-      return this._result.success;
-    }
-
-  });
-
-  //{"success":true,"code":"","fmt":"","arg":{},"msg":"","data":{}}
-  $sk.createResult = function (result) {
-    return new SKResult(result)
   };
 
   // reset to old $sk

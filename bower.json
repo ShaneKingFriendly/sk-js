@@ -13,7 +13,6 @@
     "dist/sk.js"
   ],
   "keywords": [
-    "JSFace",
     "jQuery",
     "ShaneKing",
     "sk"
@@ -28,8 +27,7 @@
     "lib"
   ],
   "dependencies": {
-    "jsface": ">= 2.4.9",
     "jquery": ">= 2.2.2",
-    "sk-polyfill": ">= 0.0.5"
+    "sk-polyfill": ">= 0.0.7"
   }
 }
