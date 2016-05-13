@@ -83,6 +83,7 @@
   };
 
   // sk body here
+  $sk.BAD_VALUE_STRING_ARRAY = ['Infinity', 'Invalid Date', 'NaN', 'null', 'undefined'];
   //Always return valid Array, if invalid return empty array
   $sk.a = function (array) {
     return Array.isArray(array) ? array : [];
@@ -111,7 +112,7 @@
 
   //Return the String of input
   $sk.s = function (string) {
-    return String(string);
+    return $sk.BAD_VALUE_STRING_ARRAY.indexOf(String(string)) === -1 ? '' : String(string);
   };
 
   // reset to old $sk
