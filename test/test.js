@@ -103,8 +103,8 @@ describe('s', function () {
     assert.equal($sk.s('s'), 's');
   });
   it('other return empty', function () {
-    assert.equal($sk.s(null), 'null');
-    assert.equal($sk.s(undefined), 'undefined');
-    assert.equal($sk.s(NaN), 'NaN');
+    assert.equal($sk.s(null), '');
+    assert.equal($sk.s(undefined), '');
+    assert.equal($sk.s(NaN), '');
   });
 });

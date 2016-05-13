@@ -112,7 +112,7 @@
 
   //Return the String of input
   $sk.s = function (string) {
-    return $sk.BAD_VALUE_STRING_ARRAY.indexOf(String(string)) === -1 ? '' : String(string);
+    return $sk.BAD_VALUE_STRING_ARRAY.indexOf(String(string)) === -1 ? String(string) : '';
   };
 
   // reset to old $sk
