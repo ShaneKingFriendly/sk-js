@@ -42,6 +42,26 @@ describe('extend', function () {
     assert.deepEqual($sk.extend(true, {}, a1, a2), skRst);
   });
 });
+describe('extends', function () {
+  it('sources is array', function () {
+    var a1 = {a: 1, b: 2, m: [5, 6, 7]},
+      a2 = {c: 3, d: 4, m: [8, 9, 10]};
+    assert.deepEqual($sk.extends(true, {}, [a1, a2]), $sk.extend(true, {}, a1, a2));
+  });
+});
+
+describe('$',function () {
+  it('equals self', function () {
+    var sk$1 = $sk.$();
+    var sk$2 = $sk.$(window, 'sk$');
+    assert.deepEqual(sk$1, sk$2);
+  });
+  it('equals value', function () {
+    var sk$ = $sk.$();
+    sk$.a = 1;
+    assert.equal(sk$.a, 1);
+  });
+});
 
 describe('a', function () {
   it('array return array', function () {
