@@ -156,8 +156,8 @@
   };
 
   //Can be to Number than return value of number, other return 0
-  $sk.n = function (number) {
-    return isNaN(Number(number)) ? 0 : Number(number);
+  $sk.n = function (number, defaultNumber) {
+    return isNaN(Number(number)) ? (defaultNumber ? defaultNumber : 0) : Number(number);
   };
 
   //Always return valid Object, if invalid return empty object
