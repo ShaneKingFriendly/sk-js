@@ -1,21 +1,22 @@
 ;(function (global, factory) {
-  if (typeof module === 'object' && typeof module.exports === 'object') {
-    // CMD
-    // all dependencies need to passed as parameters manually,
-    // will not require here.
+  'use strict';
+  
+  if (typeof define === 'function' && define.amd && define.amd.jQuery) {
+    //AMD
+    define(['jquery'], function ($) {
+      return factory(global, $);
+    });
+  } else if (typeof module === 'object' && typeof module.exports === 'object') {
+    //CMD
+    //var $sk = require('js')(window, jQuery);
     module.exports = factory;
-  } else if (typeof define === 'function' && define.amd) {
-    // AMD. Register as sk
-    // TODO how to define the jquery plugin here?
-    define('$sk', ['jquery'], factory);
   } else {
     // in browser, global is window.
-    // all dependencies were loaded already.
-    // bootstrap and jquery's plugin are all attached to jquery,
-    // expose $sk and all components to window.
-    factory(global, jQuery);
+    return factory(global, global.jQuery || global.$);
   }
 }(typeof window !== 'undefined' ? window : this, function (window, jQuery, DO_NOT_EXPOSE_SK_TO_GLOBAL) {
+  'use strict';
+
   var _sk = window.$sk;
   var $sk = {};
   window.$sk = $sk;
