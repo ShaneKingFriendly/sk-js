@@ -1,6 +1,6 @@
 ;(function (global, factory) {
   'use strict';
-  
+
   if (typeof define === 'function' && define.amd && define.amd.jQuery) {
     //AMD
     define(['jquery'], function ($) {
@@ -17,8 +17,8 @@
 }(typeof window !== 'undefined' ? window : this, function (window, jQuery, DO_NOT_EXPOSE_SK_TO_GLOBAL) {
   'use strict';
 
-  var _sk = window.$sk;
-  var $sk = {};
+  let _sk = window.$sk;
+  let $sk = {};
   window.$sk = $sk;
 
   $sk.noConflict = function () {
@@ -32,13 +32,11 @@
    * [deep ], target, object1 [, objectN ]
    */
   $sk.extend = function () {
-    var options, name, src, copy, copyIsArray, clone,
+    let options, name, src, copy, copyIsArray, clone,
       target = arguments[0] || {},
       i = 1,
       length = arguments.length,
-      deep = false,
-      path = '',
-      func;
+      deep = false;
     // Handle a deep copy situation
     if (typeof target === "boolean") {
       deep = target;
@@ -91,7 +89,7 @@
    * [deep ], target, object1 [, objectN ]/array1 [, arrayN]
    */
   $sk.extends = function () {
-    var options,
+    let options,
       target = arguments[0] || {},
       i = 1,
       length = arguments.length,
@@ -131,10 +129,10 @@
   // sk body here
   $sk.BAD_VALUE_STRING_ARRAY = ['Infinity', 'Invalid Date', 'NaN', 'null', 'undefined'];
 
-  var _context = window;
+  let _context = window;
   $sk.$ = function (context, $) {
-    var innerContext = context ? context : _context;
-    var inner$ = $ ? $ : 'sk$';
+    let innerContext = context ? context : _context;
+    let inner$ = $ ? $ : 'sk$';
     if (!innerContext[inner$]) {
       innerContext[inner$] = {};
     }
@@ -152,7 +150,7 @@
 
   //Always return valid Date, if invalid return defaultDate or new Date()
   $sk.d = function (date, defaultDate) {
-    var rtnDate = defaultDate ? defaultDate : new Date();
+    let rtnDate = defaultDate ? defaultDate : new Date();
     return (date instanceof Date) ? (date.toString() === 'Invalid Date' ? rtnDate : date) : rtnDate;
   };
 
