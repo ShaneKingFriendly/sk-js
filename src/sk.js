@@ -3,12 +3,13 @@
 
   if (typeof define === 'function' && define.amd && define.amd.jQuery) {
     //AMD
-    define(['jquery'], function ($) {
+    // register as 'sk-js', consistent with npm package name
+    define('sk-js', ['jquery'], function ($) {
       return factory(global, $);
     });
   } else if (typeof module === 'object' && typeof module.exports === 'object') {
     //CMD
-    //var $sk = require('js')(window, jQuery);
+    //var $sk = require('sk')(window, jQuery);
     module.exports = factory;
   } else {
     // in browser, global is window.
@@ -25,6 +26,23 @@
     window.$sk = _sk;
     return $sk;
   };
+
+  $sk.STR_OF_INFINITY = 'Infinity';
+  $sk.STR_OF_INVALID_DATE = 'Invalid Date';
+  $sk.STR_OF_NAN = 'NaN';
+  $sk.STR_OF_NULL = 'null';
+  $sk.STR_OF_UNDEFINED = 'undefined';
+  $sk.ARR_OF_BAD_VALUE = [$sk.STR_OF_INFINITY, $sk.STR_OF_INVALID_DATE, $sk.STR_OF_NAN, $sk.STR_OF_NULL, $sk.STR_OF_UNDEFINED];
+
+  $sk.TYPE_OF_BOOLEAN = 'boolean';
+  $sk.TYPE_OF_NUMBER = 'number';
+  $sk.TYPE_OF_OBJECT = 'object';
+  $sk.TYPE_OF_STRING = 'string';
+  $sk.TYPE_OF_UNDEFINED = $sk.STR_OF_UNDEFINED;
+
+  $sk.OWN_PROP_OF_OBJECT = {}.hasOwnProperty;
+
+  $sk.REGEXP_SPACE = /\s+/;
 
   // insert all source code here
   // copy from jQuery
@@ -126,9 +144,91 @@
     return target;
   };
 
-  // sk body here
-  $sk.BAD_VALUE_STRING_ARRAY = ['Infinity', 'Invalid Date', 'NaN', 'null', 'undefined'];
+  //copy from classNames
+  // don't inherit from Object so we can skip hasOwnProperty check later
+  // http://stackoverflow.com/questions/15518328/creating-js-object-with-object-createnull#answer-21079232
+  function StorageObject() {
+  }
 
+  StorageObject.prototype = Object.create(null);
+
+  function _parseString4ClassNames(resultSet, str) {
+    let array = str.split($sk.REGEXP_SPACE);
+    let length = array.length;
+
+    for (let i = 0; i < length; ++i) {
+      resultSet[array[i]] = true;
+    }
+  }
+
+  function _parseObject4ClassNames(resultSet, object) {
+    for (let k in object) {
+      if ($sk.OWN_PROP_OF_OBJECT.call(object, k)) {
+        // set value to false instead of deleting it to avoid changing object structure
+        // https://www.smashingmagazine.com/2012/11/writing-fast-memory-efficient-javascript/#de-referencing-misconceptions
+        resultSet[k] = !!object[k];
+      }
+    }
+  }
+
+  function _parseNumber4ClassNames(resultSet, num) {
+    resultSet[num] = true;
+  }
+
+  function _parse4ClassNames(resultSet, arg) {
+    if (!arg) return;
+    let argType = typeof arg;
+
+    // 'foo bar'
+    if (argType === $sk.TYPE_OF_STRING) {
+      _parseString4ClassNames(resultSet, arg);
+
+      // ['foo', 'bar', ...]
+    } else if (Array.isArray(arg)) {
+      _parseArray4ClassNames(resultSet, arg);
+
+      // { 'foo': true, ... }
+    } else if (argType === $sk.TYPE_OF_OBJECT) {
+      _parseObject4ClassNames(resultSet, arg);
+
+      // '130'
+    } else if (argType === $sk.TYPE_OF_NUMBER) {
+      _parseNumber4ClassNames(resultSet, arg);
+    }
+  }
+
+  function _parseArray4ClassNames(resultSet, array) {
+    let length = array.length;
+
+    for (let i = 0; i < length; ++i) {
+      _parse4ClassNames(resultSet, array[i]);
+    }
+  }
+
+  $sk.classNames = function () {
+    // don't leak arguments
+    // https://github.com/petkaantonov/bluebird/wiki/Optimization-killers#32-leaking-arguments
+    let len = arguments.length;
+    let args = new Array(len);
+    for (let i = 0; i < len; i++) {
+      args[i] = arguments[i];
+    }
+
+    let classSet = new StorageObject();
+    _parseArray4ClassNames(classSet, args);
+
+    let list = [];
+
+    for (let k in classSet) {
+      if (classSet[k]) {
+        list.push(k)
+      }
+    }
+
+    return list.join(' ');
+  };
+
+  // sk body here
   let _context = window;
   $sk.$ = function (context, $) {
     let innerContext = context ? context : _context;
@@ -166,7 +266,7 @@
 
   //Return the String of input
   $sk.s = function (string) {
-    return $sk.BAD_VALUE_STRING_ARRAY.indexOf(String(string)) === -1 ? String(string) : '';
+    return $sk.ARR_OF_BAD_VALUE.indexOf(String(string)) === -1 ? String(string) : '';
   };
 
   // reset to old $sk

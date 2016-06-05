@@ -49,8 +49,66 @@ describe('extends', function () {
     assert.deepEqual($sk.extends(true, {}, [a1, a2]), $sk.extend(true, {}, a1, a2));
   });
 });
+describe('classNames', function () {
+  it('keeps object keys with truthy values', function () {
+    assert.equal($sk.classNames({
+      a: true,
+      b: false,
+      c: 0,
+      d: null,
+      e: undefined,
+      f: 1
+    }), 'a f');
+  });
+  it('should classNames classNames', function () {
+    assert.equal($sk.classNames('foo', 'bar', 'foo', 'bar', {foo: true}), 'foo bar');
+  });
+  it('should make sure subsequent objects can remove/add classes', function () {
+    assert.equal($sk.classNames('foo', {foo: false}, {foo: true, bar: true}), 'foo bar');
+  });
+  it('should make sure object with falsy value wipe out previous classes', function () {
+    assert.equal($sk.classNames('foo foo', 0, null, undefined, true, 1, 'b', {'foo': false}), '1 b');
+    assert.equal($sk.classNames('foo', 'foobar', 'bar', {foo: false}), 'foobar bar');
+    assert.equal($sk.classNames('foo', 'foo-bar', 'bar', {foo: false}), 'foo-bar bar');
+    assert.equal($sk.classNames('foo', '-moz-foo-bar', 'bar', {foo: false}), '-moz-foo-bar bar');
+  });
+  it('joins arrays of class names and ignore falsy values', function () {
+    assert.equal($sk.classNames('a', 0, null, undefined, true, 1, 'b'), '1 a b');
+  });
+  it('supports heterogenous arguments', function () {
+    assert.equal($sk.classNames({a: true}, 'b', 0), 'a b');
+  });
+  it('should be trimmed', function () {
+    assert.equal($sk.classNames('', 'b', {}, ''), 'b');
+  });
+  it('returns an empty string for an empty configuration', function () {
+    assert.equal($sk.classNames({}), '');
+  });
+  it('supports an array of class names', function () {
+    assert.equal($sk.classNames(['a', 'b']), 'a b');
+  });
+  it('joins array arguments with string arguments', function () {
+    assert.equal($sk.classNames(['a', 'b'], 'c'), 'a b c');
+    assert.equal($sk.classNames('c', ['a', 'b']), 'c a b');
+  });
+  it('handles multiple array arguments', function () {
+    assert.equal($sk.classNames(['a', 'b'], ['c', 'd']), 'a b c d');
+  });
+  it('handles arrays that include falsy and true values', function () {
+    assert.equal($sk.classNames(['a', 0, null, undefined, false, true, 'b']), 'a b');
+  });
+  it('handles arrays that include arrays', function () {
+    assert.equal($sk.classNames(['a', ['b', 'c']]), 'a b c');
+  });
+  it('handles arrays that include objects', function () {
+    assert.equal($sk.classNames(['a', {b: true, c: false}]), 'a b');
+  });
+  it('handles deep array recursion', function () {
+    assert.equal($sk.classNames(['a', ['b', ['c', {d: true}]]]), 'a b c d');
+  });
+});
 
-describe('$',function () {
+describe('$', function () {
   it('equals self', function () {
     var sk$1 = $sk.$();
     var sk$2 = $sk.$(window, 'sk$');
