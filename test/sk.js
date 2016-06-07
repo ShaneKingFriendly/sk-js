@@ -156,6 +156,44 @@ describe('d', function () {
     });
   });
 });
+describe('isA', function () {
+  it('Array', function () {
+    assert.equal($sk.isA([]), true);
+    assert.equal($sk.isA(new Array()), true);
+  });
+});
+describe('isD', function () {
+  it('Date', function () {
+    assert.equal($sk.isD(new Date()), true);
+  });
+});
+describe('isF', function () {
+  it('Function', function () {
+    var f = function () {
+      return 'f';
+    };
+    assert.equal($sk.isF(f), true);
+  });
+});
+describe('isN', function () {
+  it('Number', function () {
+    assert.equal($sk.isN(1), true);
+    assert.equal($sk.isN(1.1), true);
+    assert.equal($sk.isN('1'), false);
+  });
+});
+describe('isO', function () {
+  it('Object', function () {
+    assert.equal($sk.isO({}), true);
+    assert.equal($sk.isO(Object.create(null)), false);
+  });
+});
+describe('isS', function () {
+  it('String', function () {
+    assert.equal($sk.isS('1'), true);
+    assert.equal($sk.isS(1), false);
+  });
+});
 describe('n', function () {
   it('number return number', function () {
     assert.equal($sk.n('1'), 1);

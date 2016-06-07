@@ -18,8 +18,8 @@
 }(typeof window !== 'undefined' ? window : this, function (window, jQuery, DO_NOT_EXPOSE_SK_TO_GLOBAL) {
   'use strict';
 
-  let _sk = window.$sk;
-  let $sk = {};
+  var _sk = window.$sk;
+  var $sk = {};
   window.$sk = $sk;
 
   $sk.noConflict = function () {
@@ -50,7 +50,7 @@
    * [deep ], target, object1 [, objectN ]
    */
   $sk.extend = function () {
-    let options, name, src, copy, copyIsArray, clone,
+    var options, name, src, copy, copyIsArray, clone,
       target = arguments[0] || {},
       i = 1,
       length = arguments.length,
@@ -107,7 +107,7 @@
    * [deep ], target, object1 [, objectN ]/array1 [, arrayN]
    */
   $sk.extends = function () {
-    let options,
+    var options,
       target = arguments[0] || {},
       i = 1,
       length = arguments.length,
@@ -153,16 +153,15 @@
   StorageObject.prototype = Object.create(null);
 
   function _parseString4ClassNames(resultSet, str) {
-    let array = str.split($sk.REGEXP_SPACE);
-    let length = array.length;
+    var array = str.split($sk.REGEXP_SPACE);
 
-    for (let i = 0; i < length; ++i) {
+    for (var i = 0; i < array.length; ++i) {
       resultSet[array[i]] = true;
     }
   }
 
   function _parseObject4ClassNames(resultSet, object) {
-    for (let k in object) {
+    for (var k in object) {
       if ($sk.OWN_PROP_OF_OBJECT.call(object, k)) {
         // set value to false instead of deleting it to avoid changing object structure
         // https://www.smashingmagazine.com/2012/11/writing-fast-memory-efficient-javascript/#de-referencing-misconceptions
@@ -177,7 +176,7 @@
 
   function _parse4ClassNames(resultSet, arg) {
     if (!arg) return;
-    let argType = typeof arg;
+    var argType = typeof arg;
 
     // 'foo bar'
     if (argType === $sk.TYPE_OF_STRING) {
@@ -198,9 +197,7 @@
   }
 
   function _parseArray4ClassNames(resultSet, array) {
-    let length = array.length;
-
-    for (let i = 0; i < length; ++i) {
+    for (var i = 0; i < array.length; ++i) {
       _parse4ClassNames(resultSet, array[i]);
     }
   }
@@ -208,18 +205,18 @@
   $sk.classNames = function () {
     // don't leak arguments
     // https://github.com/petkaantonov/bluebird/wiki/Optimization-killers#32-leaking-arguments
-    let len = arguments.length;
-    let args = new Array(len);
-    for (let i = 0; i < len; i++) {
+    var len = arguments.length;
+    var args = new Array(len);
+    for (var i = 0; i < len; i++) {
       args[i] = arguments[i];
     }
 
-    let classSet = new StorageObject();
+    var classSet = new StorageObject();
     _parseArray4ClassNames(classSet, args);
 
-    let list = [];
+    var list = [];
 
-    for (let k in classSet) {
+    for (var k in classSet) {
       if (classSet[k]) {
         list.push(k)
       }
@@ -229,10 +226,10 @@
   };
 
   // sk body here
-  let _context = window;
+  var _context = window;
   $sk.$ = function (context, $) {
-    let innerContext = context ? context : _context;
-    let inner$ = $ ? $ : 'sk$';
+    var innerContext = context ? context : _context;
+    var inner$ = $ ? $ : 'sk$';
     if (!innerContext[inner$]) {
       innerContext[inner$] = {};
     }
@@ -250,8 +247,27 @@
 
   //Always return valid Date, if invalid return defaultDate or new Date()
   $sk.d = function (date, defaultDate) {
-    let rtnDate = defaultDate ? defaultDate : new Date();
+    var rtnDate = defaultDate ? defaultDate : new Date();
     return (date instanceof Date) ? (date.toString() === 'Invalid Date' ? rtnDate : date) : rtnDate;
+  };
+
+  $sk.isA = function (a) {
+    return (typeof a == 'object') && a.constructor == Array;
+  };
+  $sk.isD = function (d) {
+    return (typeof d == 'object') && d.constructor == Date;
+  };
+  $sk.isF = function (f) {
+    return (typeof f == 'function') && f.constructor == Function;
+  };
+  $sk.isN = function (n) {
+    return (typeof n == 'number') && n.constructor == Number;
+  };
+  $sk.isO = function (o) {
+    return (typeof o == 'object') && o.constructor == Object;
+  };
+  $sk.isS = function (s) {
+    return (typeof s == 'string') && s.constructor == String;
   };
 
   //Can be to Number than return value of number, other return 0
