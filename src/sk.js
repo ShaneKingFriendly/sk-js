@@ -56,14 +56,14 @@
       length = arguments.length,
       deep = false;
     // Handle a deep copy situation
-    if (typeof target === "boolean") {
+    if (typeof target === 'boolean') {
       deep = target;
       // Skip the boolean and the target
       target = arguments[i] || {};
       i++;
     }
     // Handle case when target is a string or something (possible in deep copy)
-    if (typeof target !== "object" && !jQuery.isFunction(target)) {
+    if (typeof target !== 'object' && !jQuery.isFunction(target)) {
       target = {};
     }
     // Extend jQuery itself if only one argument is passed
@@ -128,22 +128,22 @@
     return (date instanceof Date) ? (date.toString() === 'Invalid Date' ? rtnDate : date) : rtnDate;
   };
   $sk.isA = function (a) {
-    return (typeof a == 'object') && a.constructor == Array;
+    return (typeof a === 'object') && a.constructor === Array;
   };
   $sk.isD = function (d) {
-    return (typeof d == 'object') && d.constructor == Date;
+    return (typeof d === 'object') && d.constructor === Date;
   };
   $sk.isF = function (f) {
-    return (typeof f == 'function') && f.constructor == Function;
+    return (typeof f === 'function') && f.constructor === Function;
   };
   $sk.isN = function (n) {
-    return (typeof n == 'number') && n.constructor == Number;
+    return (typeof n === 'number') && n.constructor === Number;
   };
   $sk.isO = function (o) {
-    return (typeof o == 'object') && o.constructor == Object;
+    return Object.isObject(o);
   };
   $sk.isS = function (s) {
-    return (typeof s == 'string') && s.constructor == String;
+    return (typeof s === 'string') && s.constructor === String;
   };
   //Can be to Number than return value of number, other return 0
   $sk.n = function (number, defaultNumber) {
