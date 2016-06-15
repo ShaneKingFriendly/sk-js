@@ -113,7 +113,7 @@
     }
     return innerContext[inner$];
   };
-  
+
   //Always return valid Array, if invalid return empty array
   $sk.a = function (array) {
     return Array.isArray(array) ? array : [];
@@ -124,7 +124,7 @@
   };
   //Always return valid Date, if invalid return defaultDate or new Date()
   $sk.d = function (date, defaultDate) {
-    var rtnDate = defaultDate ? defaultDate : new Date();
+    var rtnDate = arguments.length > 1 ? defaultDate : new Date();
     return (date instanceof Date) ? (date.toString() === 'Invalid Date' ? rtnDate : date) : rtnDate;
   };
   $sk.isA = function (a) {
@@ -147,7 +147,7 @@
   };
   //Can be to Number than return value of number, other return 0
   $sk.n = function (number, defaultNumber) {
-    return isNaN(Number(number)) ? (defaultNumber ? defaultNumber : 0) : Number(number);
+    return isNaN(Number(number)) ? (arguments.length > 1 ? defaultNumber : 0) : Number(number);
   };
   //Always return valid Object, if invalid return empty object
   $sk.o = function (object) {
