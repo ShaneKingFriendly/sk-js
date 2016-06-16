@@ -155,7 +155,7 @@ describe('s', function () {
   });
   it('other return empty', function () {
     assert.equal($sk.s(null), '');
-    assert.equal($sk.s(undefined), '');
+    assert.equal($sk.s(undefined, 'UNDEFINED'), 'UNDEFINED');
     assert.equal($sk.s(NaN), '');
   });
 });

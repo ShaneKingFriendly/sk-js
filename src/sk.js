@@ -154,8 +154,8 @@
     return jQuery.isPlainObject(object) ? object : {};
   };
   //Return the String of input
-  $sk.s = function (string) {
-    return $sk.ARR_OF_BAD_VALUE.indexOf(String(string)) === -1 ? String(string) : '';
+  $sk.s = function (string, defaultString) {
+    return $sk.ARR_OF_BAD_VALUE.indexOf(String(string)) === -1 ? String(string) : (arguments.length > 1 ? defaultString : '');
   };
 
   // reset to old $sk
