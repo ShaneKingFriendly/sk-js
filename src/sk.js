@@ -22,7 +22,7 @@
   var SK = {};
   window.SK = SK;
 
-  SK.noConflict = function () {
+  SK.noConflict = function noConflict() {
     window.SK = _SK;
     return SK;
   };
