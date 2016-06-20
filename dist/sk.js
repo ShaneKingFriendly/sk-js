@@ -1,7 +1,7 @@
 ;(function (global, factory) {
   'use strict';
 
-  if (typeof define === 'function' && define.amd && define.amd.jQuery) {
+  if (typeof define === 'function' && define.amd) {
     //AMD
     // register as 'sk-js', consistent with npm package name
     define('sk-js', ['jquery'], function ($) {
@@ -9,61 +9,58 @@
     });
   } else if (typeof module === 'object' && typeof module.exports === 'object') {
     //CMD
-    //var $sk = require('sk')(window, jQuery);
-    module.exports = factory;
+    // like jQuery
+    module.exports = factory(global, require('jquery'));
   } else {
     // in browser, global is window.
-    return factory(global, global.jQuery || global.$);
+    return factory(global, global.$);
   }
-}(typeof window !== 'undefined' ? window : this, function (window, jQuery, DO_NOT_EXPOSE_SK_TO_GLOBAL) {
+}(typeof window !== 'undefined' ? window : this, function (window, $, noGlobal) {
   'use strict';
 
-  var _sk = window.$sk;
-  var $sk = {};
-  window.$sk = $sk;
+  var _SK = window.SK;
+  var SK = {};
+  window.SK = SK;
 
-  $sk.noConflict = function () {
-    window.$sk = _sk;
-    return $sk;
+  SK.noConflict = function () {
+    window.SK = _SK;
+    return SK;
   };
 
-  $sk.STR_OF_INFINITY = 'Infinity';
-  $sk.STR_OF_INVALID_DATE = 'Invalid Date';
-  $sk.STR_OF_NAN = 'NaN';
-  $sk.STR_OF_NULL = 'null';
-  $sk.STR_OF_UNDEFINED = 'undefined';
-  $sk.ARR_OF_BAD_VALUE = [$sk.STR_OF_INFINITY, $sk.STR_OF_INVALID_DATE, $sk.STR_OF_NAN, $sk.STR_OF_NULL, $sk.STR_OF_UNDEFINED];
+  SK.STR_OF_INFINITY = 'Infinity';
+  SK.STR_OF_INVALID_DATE = 'Invalid Date';
+  SK.STR_OF_NAN = 'NaN';
+  SK.STR_OF_NULL = 'null';
+  SK.STR_OF_UNDEFINED = 'undefined';
+  SK.ARR_OF_BAD_VALUE = [SK.STR_OF_INFINITY, SK.STR_OF_INVALID_DATE, SK.STR_OF_NAN, SK.STR_OF_NULL, SK.STR_OF_UNDEFINED];
 
-  $sk.TYPE_OF_BOOLEAN = 'boolean';
-  $sk.TYPE_OF_NUMBER = 'number';
-  $sk.TYPE_OF_OBJECT = 'object';
-  $sk.TYPE_OF_STRING = 'string';
-  $sk.TYPE_OF_UNDEFINED = $sk.STR_OF_UNDEFINED;
+  SK.STR_OF_TRUE = 'true';
 
-  $sk.OWN_PROP_OF_OBJECT = {}.hasOwnProperty;
+  SK.STR_OF_BOOLEAN = 'boolean';
+  SK.STR_OF_NUMBER = 'number';
+  SK.STR_OF_OBJECT = 'object';
+  SK.STR_OF_STRING = 'string';
 
-  $sk.REGEXP_SPACE = /\s+/;
+  SK.OWN_PROP_OF_OBJECT = {}.hasOwnProperty;
 
-  // insert all source code here
-  // copy from jQuery
-  /**
-   * [deep ], target, object1 [, objectN ]
-   */
-  $sk.extend = function () {
+  SK.REGEXP_SPACE = /\s+/;
+
+  /** Copy from jQuery, different is array extend */
+  SK.extend = function extend() {
     var options, name, src, copy, copyIsArray, clone,
       target = arguments[0] || {},
       i = 1,
       length = arguments.length,
       deep = false;
     // Handle a deep copy situation
-    if (typeof target === "boolean") {
+    if (typeof target === SK.STR_OF_BOOLEAN) {
       deep = target;
       // Skip the boolean and the target
       target = arguments[i] || {};
       i++;
     }
     // Handle case when target is a string or something (possible in deep copy)
-    if (typeof target !== "object" && !jQuery.isFunction(target)) {
+    if (typeof target !== SK.STR_OF_OBJECT && !$.isFunction(target)) {
       target = {};
     }
     // Extend jQuery itself if only one argument is passed
@@ -83,15 +80,15 @@
             continue;
           }
           // Recurse if we're merging plain objects or arrays
-          if (deep && copy && (jQuery.isPlainObject(copy) || (copyIsArray = Array.isArray(copy)))) {
+          if (deep && copy && ($.isPlainObject(copy) || (copyIsArray = Array.isArray(copy)))) {
             if (copyIsArray) {
               copyIsArray = false;
               clone = [];//src && jQuery.isArray( src ) ? src : []; //sk different with jQuery
             } else {
-              clone = src && jQuery.isPlainObject(src) ? src : {};
+              clone = src && $.isPlainObject(src) ? src : {};
             }
             // Never move original objects, clone them
-            target[name] = $sk.extend(deep, clone, copy);
+            target[name] = SK.extend(deep, clone, copy);
             // Don't bring in undefined values
           } else if (copy !== undefined) {
             target[name] = copy;
@@ -103,191 +100,46 @@
     return target;
   };
 
-  /**
-   * [deep ], target, object1 [, objectN ]/array1 [, arrayN]
-   */
-  $sk.extends = function () {
-    var options,
-      target = arguments[0] || {},
-      i = 1,
-      length = arguments.length,
-      deep = false;
-    // Handle a deep copy situation
-    if (typeof target === "boolean") {
-      deep = target;
-      // Skip the boolean and the target
-      target = arguments[i] || {};
-      i++;
-    }
-    // Handle case when target is a string or something (possible in deep copy)
-    if (typeof target !== "object" && !jQuery.isFunction(target)) {
-      target = {};
-    }
-    // Extend jQuery itself if only one argument is passed
-    if (i === length) {
-      target = this;
-      i--;
-    }
-    for (; i < length; i++) {
-      // Only deal with non-null/undefined values
-      if ((options = arguments[i] ) != null) {
-        if (Array.isArray(options)) {
-          options.forEach(function (option) {
-            $sk.extend(deep, target, option);
-          });
-        } else {
-          $sk.extend(deep, target, options);
-        }
-      }
-    }
-    // Return the modified object
-    return target;
-  };
-
-  //copy from classNames
-  // don't inherit from Object so we can skip hasOwnProperty check later
-  // http://stackoverflow.com/questions/15518328/creating-js-object-with-object-createnull#answer-21079232
-  function StorageObject() {
-  }
-
-  StorageObject.prototype = Object.create(null);
-
-  function _parseString4ClassNames(resultSet, str) {
-    var array = str.split($sk.REGEXP_SPACE);
-
-    for (var i = 0; i < array.length; ++i) {
-      resultSet[array[i]] = true;
-    }
-  }
-
-  function _parseObject4ClassNames(resultSet, object) {
-    for (var k in object) {
-      if ($sk.OWN_PROP_OF_OBJECT.call(object, k)) {
-        // set value to false instead of deleting it to avoid changing object structure
-        // https://www.smashingmagazine.com/2012/11/writing-fast-memory-efficient-javascript/#de-referencing-misconceptions
-        resultSet[k] = !!object[k];
-      }
-    }
-  }
-
-  function _parseNumber4ClassNames(resultSet, num) {
-    resultSet[num] = true;
-  }
-
-  function _parse4ClassNames(resultSet, arg) {
-    if (!arg) return;
-    var argType = typeof arg;
-
-    // 'foo bar'
-    if (argType === $sk.TYPE_OF_STRING) {
-      _parseString4ClassNames(resultSet, arg);
-
-      // ['foo', 'bar', ...]
-    } else if (Array.isArray(arg)) {
-      _parseArray4ClassNames(resultSet, arg);
-
-      // { 'foo': true, ... }
-    } else if (argType === $sk.TYPE_OF_OBJECT) {
-      _parseObject4ClassNames(resultSet, arg);
-
-      // '130'
-    } else if (argType === $sk.TYPE_OF_NUMBER) {
-      _parseNumber4ClassNames(resultSet, arg);
-    }
-  }
-
-  function _parseArray4ClassNames(resultSet, array) {
-    for (var i = 0; i < array.length; ++i) {
-      _parse4ClassNames(resultSet, array[i]);
-    }
-  }
-
-  $sk.classNames = function () {
-    // don't leak arguments
-    // https://github.com/petkaantonov/bluebird/wiki/Optimization-killers#32-leaking-arguments
-    var len = arguments.length;
-    var args = new Array(len);
-    for (var i = 0; i < len; i++) {
-      args[i] = arguments[i];
-    }
-
-    var classSet = new StorageObject();
-    _parseArray4ClassNames(classSet, args);
-
-    var list = [];
-
-    for (var k in classSet) {
-      if (classSet[k]) {
-        list.push(k)
-      }
-    }
-
-    return list.join(' ');
-  };
-
-  // sk body here
-  var _context = window;
-  $sk.$ = function (context, $) {
-    var innerContext = context ? context : _context;
+  /** Namespace */
+  SK.$ = function $(context, $) {
+    var innerContext = context ? context : window;
     var inner$ = $ ? $ : 'sk$';
     if (!innerContext[inner$]) {
       innerContext[inner$] = {};
     }
     return innerContext[inner$];
   };
+
   //Always return valid Array, if invalid return empty array
-  $sk.a = function (array) {
+  SK.a = function a(array) {
     return Array.isArray(array) ? array : [];
   };
-
   //Just true return true, other return false
-  $sk.b = function (boolean) {
-    return String(boolean) === 'true' && boolean !== 'true' && boolean;
+  SK.b = function b(boolean) {
+    return String(boolean) === SK.STR_OF_TRUE && boolean !== SK.STR_OF_TRUE && boolean;
   };
-
   //Always return valid Date, if invalid return defaultDate or new Date()
-  $sk.d = function (date, defaultDate) {
-    var rtnDate = defaultDate ? defaultDate : new Date();
-    return (date instanceof Date) ? (date.toString() === 'Invalid Date' ? rtnDate : date) : rtnDate;
+  SK.d = function d(date, defaultDate) {
+    var rtnDate = arguments.length > 1 ? defaultDate : new Date();
+    return (date instanceof Date) ? (date.toString() === SK.STR_OF_INVALID_DATE ? rtnDate : date) : rtnDate;
   };
-
-  $sk.isA = function (a) {
-    return (typeof a == 'object') && a.constructor == Array;
-  };
-  $sk.isD = function (d) {
-    return (typeof d == 'object') && d.constructor == Date;
-  };
-  $sk.isF = function (f) {
-    return (typeof f == 'function') && f.constructor == Function;
-  };
-  $sk.isN = function (n) {
-    return (typeof n == 'number') && n.constructor == Number;
-  };
-  $sk.isO = function (o) {
-    return (typeof o == 'object') && o.constructor == Object;
-  };
-  $sk.isS = function (s) {
-    return (typeof s == 'string') && s.constructor == String;
-  };
-
   //Can be to Number than return value of number, other return 0
-  $sk.n = function (number, defaultNumber) {
-    return isNaN(Number(number)) ? (defaultNumber ? defaultNumber : 0) : Number(number);
+  SK.n = function n(number, defaultNumber) {
+    return isNaN(Number(number)) ? (arguments.length > 1 ? defaultNumber : 0) : Number(number);
   };
-
   //Always return valid Object, if invalid return empty object
-  $sk.o = function (object) {
-    return jQuery.isPlainObject(object) ? object : {};
+  SK.o = function o(object) {
+    return $.isPlainObject(object) ? object : {};
   };
-
   //Return the String of input
-  $sk.s = function (string) {
-    return $sk.ARR_OF_BAD_VALUE.indexOf(String(string)) === -1 ? String(string) : '';
+  SK.s = function s(string, defaultString) {
+    return SK.ARR_OF_BAD_VALUE.indexOf(String(string)) === -1 ? String(string) : (arguments.length > 1 ? defaultString : '');
   };
 
-  // reset to old $sk
-  if (typeof DO_NOT_EXPOSE_SK_TO_GLOBAL !== 'undefined' && DO_NOT_EXPOSE_SK_TO_GLOBAL === true) {
-    window.$sk = _sk;
+  /** Reset to old SK */
+  if (typeof noGlobal !== SK.STR_OF_UNDEFINED && noGlobal === true) {
+    window.SK = _SK;
   }
-  return $sk;
+
+  return SK;
 }));
