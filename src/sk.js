@@ -103,7 +103,7 @@
   /** Namespace */
   SK.$ = function $(context, $) {
     var innerContext = context ? context : window;
-    var inner$ = $ ? $ : 'sk$';
+    var inner$ = $ ? $ : '$sk';
     if (!innerContext[inner$]) {
       innerContext[inner$] = {};
     }
