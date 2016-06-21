@@ -19,7 +19,6 @@ function propagateToGlobal(window) {
 propagateToGlobal(window);
 
 
-global.jQuery = global.$ = require('jquery');
 require('sk-polyfill');
 
 
@@ -36,9 +35,7 @@ describe('extend', function () {
   it('array replace by new', function () {
     var a1 = {o: [{'a': 1}, 'b', 2]},
       a2 = {o: [{'x': 3}, 'y', 4]},
-      jQueryRst = {o: [{'a': 1, 'x': 3}, 'y', 4]},//if is array, when some index is object then extend
       skRst = {o: [{'x': 3}, 'y', 4]};//if is array, empty old array
-    assert.deepEqual($.extend(true, {}, a1, a2), jQueryRst);
     assert.deepEqual(SK.extend(true, {}, a1, a2), skRst);
   });
 });
