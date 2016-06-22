@@ -24,6 +24,7 @@ require('sk-polyfill');
 
 var SK = require('../src/sk');
 SK.noConflict();
+SK = SK();
 SK = require('../src/sk');
 var assert = require('assert');
 
@@ -33,10 +34,18 @@ var inValidValueArray = [null, undefined, NaN, 'Invalid Date'];
 
 describe('extend', function () {
   it('array replace by new', function () {
-    var a1 = {o: [{'a': 1}, 'b', 2]},
-      a2 = {o: [{'x': 3}, 'y', 4]},
-      skRst = {o: [{'x': 3}, 'y', 4]};//if is array, empty old array
+    var a1 = {a: [{'a': 1}, 'b', 2]},
+      a2 = {a: [{'x': 3}, 'y', 4]},
+      skRst = {a: [{'x': 3}, 'y', 4]};//if is array, empty old array
     assert.deepEqual(SK.extend(true, {}, a1, a2), skRst);
+  });
+  it('isFunction', function () {
+    var f1 = function () {
+      },
+      f2 = function () {
+      },
+      skRst = f2;//if is array, empty old array
+    assert.deepEqual(SK.extend(true, f1, f2), skRst);
   });
 });
 
