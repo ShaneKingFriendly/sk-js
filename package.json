@@ -32,9 +32,8 @@
   ],
   "main": "dist/sk.js",
   "keywords": [
-    "jQuery",
     "ShaneKing",
-    "sk"
+    "SK"
   ],
   "dependencies": {
     "sk-polyfill": "^0.0.10"
