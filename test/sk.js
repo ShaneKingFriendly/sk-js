@@ -103,7 +103,7 @@ describe('isNullOrUndefined', function () {
     assert.equal(SK.isNullOrUndefined(undefined), true);
   });
   it('false', function () {
-    assert.equal(SK.isNullOrUndefined(NaN), true);
+    assert.equal(SK.isNullOrUndefined(NaN), false);
   });
 });
 describe('n', function () {
