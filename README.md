@@ -18,7 +18,6 @@ More to see [shaneking.org][].
 - [x] **SK.n(number, defaultNumber)**: Can be to Number than return value of number, other return 0
 - [x] **SK.o(object)**: Always return plain Object, if invalid return empty object
 - [x] **SK.s(string, defaultString)**: Return the String of input
-
 - [x] **SK.noConflict()**: Return previous owner
 
 ## Build

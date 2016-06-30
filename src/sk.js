@@ -122,7 +122,7 @@
     return target;
   };
 
-  /** Namespace */
+  /** New namespace */
   SK.$ = function (context, $) {
     var innerContext = context ? context : root;
     var inner$ = $ ? $ : '$sk';
@@ -145,7 +145,7 @@
     var rtnDate = arguments.length > 1 ? defaultDate : new Date();
     return (date instanceof Date) ? (date.toString() === STR_OF_INVALID_DATE ? rtnDate : date) : rtnDate;
   };
-  //unInput
+  //UnInput
   SK.isNullOrUndefined = function (value) {
     return value === null || value === undefined;
   };
@@ -153,7 +153,7 @@
   SK.n = function (number, defaultNumber) {
     return isNaN(Number(number)) ? (arguments.length > 1 ? defaultNumber : 0) : Number(number);
   };
-  //Always return valid Object, if invalid return empty object
+  //Always return plain Object, if invalid return empty object
   SK.o = function (object) {
     return isPlainObject(object) ? object : {};
   };
