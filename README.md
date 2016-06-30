@@ -8,6 +8,19 @@ More to see [shaneking.org][].
 [![][davidDev img]][davidDev]
 [![][davidPeer img]][davidPeer]
 
+## Functions
+- [x] **SK.extend()**: Like jQuery extend, but replace array node
+- [x] **SK.$(context, $)**: New namespace, eg. `var $sk = SK.$(window, '$sk')`
+- [x] **SK.a(array)**: Always return valid Array, if invalid return empty array
+- [x] **SK.b(boolean)**: Just true return true, other return false
+- [x] **SK.d(date, defaultDate)**: Always return valid Date, if invalid return defaultDate or new Date()
+- [x] **SK.isNullOrUndefined(value)**: UnInput
+- [x] **SK.n(number, defaultNumber)**: Can be to Number than return value of number, other return 0
+- [x] **SK.o(object)**: Always return plain Object, if invalid return empty object
+- [x] **SK.s(string, defaultString)**: Return the String of input
+
+- [x] **SK.noConflict()**: Return previous owner
+
 ## Build
 [![][travis img]][travis]
 
