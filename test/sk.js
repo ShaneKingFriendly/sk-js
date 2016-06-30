@@ -97,6 +97,15 @@ describe('d', function () {
     });
   });
 });
+describe('isNullOrUndefined', function () {
+  it('true', function () {
+    assert.equal(SK.isNullOrUndefined(null), true);
+    assert.equal(SK.isNullOrUndefined(undefined), true);
+  });
+  it('false', function () {
+    assert.equal(SK.isNullOrUndefined(NaN), true);
+  });
+});
 describe('n', function () {
   it('number return number', function () {
     assert.equal(SK.n('1'), 1);

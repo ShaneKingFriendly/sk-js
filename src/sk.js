@@ -1,4 +1,4 @@
-(function () {
+;(function () {
   'use strict';
 
   // Export SK.
@@ -21,45 +21,25 @@
   var STR_OF_CONSTRUCTOR = 'constructor';
   var STR_OF_BOOLEAN = 'boolean';
   var STR_OF_FUNCTION = 'function';
-  var STR_OF_NUMBER = 'number';
   var STR_OF_OBJECT = 'object';
-  var STR_OF_STRING = 'string';
 
-  var TAG_OF_ARGS = '[object Arguments]';
-  var TAG_OF_ARRAY = '[object Array]';
-  var TAG_OF_BOOLEAN = '[object Boolean]';
-  var TAG_OF_DATE = '[object Date]';
-  var TAG_OF_ERROR = '[object Error]';
-  var TAG_OF_FUNCTION = '[object Function]';
-  var TAG_OF_MAP = '[object Map]';
-  var TAG_OF_NUMBER = '[object Number]';
   var TAG_OF_OBJECT = '[object Object]';
-  var TAG_OF_PROMISE = '[object Promise]';
-  var TAG_OF_REGEXP = '[object RegExp]';
-  var TAG_OF_SET = '[object Set]';
-  var TAG_OF_STRING = '[object String]';
-  var TAG_OF_SYMBOL = '[object Symbol]';
-
-  var REGEXP_OF_SPACE = /\s+/;
-
-  var TYPE_OF_CLASS = {};
 
   var PROTO_OF_OBJECT = Object.getPrototypeOf;
 
-  var FUNC_OF_OBJECT_TOSTRING = TYPE_OF_CLASS.toString;
+  var TYPE_OF_CLASS = {};
+  var FUNC_OF_OBJECT_toString = TYPE_OF_CLASS.toString;
 
   var OWN_OF_OBJECT = TYPE_OF_CLASS.hasOwnProperty;
-
-  var FN_OF_OBJECT_TOSTRING = OWN_OF_OBJECT.toString;
-
-  var RST_OF_OBJECT_TOSTRING = FN_OF_OBJECT_TOSTRING.call(Object);
+  var FUNC_OF_OWN_OBJECT_toString = OWN_OF_OBJECT.toString;
+  var RST_OF_OWN_OBJECT_toString = FUNC_OF_OWN_OBJECT_toString.call(Object);
 
   var typeOf = function (obj) {
     if (obj == null) {
       return obj + '';
     }
     // Support: Android <=2.3 only (functionish RegExp)
-    return typeof obj === STR_OF_OBJECT || typeof obj === STR_OF_FUNCTION ? TYPE_OF_CLASS[FUNC_OF_OBJECT_TOSTRING.call(obj)] || STR_OF_OBJECT : typeof obj;
+    return typeof obj === STR_OF_OBJECT || typeof obj === STR_OF_FUNCTION ? TYPE_OF_CLASS[FUNC_OF_OBJECT_toString.call(obj)] || STR_OF_OBJECT : typeof obj;
   };
 
   var isFunction = function (obj) {
@@ -71,7 +51,7 @@
 
     // Detect obvious negatives
     // Use toString instead of jQuery.type to catch host objects
-    if (!obj || FUNC_OF_OBJECT_TOSTRING.call(obj) !== TAG_OF_OBJECT) {
+    if (!obj || FUNC_OF_OBJECT_toString.call(obj) !== TAG_OF_OBJECT) {
       return false;
     }
 
@@ -84,7 +64,7 @@
 
     // Objects with prototype are plain if they were constructed by a global Object function
     Ctor = OWN_OF_OBJECT.call(proto, STR_OF_CONSTRUCTOR) && proto.constructor;
-    return typeof Ctor === STR_OF_FUNCTION && FN_OF_OBJECT_TOSTRING.call(Ctor) === RST_OF_OBJECT_TOSTRING;
+    return typeof Ctor === STR_OF_FUNCTION && FUNC_OF_OWN_OBJECT_toString.call(Ctor) === RST_OF_OWN_OBJECT_toString;
   };
 
   /** Copy from jQuery, different is array extend */
@@ -164,6 +144,10 @@
   SK.d = function (date, defaultDate) {
     var rtnDate = arguments.length > 1 ? defaultDate : new Date();
     return (date instanceof Date) ? (date.toString() === STR_OF_INVALID_DATE ? rtnDate : date) : rtnDate;
+  };
+  //unInput
+  SK.isNullOrUndefined = function (value) {
+    return value === null || value === undefined;
   };
   //Can be to Number than return value of number, other return 0
   SK.n = function (number, defaultNumber) {
