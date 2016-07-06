@@ -2,25 +2,11 @@ language: node_js
 sudo: false # faster builds
 
 node_js:
-  - "4"
+  - stable
 
-env:
-  - CXX=g++-4.8
-
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-4.8
-
-before_install:
-  - rvm install ruby
-  
 #install: default run: npm install
 
 before_script:
-  - gem install sass
   - npm install -g gulp
 
 #script: default run: npm test
