@@ -28,7 +28,6 @@ More to see [shaneking.org][].
 [![][codacy img]][codacy]
 
 ## Release
-[![][bowerbadge img]][bowerbadge]
 [![][npmbadge img]][npmbadge]
 [![][npmDownloadbadge img]][npmDownloadbadge]
 
@@ -69,8 +68,6 @@ ShaneKing is released under [MIT][].
 [saucelabs img]:https://saucelabs.com/browser-matrix/ShaneKing.svg
 
 
-[bowerbadge]:http://bower.io/search/?q=sk-js
-[bowerbadge img]:https://img.shields.io/bower/v/sk-js.svg
 [npmbadge]:https://www.npmjs.com/package/sk-js
 [npmbadge img]:https://img.shields.io/npm/v/sk-js.svg
 [npmDownloadbadge]:https://www.npmjs.com/package/sk-js
