@@ -1,13 +1,6 @@
 # [ShaneKing for JavaScript][]
 More to see [shaneking.org][].
 
-## Dependencies
-[![][versioneye img]][versioneye]
-
-[![][david img]][david]
-[![][davidDev img]][davidDev]
-[![][davidPeer img]][davidPeer]
-
 ## Functions
 - [x] **SK.extend()**: Like jQuery extend, but replace array node
 - [x] **SK.$(context, $)**: New namespace, eg. `var $sk = SK.$(window, '$sk')`
@@ -19,6 +12,13 @@ More to see [shaneking.org][].
 - [x] **SK.o(object)**: Always return plain Object, if invalid return empty object
 - [x] **SK.s(string, defaultString)**: Return the String of input
 - [x] **SK.noConflict()**: Return previous owner
+
+## Dependencies
+[![][versioneye img]][versioneye]
+
+[![][david img]][david]
+[![][davidDev img]][davidDev]
+[![][davidPeer img]][davidPeer]
 
 ## Build
 [![][travis img]][travis]
