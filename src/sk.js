@@ -149,7 +149,7 @@
   SK.isNullOrUndefined = function (value) {
     return value === null || value === undefined;
   };
-  //Can be to Number than return value of number, other return 0
+  //Can be to Number than return value of number, other return defaultNumber or 0
   SK.n = function (number, defaultNumber) {
     return isNaN(Number(number)) ? (arguments.length > 1 ? defaultNumber : 0) : Number(number);
   };
