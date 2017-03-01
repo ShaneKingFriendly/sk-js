@@ -1,221 +1,416 @@
-;(function () {
-  'use strict';
+import _ from 'lodash';
 
-  // Export SK.
-  var SK = function () {
-    return this;
+/**
+ * default of key function
+ *
+ * @private
+ * @param key index of array or property name of object
+ * @param item value of array by index or value of object by property name
+ * @param context array or object
+ * @returns {*}
+ */
+function _skKeyFunc(key, item, context) {
+  return _.isPlainObject(context) ? _.startsWith(key, 'skIdx') : ('skIdx' + key);
+}
+/**
+ * @example
+ * [2,{skIdx0:3,skIdx1:[4,{skIdx0:5,skIdx1:[]}]}] -> [2,[3,[4,[5,[]]]]]
+ */
+if (!Array.prototype.skArr) {
+  Object.defineProperty(Array.prototype, 'skArr', {
+    writable: true,
+    enumerable: false,
+    configurable: true,
+    value: function (recursive, keyFunc = _skKeyFunc) {
+      let rtn = [];
+      this.forEach(function (item) {
+        rtn.push((recursive && (_.isArray(item) || _.isPlainObject(item))) ? item.skArr(recursive, keyFunc) : item);
+      });
+      return rtn;
+    }
+  });
+}
+if (!Array.prototype.skFilter) {
+  Object.defineProperty(Array.prototype, 'skFilter', {
+    writable: true,
+    enumerable: false,
+    configurable: true,
+    value: function (recursive, filterFunc) {
+      let rtn = [];
+      this.forEach(function (item, index) {
+        if (_.isFunction(filterFunc) && filterFunc(index, item, this)) {
+          rtn.push((recursive && (_.isArray(item) || _.isPlainObject(item))) ? item.skFilter(recursive, filterFunc) : item)
+        }
+      }.bind(this));
+      return rtn;
+    }
+  });
+}
+/**
+ * @example
+ * [1,{a:2,b:[3,{c:4,d:[5,{}]}]}] -> {skIdx0:1,skIdx1:{a:2,b:{skIdx0:3,skIdx1:{c:4,d:{skIdx0:5,skIdx1:{}}}}}}
+ */
+if (!Array.prototype.skObj) {
+  Object.defineProperty(Array.prototype, 'skObj', {
+    writable: true,
+    enumerable: false,
+    configurable: true,
+    value: function (recursive, keyFunc = _skKeyFunc) {
+      let rtn = {};
+      this.forEach(function (item, index) {
+        rtn[_.isFunction(keyFunc) ? keyFunc(index, item, this) : index] = (recursive && (_.isArray(item) || _.isPlainObject(item))) ? item.skObj(recursive, keyFunc) : item;
+      }.bind(this));
+      return rtn;
+    }
+  });
+}
+if (!Number.prototype.skCurrencyFmt) {
+  Number.prototype.skCurrencyFmt = function (fraction) {
+    return String(this).skCurrencyFmt(fraction);
   };
-  SK.prototype = {
-    constructor: SK
-  };
+}
+/**
+ * @example
+ * {skIdx0:1,skIdx1:[2,{skIdx0:3,skIdx1:[4,{skIdx0:5,skIdx1:[]}]}]} -> [1,[2,[3,[4,[5,[]]]]]]
+ */
+if (!Object.prototype.skArr) {
+  Object.defineProperty(Object.prototype, 'skArr', {
+    writable: true,
+    enumerable: false,
+    configurable: true,
+    value: function (recursive, keyFunc = _skKeyFunc) {
+      let rtnArr = [];
+      let rtnObj = {};
+      Object.keys(this).forEach(function (key) {
+        let value = this[key];
+        let rtn = (recursive && (_.isPlainObject(value) || _.isArray(value))) ? value.skArr(recursive, keyFunc) : value;
 
-  var STR_OF_INFINITY = 'Infinity';
-  var STR_OF_INVALID_DATE = 'Invalid Date';
-  var STR_OF_NAN = 'NaN';
-  var STR_OF_NULL = 'null';
-  var STR_OF_UNDEFINED = 'undefined';
-  var ARR_OF_BAD_VALUE = [STR_OF_INFINITY, STR_OF_INVALID_DATE, STR_OF_NAN, STR_OF_NULL, STR_OF_UNDEFINED];
-
-  var STR_OF_TRUE = 'true';
-
-  var STR_OF_CONSTRUCTOR = 'constructor';
-  var STR_OF_BOOLEAN = 'boolean';
-  var STR_OF_FUNCTION = 'function';
-  var STR_OF_OBJECT = 'object';
-
-  var TAG_OF_OBJECT = '[object Object]';
-
-  var PROTO_OF_OBJECT = Object.getPrototypeOf;
-
-  var TYPE_OF_CLASS = {};
-  var FUNC_OF_OBJECT_toString = TYPE_OF_CLASS.toString;
-
-  var OWN_OF_OBJECT = TYPE_OF_CLASS.hasOwnProperty;
-  var FUNC_OF_OWN_OBJECT_toString = OWN_OF_OBJECT.toString;
-  var RST_OF_OWN_OBJECT_toString = FUNC_OF_OWN_OBJECT_toString.call(Object);
-
-  var typeOf = function (obj) {
-    if (obj == null) {
-      return obj + '';
+        rtnObj[key] = rtn;
+        if (_.isFunction(keyFunc) && keyFunc(key, value, this)) {
+          rtnArr.push(rtn);
+        }
+      }.bind(this));
+      return Object.keys(rtnObj).length === rtnArr.length ? rtnArr : rtnObj;
     }
-    // Support: Android <=2.3 only (functionish RegExp)
-    return typeof obj === STR_OF_OBJECT || typeof obj === STR_OF_FUNCTION ? TYPE_OF_CLASS[FUNC_OF_OBJECT_toString.call(obj)] || STR_OF_OBJECT : typeof obj;
-  };
-
-  var isFunction = function (obj) {
-    return typeOf(obj) === STR_OF_FUNCTION;
-  };
-
-  var isPlainObject = function (obj) {
-    var proto, Ctor;
-
-    // Detect obvious negatives
-    // Use toString instead of jQuery.type to catch host objects
-    if (!obj || FUNC_OF_OBJECT_toString.call(obj) !== TAG_OF_OBJECT) {
-      return false;
+  });
+}
+if (!Object.prototype.skAssign) {
+  Object.defineProperty(Object.prototype, 'skAssign', {
+    writable: true,
+    enumerable: false,
+    configurable: true,
+    value: function (...objects) {
+      return SK.assign.apply(this, _.concat(this, objects));
     }
-
-    proto = PROTO_OF_OBJECT(obj);
-
-    // Objects with no prototype (e.g., `Object.create( null )`) are plain
-    if (!proto) {
-      return true;
+  });
+}
+if (!Object.prototype.skFilter) {
+  Object.defineProperty(Object.prototype, 'skFilter', {
+    writable: true,
+    enumerable: false,
+    configurable: true,
+    value: function (recursive, filterFunc) {
+      let rtn = {};
+      Object.keys(this).forEach(function (key) {
+        let value = this[key];
+        if (_.isFunction(filterFunc) && filterFunc(key, value, this)) {
+          rtn[key] = (recursive && (_.isArray(value) || _.isPlainObject(value))) ? value.skFilter(recursive, filterFunc) : value;
+        }
+      }.bind(this));
+      return rtn;
     }
-
-    // Objects with prototype are plain if they were constructed by a global Object function
-    Ctor = OWN_OF_OBJECT.call(proto, STR_OF_CONSTRUCTOR) && proto.constructor;
-    return typeof Ctor === STR_OF_FUNCTION && FUNC_OF_OWN_OBJECT_toString.call(Ctor) === RST_OF_OWN_OBJECT_toString;
-  };
-
-  /** Copy from jQuery, different is array extend */
-  SK.extend = function () {
-    var options, name, src, copy, copyIsArray, clone,
-      target = arguments[0] || {},
-      i = 1,
-      length = arguments.length,
-      deep = false;
-    // Handle a deep copy situation
-    if (typeof target === STR_OF_BOOLEAN) {
-      deep = target;
-      // Skip the boolean and the target
-      target = arguments[i] || {};
-      i++;
+  });
+}
+/**
+ * @example
+ * {a:2,b:[3,{c:4,d:[5,{}]}]} -> {a:2,b:{skIdx0:3,skIdx1:{c:4,d:{skIdx0:5,skIdx1:{}}}}}
+ */
+if (!Object.prototype.skObj) {
+  Object.defineProperty(Object.prototype, 'skObj', {
+    writable: true,
+    enumerable: false,
+    configurable: true,
+    value: function (recursive, keyFunc = _skKeyFunc) {
+      let rtn = {};
+      Object.keys(this).forEach(function (key) {
+        let value = this[key];
+        rtn[key] = (recursive && (_.isArray(value) || _.isPlainObject(value))) ? value.skObj(recursive, keyFunc) : value;
+      }.bind(this));
+      return rtn;
     }
-    // Handle case when target is a string or something (possible in deep copy)
-    if (typeof target !== STR_OF_OBJECT && !isFunction(target)) {
-      target = {};
-    }
-    // Extend jQuery itself if only one argument is passed
-    if (i === length) {
-      target = this;
-      i--;
-    }
-    for (; i < length; i++) {
-      // Only deal with non-null/undefined values
-      if (( options = arguments[i] ) != null) {
-        // Extend the base object
-        for (name in options) {
-          src = target[name];
-          copy = options[name];
-          // Prevent never-ending loop
-          if (target === copy) {
-            continue;
+  });
+}
+if (!Object.prototype.skVal) {
+  Object.defineProperty(Object.prototype, 'skVal', {
+    writable: true,
+    enumerable: false,
+    configurable: true,
+    value: function (str, val) {
+      let rtn = this;
+      let array = str.split('.');
+      let idx = 0;
+      if (arguments.length > 1) {
+        for (; idx < array.length - 1; idx++) {
+          if (rtn[array[idx]] === undefined) {
+            rtn[array[idx]] = {};
           }
-          // Recurse if we're merging plain objects or arrays
-          if (deep && copy && (isPlainObject(copy) || (copyIsArray = Array.isArray(copy)))) {
-            if (copyIsArray) {
-              copyIsArray = false;
-              clone = [];//src && jQuery.isArray( src ) ? src : []; //sk different with jQuery
-            } else {
-              clone = src && isPlainObject(src) ? src : {};
-            }
-            // Never move original objects, clone them
-            target[name] = SK.extend(deep, clone, copy);
-            // Don't bring in undefined values
-          } else if (copy !== undefined) {
-            target[name] = copy;
+          rtn = rtn[array[idx]];
+        }
+        if (rtn) {
+          rtn[array[idx]] = val;
+        }
+      } else {
+        for (; idx < array.length; idx++) {
+          rtn = rtn[array[idx]];
+          if (rtn === undefined) {
+            break;
           }
         }
       }
+      return rtn;
     }
-    // Return the modified object
-    return target;
-  };
-
-  /** New namespace */
-  SK.$ = function (context, $) {
-    var innerContext = context ? context : root;
-    var inner$ = $ ? $ : '$sk';
-    if (!innerContext[inner$]) {
-      innerContext[inner$] = {};
+  });
+}
+if (!Object.prototype.skVals) {
+  Object.defineProperty(Object.prototype, 'skVals', {
+    writable: true,
+    enumerable: false,
+    configurable: true,
+    value: function () {
+      return Object.keys(this).map(function (key) {
+        return this[key];
+      }.bind(this));
     }
-    return innerContext[inner$];
+  });
+}
+if (!String.prototype.skBlank) {
+  String.prototype.skBlank = function () {
+    return this.trim().length === 0;
   };
+}
+if (!String.prototype.skCurrencyFmt) {
+  String.prototype.skCurrencyFmt = function (fraction) {
+    fraction = fraction > 0 && fraction <= 20 ? fraction : 2;
+    let array = (parseFloat(this.replace(/[^\d\.-]/g, '')).toFixed(fraction) + '').split('.');
+    return array[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '.' + array[1];
+  };
+}
+if (!String.prototype.skEmpty) {
+  String.prototype.skEmpty = function () {
+    return this.length === 0;
+  };
+}
+if (!String.prototype.skFmt) {
+  String.prototype.skFmt = function (o) {
+    return this.replace(/(\$\{\w+(\.\w+)*\})/g, function (matched) {///(\{\w+\.\})/g
+      return o.skVal(matched.replace('${', '').replace('}', ''));
+    });
+  };
+}
+if (!String.prototype.skFmtArr) {
+  String.prototype.skFmtArr = function (a) {
+    return this.replace(/\$(\d+)/g, function (_, m) {
+      return a[--m];
+    });
+  };
+}
 
-  //Always return valid Array, if invalid return empty array
-  SK.a = function (array) {
-    return Array.isArray(array) ? array : [];
-  };
-  //Just true return true, other return false
-  SK.b = function (boolean) {
-    return String(boolean) === STR_OF_TRUE && boolean !== STR_OF_TRUE && boolean;
-  };
-  //Always return valid Date, if invalid return defaultDate or new Date()
-  SK.d = function (date, defaultDate) {
-    var rtnDate = arguments.length > 1 ? defaultDate : new Date();
-    return (date instanceof Date) ? (date.toString() === STR_OF_INVALID_DATE ? rtnDate : date) : rtnDate;
-  };
-  //UnInput
-  SK.isNullOrUndefined = function (value) {
-    return value === null || value === undefined;
-  };
-  //Can be to Number than return value of number, other return defaultNumber or 0
-  SK.n = function (number, defaultNumber) {
-    return isNaN(Number(number)) ? (arguments.length > 1 ? defaultNumber : 0) : Number(number);
-  };
-  //Always return plain Object, if invalid return empty object
-  SK.o = function (object) {
-    return isPlainObject(object) ? object : {};
-  };
-  //Return the String of input
-  SK.s = function (string, defaultString) {
-    return ARR_OF_BAD_VALUE.indexOf(String(string)) === -1 ? String(string) : (arguments.length > 1 ? defaultString : '');
-  };
+export default class SK {
+  static STR_OF_CHAR_AMPERSAND = '&';
+  static STR_OF_CHAR_ANGLE = '∠';
+  static STR_OF_CHAR_APPROXIMATELY = '≈';
+  static STR_OF_CHAR_ARROW = '→';
+  static STR_OF_CHAR_ASTERISK = '*';
+  static STR_OF_CHAR_BACKSLASH = '\\';
+  static STR_OF_CHAR_CELSIUS = '℃';
+  static STR_OF_CHAR_CIRCLE = '⊙';
+  static STR_OF_CHAR_CIRCUMFERENCE = '○';
+  static STR_OF_CHAR_CLOSE_BRACE = '}';
+  static STR_OF_CHAR_CLOSE_BRACKET = ']';
+  static STR_OF_CHAR_CLOSE_PARENTHESIS = ')';
+  static STR_OF_CHAR_COLON = ':';
+  static STR_OF_CHAR_COMMA = ',';
+  static STR_OF_CHAR_DASH = '-';
+  static STR_OF_CHAR_DEGREE = '°';
+  static STR_OF_CHAR_DIVIDE = '÷';
+  static STR_OF_CHAR_DOT = '.';
+  static STR_OF_CHAR_DOUBLE_QUOTATION = '"';
+  static STR_OF_CHAR_EQUAL = '=';
+  static STR_OF_CHAR_EQUAL_APPROXIMATELY = '≌';
+  static STR_OF_CHAR_EQUIVALENT = '≡';
+  static STR_OF_CHAR_EXCLAMATION = '!';
+  static STR_OF_CHAR_HENCE = '∴';
+  static STR_OF_CHAR_INFINITY = '∞';
+  static STR_OF_CHAR_INTEGRAL = '∫';
+  static STR_OF_CHAR_INTERSECTION = '∩';
+  static STR_OF_CHAR_LESS = '<';
+  static STR_OF_CHAR_LESS_EQUAL = '≤';
+  static STR_OF_CHAR_MINUS = '-';
+  static STR_OF_CHAR_MINUTE = '′';
+  static STR_OF_CHAR_MULTIPLY = '×';
+  static STR_OF_CHAR_MORE = '>';
+  static STR_OF_CHAR_MORE_EQUAL = '≥';
+  static STR_OF_CHAR_NOT_EQUAL = '≠';
+  static STR_OF_CHAR_NOT_LESS = '≮';
+  static STR_OF_CHAR_NOT_MORE = '≯';
+  static STR_OF_CHAR_OPEN_BRACE = '{';
+  static STR_OF_CHAR_OPEN_BRACKET = '[';
+  static STR_OF_CHAR_OPEN_PARENTHESIS = '(';
+  static STR_OF_CHAR_PARALLEL = '‖';
+  static STR_OF_CHAR_PERCENT = '%';
+  static STR_OF_CHAR_PERMILL = '‰';
+  static STR_OF_CHAR_PERPENDICULAR = '⊥';
+  static STR_OF_CHAR_PI = 'π';
+  static STR_OF_CHAR_PLUS = '+';
+  static STR_OF_CHAR_PLUS_MINUS = '±';
+  static STR_OF_CHAR_POUND = '#';
+  static STR_OF_CHAR_PROPORTION = '∷';
+  static STR_OF_CHAR_QUESTION = '?';
+  static STR_OF_CHAR_SECOND = '〃';
+  static STR_OF_CHAR_SECTION = '§';
+  static STR_OF_CHAR_SEMICIRCLE = '⌒';
+  static STR_OF_CHAR_SEMICOLON = ';';
+  static STR_OF_CHAR_SIGMA = '∑';
+  static STR_OF_CHAR_SINCE = '∵';
+  static STR_OF_CHAR_SINGLE_QUOTATION = '\'';
+  static STR_OF_CHAR_SLASH = '/';
+  static STR_OF_CHAR_SQUARE = '√';
+  static STR_OF_CHAR_TRIANGLE = '△';
+  static STR_OF_CHAR_UNDERLINE = '_';
+  static STR_OF_CHAR_UNION = '∪';
+  static STR_OF_CHAR_VARIES = '∝';
+  static STR_OF_CHAR_VERTICAL = '|';
+
+  static DEFAULT_DOMAIN = '$sk';
+  static DEFAULT_ENV = {};
 
   /**
-   * Checks if `value` is a global object.
+   * New or get namespace object.
+   *
+   * @param {Object} env window(browser) or global(nodejs) etc.
+   * @param {string} $ namespace
+   * @returns {*} Returns the new assigner function.
+   */
+  static $(env = SK.DEFAULT_ENV, $ = SK.DEFAULT_DOMAIN) {
+    if (!env[$]) {
+      env[$] = {};
+    }
+    return env[$];
+  }
+
+  /**
+   * default of assignWith's customizer
    *
    * @private
-   * @param {*} value The value to check.
-   * @returns {null|Object} Returns `value` if it's a global object, else `null`.
+   * @returns {*|undefined}
+   * @see _.assignWith
    */
-  function checkGlobal(value) {
-    return (value && value.Object === Object) ? value : null;
+  static _skAssignCustomizer(objValue, srcValue, key, object, source) {
+    return SK.arePlainObject(objValue, srcValue, object, source) ? SK.assign(objValue, srcValue) : undefined;
   }
 
-  /** Detect free variable `global` from Node.js. */
-  var freeGlobal = checkGlobal(typeof global == STR_OF_OBJECT && global);
-  /** Detect free variable `self`. */
-  var freeSelf = checkGlobal(typeof self == STR_OF_OBJECT && self);
-  /** Detect `this` as the global object. */
-  var thisGlobal = checkGlobal(typeof this == STR_OF_OBJECT && this);
-  /** Used as a reference to the global object. */
-  var root = freeGlobal || freeSelf || thisGlobal || Function('return this')();
-
-  // Save the previous value of the `SK` variable.
-  var _SK = root.SK;
-
-  // Expose SK on the free variable `window` or `self` when available so it's
-  // globally accessible, even when bundled with Browserify, Webpack, etc. This
-  // also prevents errors in cases where SK is loaded by a script tag in the
-  // presence of an AMD loader. See http://requirejs.org/docs/errors.html#mismatch
-  // for more details. Use `SK.noConflict` to remove SK from the global object.
-  (freeSelf || {}).SK = SK;
-
-  // Run sk.js in *noConflict* mode, returning the `SK` variable to its
-  // previous owner. Returns a reference to the SK object.
-  SK.noConflict = function () {
-    root.SK = _SK;
-    return this;
-  };
-
-  // Some AMD build optimizers like r.js check for condition patterns like the following:
-  if (typeof define == STR_OF_FUNCTION && typeof define.amd == STR_OF_OBJECT && define.amd) {
-    // Define as an anonymous module so, through path mapping, it can be
-    // referenced as the "SK" module.
-    define(function () {
-      return SK;
+  /**
+   * Checks if values are plain object.
+   *
+   * @returns {boolean}
+   * @see _.isPlainObject
+   */
+  static arePlainObject(...values) {
+    let rtn = true;
+    values.forEach(function (item) {
+      rtn = rtn && _.isPlainObject(item);
     });
+    return rtn;
   }
-  // Check for `exports` after `define` in case a build optimizer adds an `exports` object.
-  else if (typeof exports !== STR_OF_UNDEFINED) {
-    if (typeof module !== STR_OF_UNDEFINED && module.exports) {
-      exports = module.exports = SK;
-    }
-    exports.SK = SK;
+
+  /**
+   * let o1 = {a:[{'b':1},'c',2], d:{e:3}};
+   * let o2 = {a:[{'x':10},'y',20], d:{z:30}};
+   * let o3 = $.extend(true,o1,o2);
+   * JSON.stringify(o3);//{"a":[{"b":1,"x":10},"y",20],"d":{"e":3,"z":30}}
+   * o1 == o3;//true
+   * o1 === o3;//true
+   *
+   * let o1 = {a:[{'b':1},'c',2], d:{e:3}};
+   * let o2 = {a:[{'x':10},'y',20], d:{z:30}};
+   * let o3 = _.assign(o1,o2);
+   * JSON.stringify(o3);//{"a":[{"x":10},"y",20],"d":{"z":30}}
+   * o1 == o3;//true
+   * o1 === o3;//true
+   *
+   * @static
+   * @param {Object} object The destination object.
+   * @param {...Object} objects The source objects.
+   * @example
+   *
+   * let o1 = {a:[{'b':1},'c',2], d:{e:3}};
+   * let o2 = {a:[{'x':10},'y',20], d:{z:30}};
+   * let o3 = SK.assign(o1,o2);
+   * JSON.stringify(o3);//{"a":[{"x":10},"y",20],"d":{"e":3,"z":30}}
+   * o1 == o3;//true
+   * o1 === o3;//true
+   */
+  static assign(object, ...objects) {
+    return _.assignWith.apply(this, _.concat(object, objects, SK._skAssignCustomizer));
   }
-  else {
-    // Export to the global object.
-    root.SK = SK;
+
+  /**
+   * Safe array for value.
+   * @param {*} value
+   * @param {Array} defaultValue
+   * @returns {Array}
+   */
+  static s4a(value, defaultValue = []) {
+    return _.isArray(value) ? value : defaultValue;
   }
-}.call(this));
+
+  /**
+   * Safe boolean for value.
+   * @param {*} value
+   * @param {boolean} defaultValue
+   * @returns {boolean}
+   */
+  static s4b(value, defaultValue = false) {
+    return _.isBoolean(value) ? value : defaultValue;
+  }
+
+  /**
+   * Safe date for value.
+   * @param {*} value
+   * @param {Date} defaultValue
+   * @returns {Date}
+   */
+  static s4d(value, defaultValue = new Date()) {
+    return _.isDate(value) ? value : defaultValue;
+  }
+
+  /**
+   * Safe finite number for value.
+   * @param {*} value
+   * @param {number} defaultValue
+   * @returns {number}
+   */
+  static s4n(value, defaultValue = 0) {
+    return _.isFinite(value) ? value : defaultValue;
+  }
+
+  /**
+   * Safe plain object for value.
+   * @param {*} value
+   * @param {Object} defaultValue
+   * @returns {{}}
+   */
+  static s4o(value, defaultValue = {}) {
+    return _.isPlainObject(value) ? value : defaultValue;
+  }
+
+  /**
+   * Safe string for value.
+   * @param {*} value
+   * @param {string} defaultValue
+   * @returns {string}
+   */
+  static s4s(value, defaultValue = '') {
+    return _.isString(value) ? value : defaultValue;
+  }
+}

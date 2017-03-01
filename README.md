@@ -1,17 +1,32 @@
 # [ShaneKing for JavaScript][]
 More to see [shaneking.org][].
 
+## Extensions
+- [x] **Array.prototype.skArr(recursive, keyFunc)**: [2,{skIdx0:3,skIdx1:[4,{skIdx0:5,skIdx1:[]}]}] -> [2,[3,[4,[5,[]]]]]
+- [x] **Array.prototype.skFilter(recursive, filterFunc)**: filter recursive
+- [x] **Array.prototype.skObj(recursive, keyFunc)**: [1,{a:2,b:[3,{c:4,d:[5,{}]}]}] -> {skIdx0:1,skIdx1:{a:2,b:{skIdx0:3,skIdx1:{c:4,d:{skIdx0:5,skIdx1:{}}}}}}
+- [x] **Number.prototype.skCurrencyFmt(fraction)**: (-123456.789).skCurrencyFmt(2) -> '-123,456.79'
+- [x] **Object.prototype.skArr(recursive, keyFunc)**: {skIdx0:1,skIdx1:[2,{skIdx0:3,skIdx1:[4,{skIdx0:5,skIdx1:[]}]}]} -> [1,[2,[3,[4,[5,[]]]]]]
+- [x] **Object.prototype.skFilter(recursive, filterFunc)**: filter recursive
+- [x] **Object.prototype.skObj(recursive, keyFunc)**: {a:2,b:[3,{c:4,d:[5,{}]}]} -> {a:2,b:{skIdx0:3,skIdx1:{c:4,d:{skIdx0:5,skIdx1:{}}}}}
+- [x] **Object.prototype.skVal(str, val)**: like $.val()
+- [x] **Object.prototype.skVals()**: {a: {x: 1}, b: {y: 2}} -> [{x: 1}, {y: 2}]
+- [x] **String.prototype.skBlank()**: ' '.skBlank() -> true, ''.skBlank() -> true
+- [x] **String.prototype.skCurrencyFmt(fraction)**: '987654.321'.skCurrencyFmt(2) -> '987,654.32'
+- [x] **String.prototype.skEmpty()**: ' '.skEmpty() -> false, ''.skEmpty() -> true
+- [x] **String.prototype.skFmt(o)**: 'My $name {is} ${name}, i {am from ${city}'.skFmt({name: 'ShaneKing', city: 'Shanghai'}) -> 'My $name {is} ShaneKing, i {am from Shanghai'
+- [x] **String.prototype.skFmtArr(a)**: 'My $name ${is} $1, i am$ from $2'.skFmtArr(['ShaneKing', 'Shanghai']) -> 'My $name ${is} ShaneKing, i am$ from Shanghai'
+
+
 ## Functions
-- [x] **SK.extend()**: Like jQuery extend, but replace array node
-- [x] **SK.$(context, $)**: New namespace, eg. `var $sk = SK.$(window, '$sk')`
-- [x] **SK.a(array)**: Always return valid Array, if invalid return empty array
-- [x] **SK.b(boolean)**: Just true return true, other return false
-- [x] **SK.d(date, defaultDate)**: Always return valid Date, if invalid return defaultDate or new Date()
-- [x] **SK.isNullOrUndefined(value)**: UnInput
-- [x] **SK.n(number, defaultNumber)**: Can be to Number than return value of number, other return 0
-- [x] **SK.o(object)**: Always return plain Object, if invalid return empty object
-- [x] **SK.s(string, defaultString)**: Return the String of input
-- [x] **SK.noConflict()**: Return previous owner
+- [x] **SK.$(env, $)**: New or get namespace object. eg. `var $sk = SK.$(window, '$sk')`
+- [x] **SK.assign()**: Like jQuery extend, but replace array node.
+- [x] **SK.s4a(value, defaultValue = [])**: Safe array for value.
+- [x] **SK.s4b(value, defaultValue = false)**: Safe boolean for value.
+- [x] **SK.s4d(value, defaultValue = new Date())**: Safe date for value.
+- [x] **SK.s4n(value, defaultValue = 0)**: Safe finite number for value.
+- [x] **SK.s4o(value, defaultValue = {})**: Safe plain object for value.
+- [x] **SK.s4s(value, defaultValue = '')**: Safe string for value.
 
 ## Dependencies
 [![][versioneye img]][versioneye]
