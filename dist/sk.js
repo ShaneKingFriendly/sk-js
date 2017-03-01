@@ -400,6 +400,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    /**
+	     * @param {Array|string} arr1
+	     * @param {Array|string} arr2
+	     * @param {string} concat
+	     * @returns {Array|string}
+	     * @example
+	     * descartes(['alert','btn'],['success','info']);//['alert-success','alert-info','btn-success','btn-info']
+	     * descartes('alert','link','-');//'alert-link'
+	     */
+
+	  }, {
+	    key: 'descartes',
+	    value: function descartes() {
+	      var arr1 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+	      var arr2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+	      var concat = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : SK.STR_OF_CHAR_DASH;
+
+	      var a1 = Array.isArray(arr1) ? arr1 : [arr1];
+	      var a2 = Array.isArray(arr2) ? arr2 : [arr2];
+	      var rtn = [];
+	      a1.forEach(function (ele1) {
+	        a2.forEach(function (ele2) {
+	          rtn.push(ele1 + concat + ele2);
+	        });
+	      });
+	      return rtn.length === 1 ? rtn[0] : rtn;
+	    }
+
+	    /**
 	     * Safe array for value.
 	     * @param {*} value
 	     * @param {Array} defaultValue
@@ -487,6 +515,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
 	      return _lodash2.default.isString(value) ? value : defaultValue;
+	    }
+
+	    /**
+	     * @param word
+	     * @returns {string}
+	     * @example
+	     * upperWordFirstChar('path');//Path
+	     * upperWordFirstChar('list');//List
+	     */
+
+	  }, {
+	    key: 'upperWordFirstChar',
+	    value: function upperWordFirstChar(word) {
+	      return _lodash2.default.toString(word).replace(/(\w)/, function ($1) {
+	        return $1.toUpperCase();
+	      });
+	    }
+
+	    /**
+	     * @param words
+	     * @returns {string}
+	     * @example
+	     * upperWordsFirstChar('xi nAn shi you xUe yuan china people');//Xi NAn Shi You XUe Yuan China People
+	     */
+
+	  }, {
+	    key: 'upperWordsFirstChar',
+	    value: function upperWordsFirstChar(words) {
+	      return _lodash2.default.toString(words).replace(/\s[a-z]/g, function ($1) {
+	        return $1.toUpperCase();
+	      }).replace(/^[a-z]/, function ($1) {
+	        return $1.toUpperCase();
+	      });
 	    }
 	  }]);
 

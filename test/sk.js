@@ -31,20 +31,20 @@ describe('SK', function () {
 
   let inValidValueArray = [null, undefined, NaN, 'Invalid Date'];
 
-  before(function() {
+  before(function () {
     // console.log('SK test case start!');
 
   });
 
-  after(function() {
+  after(function () {
     // console.log('SK test case done!');
   });
 
-  beforeEach(function() {
+  beforeEach(function () {
     //console.log('some test case start!');
   });
 
-  afterEach(function() {
+  afterEach(function () {
     //console.log('some test case done!');
   });
 
@@ -89,7 +89,7 @@ describe('SK', function () {
   describe('Object.prototype.skArr', function () {
     it('recursive', function () {
       assert.deepEqual(testData.skVal('O.Arr.i1').skArr(true, function (k) {
-        return _.startsWith(k,'skIdx')
+        return _.startsWith(k, 'skIdx')
       }), testData.skVal('O.Arr.o1'));
     });
   });
@@ -192,7 +192,13 @@ describe('SK', function () {
       let a1 = {a: [{'a': 1}, 'b', 2]},
         a2 = {a: [{'x': 3}, 'y', 4]},
         skRst = {a: [{'x': 3}, 'y', 4]};//if is array, empty old array
-      assert.deepEqual(SK.assign(true, {}, a1, a2), skRst);
+      assert.deepEqual(SK.assign({}, a1, a2), skRst);
+    });
+    it('deep while object node', function () {
+      let a1 = {a: [{'b': 1}, 'c', 2], d: {e: 3}},
+        a2 = {a: [{'x': 10}, 'y', 20], d: {z: 30}},
+        skRst = {"a": [{"x": 10}, "y", 20], "d": {"e": 3, "z": 30}};
+      assert.deepEqual(SK.assign({}, a1, a2), skRst);
     });
     it('isFunction', function () {
       let f1 = function () {
@@ -201,6 +207,14 @@ describe('SK', function () {
         },
         skRst = f2;//if is array, empty old array
       assert.deepEqual(SK.assign(true, f1, f2), skRst);
+    });
+  });
+  describe('SK.descartes', function () {
+    it('array and array to array', function () {
+      assert.deepEqual(SK.descartes(['alert', 'btn'], ['success', 'info']), ['alert-success', 'alert-info', 'btn-success', 'btn-info']);
+    });
+    it('string and string to string', function () {
+      assert.equal(SK.descartes('alert', 'link', '-'), 'alert-link');
     });
   });
   describe('SK.s4a', function () {
@@ -268,6 +282,19 @@ describe('SK', function () {
       assert.equal(SK.s4s(null), '');
       assert.equal(SK.s4s(undefined, 'UNDEFINED'), 'UNDEFINED');
       assert.equal(SK.s4s(NaN), '');
+    });
+  });
+  describe('SK.upperWordFirstChar', function () {
+    it('path -> Path', function () {
+      assert.equal(SK.upperWordFirstChar('path'), 'Path');
+    });
+    it('list -> List', function () {
+      assert.equal(SK.upperWordFirstChar('list'), 'List');
+    });
+  });
+  describe('SK.upperWordsFirstChar', function () {
+    it('words', function () {
+      assert.equal(SK.upperWordsFirstChar('xi nAn shi you xUe yuan china people'), 'Xi NAn Shi You XUe Yuan China People');
     });
   });
 });

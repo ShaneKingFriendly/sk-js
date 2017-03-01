@@ -355,6 +355,27 @@ export default class SK {
   }
 
   /**
+   * @param {Array|string} arr1
+   * @param {Array|string} arr2
+   * @param {string} concat
+   * @returns {Array|string}
+   * @example
+   * descartes(['alert','btn'],['success','info']);//['alert-success','alert-info','btn-success','btn-info']
+   * descartes('alert','link','-');//'alert-link'
+   */
+  static descartes(arr1 = [], arr2 = [], concat = SK.STR_OF_CHAR_DASH) {
+    let a1 = Array.isArray(arr1) ? arr1 : [arr1];
+    let a2 = Array.isArray(arr2) ? arr2 : [arr2];
+    let rtn = [];
+    a1.forEach(function (ele1) {
+      a2.forEach(function (ele2) {
+        rtn.push(ele1 + concat + ele2);
+      })
+    });
+    return rtn.length === 1 ? rtn[0] : rtn;
+  }
+
+  /**
    * Safe array for value.
    * @param {*} value
    * @param {Array} defaultValue
@@ -413,4 +434,33 @@ export default class SK {
   static s4s(value, defaultValue = '') {
     return _.isString(value) ? value : defaultValue;
   }
+
+  /**
+   * @param word
+   * @returns {string}
+   * @example
+   * upperWordFirstChar('path');//Path
+   * upperWordFirstChar('list');//List
+   */
+  static upperWordFirstChar(word) {
+    return _.toString(word).replace(/(\w)/, function ($1) {
+      return $1.toUpperCase();
+    });
+  }
+
+  /**
+   * @param words
+   * @returns {string}
+   * @example
+   * upperWordsFirstChar('xi nAn shi you xUe yuan china people');//Xi NAn Shi You XUe Yuan China People
+   */
+  static upperWordsFirstChar(words) {
+    return _.toString(words).replace(/\s[a-z]/g, function ($1) {
+      return $1.toUpperCase();
+    }).replace(/^[a-z]/, function ($1) {
+      return $1.toUpperCase();
+    })
+  }
+
+
 }

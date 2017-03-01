@@ -20,7 +20,7 @@ More to see [shaneking.org][].
 
 ## Functions
 - [x] **SK.$(env, $)**: New or get namespace object. eg. `var $sk = SK.$(window, '$sk')`
-- [x] **SK.assign()**: Like jQuery extend, but replace array node.
+- [x] **SK.assign()**: Like lodash assign, but deep while object node.
 - [x] **SK.s4a(value, defaultValue = [])**: Safe array for value.
 - [x] **SK.s4b(value, defaultValue = false)**: Safe boolean for value.
 - [x] **SK.s4d(value, defaultValue = new Date())**: Safe date for value.
