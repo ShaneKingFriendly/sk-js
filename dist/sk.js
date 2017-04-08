@@ -95,8 +95,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var keyFunc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _skKeyFunc;
 
 	      var rtn = [];
-	      this.forEach(function (item) {
-	        rtn.push(recursive && (_lodash2.default.isArray(item) || _lodash2.default.isPlainObject(item)) ? item.skArr(recursive, keyFunc) : item);
+	      this.forEach(function ($item) {
+	        rtn.push(recursive && (_lodash2.default.isArray($item) || _lodash2.default.isPlainObject($item)) ? $item.skArr(recursive, keyFunc) : $item);
 	      });
 	      return rtn;
 	    }
@@ -108,12 +108,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    enumerable: false,
 	    configurable: true,
 	    value: function value(recursive, filterFunc) {
+	      var _this = this;
+
 	      var rtn = [];
-	      this.forEach(function (item, index) {
-	        if (_lodash2.default.isFunction(filterFunc) && filterFunc(index, item, this)) {
-	          rtn.push(recursive && (_lodash2.default.isArray(item) || _lodash2.default.isPlainObject(item)) ? item.skFilter(recursive, filterFunc) : item);
+	      this.forEach(function ($item, $index) {
+	        if (_lodash2.default.isFunction(filterFunc) && filterFunc($index, $item, _this)) {
+	          rtn.push(recursive && (_lodash2.default.isArray($item) || _lodash2.default.isPlainObject($item)) ? $item.skFilter(recursive, filterFunc) : $item);
 	        }
-	      }.bind(this));
+	      });
 	      return rtn;
 	    }
 	  });
@@ -128,16 +130,40 @@ return /******/ (function(modules) { // webpackBootstrap
 	    enumerable: false,
 	    configurable: true,
 	    value: function value(recursive) {
+	      var _this2 = this;
+
 	      var keyFunc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _skKeyFunc;
 
 	      var rtn = {};
-	      this.forEach(function (item, index) {
-	        rtn[_lodash2.default.isFunction(keyFunc) ? keyFunc(index, item, this) : index] = recursive && (_lodash2.default.isArray(item) || _lodash2.default.isPlainObject(item)) ? item.skObj(recursive, keyFunc) : item;
-	      }.bind(this));
+	      this.forEach(function ($item, $index) {
+	        rtn[_lodash2.default.isFunction(keyFunc) ? keyFunc($index, $item, _this2) : $index] = recursive && (_lodash2.default.isArray($item) || _lodash2.default.isPlainObject($item)) ? $item.skObj(recursive, keyFunc) : $item;
+	      });
 	      return rtn;
 	    }
 	  });
 	}
+	/**
+	 * @example
+	 * [1,2,3].skRmv(2) -> [1,3]
+	 */
+	if (!Array.prototype.skRmv) {
+	  Object.defineProperty(Array.prototype, 'skRmv', {
+	    writable: true,
+	    enumerable: false,
+	    configurable: true,
+	    value: function value(item) {
+	      var tmpIdx = this.indexOf(item);
+	      if (tmpIdx > -1) {
+	        this.splice(tmpIdx, 1);
+	      }
+	      return this;
+	    }
+	  });
+	}
+	/**
+	 * @example
+	 * (987654.321).skCurrencyFmt(2) -> 987,654.32
+	 */
 	if (!Number.prototype.skCurrencyFmt) {
 	  Number.prototype.skCurrencyFmt = function (fraction) {
 	    return String(this).skCurrencyFmt(fraction);
@@ -153,19 +179,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	    enumerable: false,
 	    configurable: true,
 	    value: function value(recursive) {
+	      var _this3 = this;
+
 	      var keyFunc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _skKeyFunc;
 
 	      var rtnArr = [];
 	      var rtnObj = {};
-	      Object.keys(this).forEach(function (key) {
-	        var value = this[key];
-	        var rtn = recursive && (_lodash2.default.isPlainObject(value) || _lodash2.default.isArray(value)) ? value.skArr(recursive, keyFunc) : value;
+	      Object.keys(this).forEach(function ($key) {
+	        var tmpVal = _this3[$key];
+	        var rtn = recursive && (_lodash2.default.isPlainObject(tmpVal) || _lodash2.default.isArray(tmpVal)) ? tmpVal.skArr(recursive, keyFunc) : tmpVal;
 
-	        rtnObj[key] = rtn;
-	        if (_lodash2.default.isFunction(keyFunc) && keyFunc(key, value, this)) {
+	        rtnObj[$key] = rtn;
+	        if (_lodash2.default.isFunction(keyFunc) && keyFunc($key, tmpVal, _this3)) {
 	          rtnArr.push(rtn);
 	        }
-	      }.bind(this));
+	      });
 	      return Object.keys(rtnObj).length === rtnArr.length ? rtnArr : rtnObj;
 	    }
 	  });
@@ -190,13 +218,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    enumerable: false,
 	    configurable: true,
 	    value: function value(recursive, filterFunc) {
+	      var _this4 = this;
+
 	      var rtn = {};
-	      Object.keys(this).forEach(function (key) {
-	        var value = this[key];
-	        if (_lodash2.default.isFunction(filterFunc) && filterFunc(key, value, this)) {
-	          rtn[key] = recursive && (_lodash2.default.isArray(value) || _lodash2.default.isPlainObject(value)) ? value.skFilter(recursive, filterFunc) : value;
+	      Object.keys(this).forEach(function ($key) {
+	        var tmpVal = _this4[$key];
+	        if (_lodash2.default.isFunction(filterFunc) && filterFunc($key, tmpVal, _this4)) {
+	          rtn[$key] = recursive && (_lodash2.default.isArray(tmpVal) || _lodash2.default.isPlainObject(tmpVal)) ? tmpVal.skFilter(recursive, filterFunc) : tmpVal;
 	        }
-	      }.bind(this));
+	      });
 	      return rtn;
 	    }
 	  });
@@ -211,13 +241,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    enumerable: false,
 	    configurable: true,
 	    value: function value(recursive) {
+	      var _this5 = this;
+
 	      var keyFunc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _skKeyFunc;
 
 	      var rtn = {};
-	      Object.keys(this).forEach(function (key) {
-	        var value = this[key];
-	        rtn[key] = recursive && (_lodash2.default.isArray(value) || _lodash2.default.isPlainObject(value)) ? value.skObj(recursive, keyFunc) : value;
-	      }.bind(this));
+	      Object.keys(this).forEach(function ($key) {
+	        var tmpVal = _this5[$key];
+	        rtn[$key] = recursive && (_lodash2.default.isArray(tmpVal) || _lodash2.default.isPlainObject(tmpVal)) ? tmpVal.skObj(recursive, keyFunc) : tmpVal;
+	      });
 	      return rtn;
 	    }
 	  });
@@ -229,21 +261,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	    configurable: true,
 	    value: function value(str, val) {
 	      var rtn = this;
-	      var array = str.split('.');
-	      var idx = 0;
+	      var tmpArr = str.split('.');
+	      var tmpIdx = 0;
 	      if (arguments.length > 1) {
-	        for (; idx < array.length - 1; idx++) {
-	          if (rtn[array[idx]] === undefined) {
-	            rtn[array[idx]] = {};
+	        for (; tmpIdx < tmpArr.length - 1; tmpIdx++) {
+	          if (rtn[tmpArr[tmpIdx]] === undefined) {
+	            rtn[tmpArr[tmpIdx]] = {};
 	          }
-	          rtn = rtn[array[idx]];
+	          rtn = rtn[tmpArr[tmpIdx]];
 	        }
 	        if (rtn) {
-	          rtn[array[idx]] = val;
+	          rtn[tmpArr[tmpIdx]] = val;
 	        }
 	      } else {
-	        for (; idx < array.length; idx++) {
-	          rtn = rtn[array[idx]];
+	        for (; tmpIdx < tmpArr.length; tmpIdx++) {
+	          rtn = rtn[tmpArr[tmpIdx]];
 	          if (rtn === undefined) {
 	            break;
 	          }
@@ -259,9 +291,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    enumerable: false,
 	    configurable: true,
 	    value: function value() {
-	      return Object.keys(this).map(function (key) {
-	        return this[key];
-	      }.bind(this));
+	      var _this6 = this;
+
+	      return Object.keys(this).map(function ($key) {
+	        return _this6[$key];
+	      });
 	    }
 	  });
 	}
@@ -273,8 +307,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	if (!String.prototype.skCurrencyFmt) {
 	  String.prototype.skCurrencyFmt = function (fraction) {
 	    fraction = fraction > 0 && fraction <= 20 ? fraction : 2;
-	    var array = (parseFloat(this.replace(/[^\d\.-]/g, '')).toFixed(fraction) + '').split('.');
-	    return array[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '.' + array[1];
+	    var tmpArr = (parseFloat(this.replace(/[^\d\.-]/g, '')).toFixed(fraction) + '').split('.');
+	    return tmpArr[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '.' + tmpArr[1];
 	  };
 	}
 	if (!String.prototype.skEmpty) {
@@ -284,16 +318,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	if (!String.prototype.skFmt) {
 	  String.prototype.skFmt = function (o) {
-	    return this.replace(/(\$\{\w+(\.\w+)*\})/g, function (matched) {
+	    return this.replace(/(\$\{\w+(\.\w+)*\})/g, function ($matched) {
 	      ///(\{\w+\.\})/g
-	      return o.skVal(matched.replace('${', '').replace('}', ''));
+	      return o.skVal($matched.replace('${', '').replace('}', ''));
 	    });
 	  };
 	}
 	if (!String.prototype.skFmtArr) {
 	  String.prototype.skFmtArr = function (a) {
-	    return this.replace(/\$(\d+)/g, function (_, m) {
-	      return a[--m];
+	    return this.replace(/\$(\d+)/g, function ($_, $m) {
+	      return a[--$m];
 	    });
 	  };
 	}
@@ -355,8 +389,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        values[_key2] = arguments[_key2];
 	      }
 
-	      values.forEach(function (item) {
-	        rtn = rtn && _lodash2.default.isPlainObject(item);
+	      values.forEach(function ($item) {
+	        rtn = rtn && _lodash2.default.isPlainObject($item);
 	      });
 	      return rtn;
 	    }
@@ -416,12 +450,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var arr2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 	      var concat = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : SK.STR_OF_CHAR_DASH;
 
-	      var a1 = Array.isArray(arr1) ? arr1 : [arr1];
-	      var a2 = Array.isArray(arr2) ? arr2 : [arr2];
+	      var tmpArr1 = Array.isArray(arr1) ? arr1 : [arr1];
+	      var tmpArr2 = Array.isArray(arr2) ? arr2 : [arr2];
 	      var rtn = [];
-	      a1.forEach(function (ele1) {
-	        a2.forEach(function (ele2) {
-	          rtn.push(ele1 + concat + ele2);
+	      tmpArr1.forEach(function ($ele1) {
+	        tmpArr2.forEach(function ($ele2) {
+	          rtn.push($ele1 + concat + $ele2);
 	        });
 	      });
 	      return rtn.length === 1 ? rtn[0] : rtn;
@@ -543,10 +577,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'upperWordsFirstChar',
 	    value: function upperWordsFirstChar(words) {
-	      return _lodash2.default.toString(words).replace(/\s[a-z]/g, function ($1) {
-	        return $1.toUpperCase();
-	      }).replace(/^[a-z]/, function ($1) {
-	        return $1.toUpperCase();
+	      return _lodash2.default.toString(words).replace(/\s[a-z]/g, function ($11) {
+	        return $11.toUpperCase();
+	      }).replace(/^[a-z]/, function ($21) {
+	        return $21.toUpperCase();
 	      });
 	    }
 	  }]);

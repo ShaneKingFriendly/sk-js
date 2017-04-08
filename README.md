@@ -28,6 +28,10 @@ More to see [shaneking.org][].
 - [x] **SK.s4o(value, defaultValue = {})**: Safe plain object for value.
 - [x] **SK.s4s(value, defaultValue = '')**: Safe string for value.
 
+## Naming conventions
+- [x] **inner function parameter**:begin $, like $item
+- [x] **function variable**:begin tmp, like tmpVal
+
 ## Dependencies
 [![][versioneye img]][versioneye]
 

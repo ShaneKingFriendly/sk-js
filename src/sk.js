@@ -23,8 +23,8 @@ if (!Array.prototype.skArr) {
     configurable: true,
     value: function (recursive, keyFunc = _skKeyFunc) {
       let rtn = [];
-      this.forEach(function (item) {
-        rtn.push((recursive && (_.isArray(item) || _.isPlainObject(item))) ? item.skArr(recursive, keyFunc) : item);
+      this.forEach(($item) => {
+        rtn.push((recursive && (_.isArray($item) || _.isPlainObject($item))) ? $item.skArr(recursive, keyFunc) : $item);
       });
       return rtn;
     }
@@ -37,11 +37,11 @@ if (!Array.prototype.skFilter) {
     configurable: true,
     value: function (recursive, filterFunc) {
       let rtn = [];
-      this.forEach(function (item, index) {
-        if (_.isFunction(filterFunc) && filterFunc(index, item, this)) {
-          rtn.push((recursive && (_.isArray(item) || _.isPlainObject(item))) ? item.skFilter(recursive, filterFunc) : item)
+      this.forEach(($item, $index) => {
+        if (_.isFunction(filterFunc) && filterFunc($index, $item, this)) {
+          rtn.push((recursive && (_.isArray($item) || _.isPlainObject($item))) ? $item.skFilter(recursive, filterFunc) : $item)
         }
-      }.bind(this));
+      });
       return rtn;
     }
   });
@@ -57,13 +57,35 @@ if (!Array.prototype.skObj) {
     configurable: true,
     value: function (recursive, keyFunc = _skKeyFunc) {
       let rtn = {};
-      this.forEach(function (item, index) {
-        rtn[_.isFunction(keyFunc) ? keyFunc(index, item, this) : index] = (recursive && (_.isArray(item) || _.isPlainObject(item))) ? item.skObj(recursive, keyFunc) : item;
-      }.bind(this));
+      this.forEach(($item, $index) => {
+        rtn[_.isFunction(keyFunc) ? keyFunc($index, $item, this) : $index] = (recursive && (_.isArray($item) || _.isPlainObject($item))) ? $item.skObj(recursive, keyFunc) : $item;
+      });
       return rtn;
     }
   });
 }
+/**
+ * @example
+ * [1,2,3].skRmv(2) -> [1,3]
+ */
+if (!Array.prototype.skRmv) {
+  Object.defineProperty(Array.prototype, 'skRmv', {
+    writable: true,
+    enumerable: false,
+    configurable: true,
+    value: function (item) {
+      let tmpIdx = this.indexOf(item);
+      if (tmpIdx > -1) {
+        this.splice(tmpIdx, 1);
+      }
+      return this;
+    }
+  });
+}
+/**
+ * @example
+ * (987654.321).skCurrencyFmt(2) -> 987,654.32
+ */
 if (!Number.prototype.skCurrencyFmt) {
   Number.prototype.skCurrencyFmt = function (fraction) {
     return String(this).skCurrencyFmt(fraction);
@@ -81,15 +103,15 @@ if (!Object.prototype.skArr) {
     value: function (recursive, keyFunc = _skKeyFunc) {
       let rtnArr = [];
       let rtnObj = {};
-      Object.keys(this).forEach(function (key) {
-        let value = this[key];
-        let rtn = (recursive && (_.isPlainObject(value) || _.isArray(value))) ? value.skArr(recursive, keyFunc) : value;
+      Object.keys(this).forEach(($key) => {
+        let tmpVal = this[$key];
+        let rtn = (recursive && (_.isPlainObject(tmpVal) || _.isArray(tmpVal))) ? tmpVal.skArr(recursive, keyFunc) : tmpVal;
 
-        rtnObj[key] = rtn;
-        if (_.isFunction(keyFunc) && keyFunc(key, value, this)) {
+        rtnObj[$key] = rtn;
+        if (_.isFunction(keyFunc) && keyFunc($key, tmpVal, this)) {
           rtnArr.push(rtn);
         }
-      }.bind(this));
+      });
       return Object.keys(rtnObj).length === rtnArr.length ? rtnArr : rtnObj;
     }
   });
@@ -111,12 +133,12 @@ if (!Object.prototype.skFilter) {
     configurable: true,
     value: function (recursive, filterFunc) {
       let rtn = {};
-      Object.keys(this).forEach(function (key) {
-        let value = this[key];
-        if (_.isFunction(filterFunc) && filterFunc(key, value, this)) {
-          rtn[key] = (recursive && (_.isArray(value) || _.isPlainObject(value))) ? value.skFilter(recursive, filterFunc) : value;
+      Object.keys(this).forEach(($key) => {
+        let tmpVal = this[$key];
+        if (_.isFunction(filterFunc) && filterFunc($key, tmpVal, this)) {
+          rtn[$key] = (recursive && (_.isArray(tmpVal) || _.isPlainObject(tmpVal))) ? tmpVal.skFilter(recursive, filterFunc) : tmpVal;
         }
-      }.bind(this));
+      });
       return rtn;
     }
   });
@@ -132,10 +154,10 @@ if (!Object.prototype.skObj) {
     configurable: true,
     value: function (recursive, keyFunc = _skKeyFunc) {
       let rtn = {};
-      Object.keys(this).forEach(function (key) {
-        let value = this[key];
-        rtn[key] = (recursive && (_.isArray(value) || _.isPlainObject(value))) ? value.skObj(recursive, keyFunc) : value;
-      }.bind(this));
+      Object.keys(this).forEach(($key) => {
+        let tmpVal = this[$key];
+        rtn[$key] = (recursive && (_.isArray(tmpVal) || _.isPlainObject(tmpVal))) ? tmpVal.skObj(recursive, keyFunc) : tmpVal;
+      });
       return rtn;
     }
   });
@@ -147,21 +169,21 @@ if (!Object.prototype.skVal) {
     configurable: true,
     value: function (str, val) {
       let rtn = this;
-      let array = str.split('.');
-      let idx = 0;
+      let tmpArr = str.split('.');
+      let tmpIdx = 0;
       if (arguments.length > 1) {
-        for (; idx < array.length - 1; idx++) {
-          if (rtn[array[idx]] === undefined) {
-            rtn[array[idx]] = {};
+        for (; tmpIdx < tmpArr.length - 1; tmpIdx++) {
+          if (rtn[tmpArr[tmpIdx]] === undefined) {
+            rtn[tmpArr[tmpIdx]] = {};
           }
-          rtn = rtn[array[idx]];
+          rtn = rtn[tmpArr[tmpIdx]];
         }
         if (rtn) {
-          rtn[array[idx]] = val;
+          rtn[tmpArr[tmpIdx]] = val;
         }
       } else {
-        for (; idx < array.length; idx++) {
-          rtn = rtn[array[idx]];
+        for (; tmpIdx < tmpArr.length; tmpIdx++) {
+          rtn = rtn[tmpArr[tmpIdx]];
           if (rtn === undefined) {
             break;
           }
@@ -177,9 +199,9 @@ if (!Object.prototype.skVals) {
     enumerable: false,
     configurable: true,
     value: function () {
-      return Object.keys(this).map(function (key) {
-        return this[key];
-      }.bind(this));
+      return Object.keys(this).map(($key) => {
+        return this[$key];
+      });
     }
   });
 }
@@ -191,8 +213,8 @@ if (!String.prototype.skBlank) {
 if (!String.prototype.skCurrencyFmt) {
   String.prototype.skCurrencyFmt = function (fraction) {
     fraction = fraction > 0 && fraction <= 20 ? fraction : 2;
-    let array = (parseFloat(this.replace(/[^\d\.-]/g, '')).toFixed(fraction) + '').split('.');
-    return array[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '.' + array[1];
+    let tmpArr = (parseFloat(this.replace(/[^\d\.-]/g, '')).toFixed(fraction) + '').split('.');
+    return tmpArr[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '.' + tmpArr[1];
   };
 }
 if (!String.prototype.skEmpty) {
@@ -202,15 +224,15 @@ if (!String.prototype.skEmpty) {
 }
 if (!String.prototype.skFmt) {
   String.prototype.skFmt = function (o) {
-    return this.replace(/(\$\{\w+(\.\w+)*\})/g, function (matched) {///(\{\w+\.\})/g
-      return o.skVal(matched.replace('${', '').replace('}', ''));
+    return this.replace(/(\$\{\w+(\.\w+)*\})/g, ($matched) => {///(\{\w+\.\})/g
+      return o.skVal($matched.replace('${', '').replace('}', ''));
     });
   };
 }
 if (!String.prototype.skFmtArr) {
   String.prototype.skFmtArr = function (a) {
-    return this.replace(/\$(\d+)/g, function (_, m) {
-      return a[--m];
+    return this.replace(/\$(\d+)/g, ($_, $m) => {
+      return a[--$m];
     });
   };
 }
@@ -317,8 +339,8 @@ export default class SK {
    */
   static arePlainObject(...values) {
     let rtn = true;
-    values.forEach(function (item) {
-      rtn = rtn && _.isPlainObject(item);
+    values.forEach(($item) => {
+      rtn = rtn && _.isPlainObject($item);
     });
     return rtn;
   }
@@ -364,12 +386,12 @@ export default class SK {
    * descartes('alert','link','-');//'alert-link'
    */
   static descartes(arr1 = [], arr2 = [], concat = SK.STR_OF_CHAR_DASH) {
-    let a1 = Array.isArray(arr1) ? arr1 : [arr1];
-    let a2 = Array.isArray(arr2) ? arr2 : [arr2];
+    let tmpArr1 = Array.isArray(arr1) ? arr1 : [arr1];
+    let tmpArr2 = Array.isArray(arr2) ? arr2 : [arr2];
     let rtn = [];
-    a1.forEach(function (ele1) {
-      a2.forEach(function (ele2) {
-        rtn.push(ele1 + concat + ele2);
+    tmpArr1.forEach(($ele1) => {
+      tmpArr2.forEach(($ele2) => {
+        rtn.push($ele1 + concat + $ele2);
       })
     });
     return rtn.length === 1 ? rtn[0] : rtn;
@@ -443,7 +465,7 @@ export default class SK {
    * upperWordFirstChar('list');//List
    */
   static upperWordFirstChar(word) {
-    return _.toString(word).replace(/(\w)/, function ($1) {
+    return _.toString(word).replace(/(\w)/, ($1) => {
       return $1.toUpperCase();
     });
   }
@@ -455,10 +477,10 @@ export default class SK {
    * upperWordsFirstChar('xi nAn shi you xUe yuan china people');//Xi NAn Shi You XUe Yuan China People
    */
   static upperWordsFirstChar(words) {
-    return _.toString(words).replace(/\s[a-z]/g, function ($1) {
-      return $1.toUpperCase();
-    }).replace(/^[a-z]/, function ($1) {
-      return $1.toUpperCase();
+    return _.toString(words).replace(/\s[a-z]/g, ($11) => {
+      return $11.toUpperCase();
+    }).replace(/^[a-z]/, ($21) => {
+      return $21.toUpperCase();
     })
   }
 
