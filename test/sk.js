@@ -222,6 +222,73 @@ describe('SK', () => {
       assert.equal(SK.descartes('alert', 'link', '-'), 'alert-link');
     });
   });
+  describe('SK.s4a', () => {
+    it('array return array', () => {
+      assert.deepEqual(SK.s4a(['a', 1, 'b', 2]), ['a', 1, 'b', 2]);
+    });
+    it('unarray return array', () => {
+      inValidValueArray.forEach(function (element) {
+        assert.deepEqual(SK.s4a(element), []);
+      });
+    });
+  });
+  describe('SK.s4b', () => {
+    it('true return true', () => {
+      assert.equal(SK.s4b(true), true);
+      assert.equal(SK.s4b(false), false);
+    });
+    it('other return false', () => {
+      assert.equal(SK.s4b('true'), false);
+      assert.equal(SK.s4b('false'), false);
+      assert.equal(SK.s4b('everything'), false);
+      assert.equal(SK.s4b(''), false);
+      inValidValueArray.forEach(function (element) {
+        assert.equal(SK.s4b(element), false);
+      });
+    });
+  });
+  describe('SK.s4d', () => {
+    let date = new Date();
+    it('date return date', () => {
+      assert.equal(SK.s4d(date), date);
+    });
+    it('should return false', () => {
+      inValidValueArray.forEach(function (element) {
+        assert.equal(SK.s4d(element, date), date);
+      });
+    });
+  });
+  describe('SK.s4n', () => {
+    it('number return number', () => {
+      assert.equal(SK.s4n(1), 1);
+    });
+    it('other return zero', () => {
+      assert.equal(SK.s4n('1'), 1);
+      inValidValueArray.forEach(function (element) {
+        assert.equal(SK.s4n(element), 0);
+      });
+    });
+  });
+  describe('SK.s4o', () => {
+    it('object return object', () => {
+      assert.deepEqual(SK.s4o({a: 1, b: 2}), {a: 1, b: 2});
+    });
+    it('other return object', () => {
+      inValidValueArray.forEach(function (element) {
+        assert.deepEqual(SK.s4o(element), {});
+      });
+    });
+  });
+  describe('SK.s4s', () => {
+    it('string return string', () => {
+      assert.equal(SK.s4s('s'), 's');
+    });
+    it('other return empty', () => {
+      assert.equal(SK.s4s(null), '');
+      assert.equal(SK.s4s(undefined, 'UNDEFINED'), 'UNDEFINED');
+      assert.equal(SK.s4s(NaN), '');
+    });
+  });
   describe('SK.upperWordFirstChar', () => {
     it('path -> Path', () => {
       assert.equal(SK.upperWordFirstChar('path'), 'Path');
