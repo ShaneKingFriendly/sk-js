@@ -454,7 +454,7 @@ export default class SK {
    * @returns {string}
    */
   static s4s(value, defaultValue = '') {
-    return (_.isString(value) || _.isFinite(value)) ? String(value) : defaultValue;
+    return (_.isBoolean(value) || _.isFinite(value) || _.isString(value)) ? String(value) : defaultValue;
   }
 
   /**

@@ -548,7 +548,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function s4s(value) {
 	      var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
-	      return _lodash2.default.isString(value) || _lodash2.default.isFinite(value) ? String(value) : defaultValue;
+	      return _lodash2.default.isBoolean(value) || _lodash2.default.isFinite(value) || _lodash2.default.isString(value) ? String(value) : defaultValue;
 	    }
 
 	    /**
