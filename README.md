@@ -5,6 +5,7 @@ More to see [shaneking.org][].
 - [x] **Array.prototype.skArr(recursive, keyFunc)**: [2,{skIdx0:3,skIdx1:[4,{skIdx0:5,skIdx1:[]}]}] -> [2,[3,[4,[5,[]]]]]
 - [x] **Array.prototype.skFilter(recursive, filterFunc)**: filter recursive
 - [x] **Array.prototype.skObj(recursive, keyFunc)**: [1,{a:2,b:[3,{c:4,d:[5,{}]}]}] -> {skIdx0:1,skIdx1:{a:2,b:{skIdx0:3,skIdx1:{c:4,d:{skIdx0:5,skIdx1:{}}}}}}
+- [x] **Array.prototype.skRmv(item)**: [1,2,3].skRmv(2) -> [1,3]
 - [x] **Number.prototype.skCurrencyFmt(fraction)**: (-123456.789).skCurrencyFmt(2) -> '-123,456.79'
 - [x] **Object.prototype.skArr(recursive, keyFunc)**: {skIdx0:1,skIdx1:[2,{skIdx0:3,skIdx1:[4,{skIdx0:5,skIdx1:[]}]}]} -> [1,[2,[3,[4,[5,[]]]]]]
 - [x] **Object.prototype.skFilter(recursive, filterFunc)**: filter recursive
@@ -21,12 +22,6 @@ More to see [shaneking.org][].
 ## Functions
 - [x] **SK.$(env, $)**: New or get namespace object. eg. `var $sk = SK.$(window, '$sk')`
 - [x] **SK.assign()**: Like lodash assign, but deep while object node.
-- [x] **SK.s4a(value, defaultValue = [])**: Safe array for value.
-- [x] **SK.s4b(value, defaultValue = false)**: Safe boolean for value.
-- [x] **SK.s4d(value, defaultValue = new Date())**: Safe date for value.
-- [x] **SK.s4n(value, defaultValue = 0)**: Safe finite number for value.
-- [x] **SK.s4o(value, defaultValue = {})**: Safe plain object for value.
-- [x] **SK.s4s(value, defaultValue = '')**: Safe string for value.
 
 ## Naming conventions
 - [x] **inner function parameter**:begin $, like $item

@@ -398,66 +398,6 @@ export default class SK {
   }
 
   /**
-   * Safe array for value.
-   * @param {*} value
-   * @param {Array} defaultValue
-   * @returns {Array}
-   */
-  static s4a(value, defaultValue = []) {
-    return _.isArray(value) ? value : defaultValue;
-  }
-
-  /**
-   * Safe boolean for value.
-   * @param {*} value
-   * @param {boolean} defaultValue
-   * @returns {boolean}
-   */
-  static s4b(value, defaultValue = false) {
-    return _.isBoolean(value) ? value : defaultValue;
-  }
-
-  /**
-   * Safe date for value.
-   * @param {*} value
-   * @param {Date} defaultValue
-   * @returns {Date}
-   */
-  static s4d(value, defaultValue = new Date()) {
-    return _.isDate(value) ? value : defaultValue;
-  }
-
-  /**
-   * Safe finite number for value.
-   * @param {*} value
-   * @param {number} defaultValue
-   * @returns {number}
-   */
-  static s4n(value, defaultValue = 0) {
-    return _.isFinite(value) ? value : defaultValue;
-  }
-
-  /**
-   * Safe plain object for value.
-   * @param {*} value
-   * @param {Object} defaultValue
-   * @returns {{}}
-   */
-  static s4o(value, defaultValue = {}) {
-    return _.isPlainObject(value) ? value : defaultValue;
-  }
-
-  /**
-   * Safe string for value.
-   * @param {*} value
-   * @param {string} defaultValue
-   * @returns {string}
-   */
-  static s4s(value, defaultValue = '') {
-    return _.isString(value) ? value : defaultValue;
-  }
-
-  /**
    * @param word
    * @returns {string}
    * @example
