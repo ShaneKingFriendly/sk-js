@@ -309,13 +309,14 @@ export default class SK {
   /**
    * New or get namespace object.
    *
-   * @param {Object} env window(browser) or global(nodejs) etc.
    * @param {string} $ namespace
+   * @param {Object} env window(browser) or global(nodejs) etc.
+   * @param {Object} init value
    * @returns {*} Returns the new assigner function.
    */
-  static $(env = SK.DEFAULT_ENV, $ = SK.DEFAULT_DOMAIN) {
+  static $($ = SK.DEFAULT_DOMAIN, env = SK.DEFAULT_ENV, initVal = {}) {
     if (!env[$]) {
-      env[$] = {};
+      env[$] = initVal;
     }
     return env[$];
   }
