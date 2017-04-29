@@ -183,7 +183,7 @@ describe('SK', () => {
   describe('SK.$', () => {
     it('equals self', () => {
       let sk$1 = SK.$(testData);
-      let sk$2 = SK.$(testData, 'sk$');
+      let sk$2 = SK.$(testData);
       assert.deepEqual(sk$1, sk$2);
     });
     it('equals value', () => {

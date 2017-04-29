@@ -20,7 +20,7 @@ More to see [shaneking.org][].
 
 
 ## Functions
-- [x] **SK.$(env, $)**: New or get namespace object. eg. `var $sk = SK.$(window, '$sk')`
+- [x] **SK.$($, initVal, env)**: New or get namespace object. eg. `var $sk = SK.$('$sk', {}, window)`
 - [x] **SK.assign()**: Like lodash assign, but deep while object node.
 - [x] **SK.s4a(value, defaultValue = [])**: Safe array for value.
 - [x] **SK.s4b(value, defaultValue = false)**: Safe boolean for value.

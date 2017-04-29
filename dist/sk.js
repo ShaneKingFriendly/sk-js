@@ -345,15 +345,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * New or get namespace object.
 	     *
 	     * @param {string} $ namespace
-	     * @param {Object} env window(browser) or global(nodejs) etc.
 	     * @param {Object} init value
+	     * @param {Object} env window(browser) or global(nodejs) etc.
 	     * @returns {*} Returns the new assigner function.
 	     */
 	    value: function $() {
 	      var _$ = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : SK.DEFAULT_DOMAIN;
 
-	      var env = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : SK.DEFAULT_ENV;
-	      var initVal = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+	      var initVal = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+	      var env = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : SK.DEFAULT_ENV;
 
 	      if (!env[_$]) {
 	        env[_$] = initVal;
