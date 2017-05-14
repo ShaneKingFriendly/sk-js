@@ -85,6 +85,12 @@ describe('SK', () => {
       assert.deepEqual([1, 2, 3].skRmv(2), [1, 3]);
     });
   });
+  describe('Array.prototype.skToggle', () => {
+    it('default', () => {
+      assert.deepEqual([1, 2, 3].skToggle(2), [1, 3]);
+      assert.deepEqual([1, 3].skToggle(2), [1, 3, 2]);
+    });
+  });
   describe('Number.prototype.skCurrencyFmt', () => {
     it('+-', () => {
       assert.equal((-123456.789).skCurrencyFmt(2), '-123,456.79');

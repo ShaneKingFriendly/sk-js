@@ -84,6 +84,27 @@ if (!Array.prototype.skRmv) {
 }
 /**
  * @example
+ * [1,2,3].skToggle(2) -> [1,3]
+ * [1,3].skToggle(2) -> [1,3,2]
+ */
+if (!Array.prototype.skToggle) {
+  Object.defineProperty(Array.prototype, 'skToggle', {
+    writable: true,
+    enumerable: false,
+    configurable: true,
+    value: function (item) {
+      let tmpIdx = this.indexOf(item);
+      if (tmpIdx > -1) {
+        this.splice(tmpIdx, 1);
+      }else {
+        this.push(item);
+      }
+      return this;
+    }
+  });
+}
+/**
+ * @example
  * (987654.321).skCurrencyFmt(2) -> 987,654.32
  */
 if (!Number.prototype.skCurrencyFmt) {
