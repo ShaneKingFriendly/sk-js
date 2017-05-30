@@ -338,7 +338,7 @@ export default class SK {
   static $($ = SK.DEFAULT_DOMAIN, initVal = {}, env = SK.DEFAULT_ENV) {
     if (!env[$]) {
       env[$] = initVal;
-    }else if (_.isEmpty(initVal)) {
+    }else if (!_.isEmpty(initVal)) {
       env[$] = initVal;
     }
     return env[$];
