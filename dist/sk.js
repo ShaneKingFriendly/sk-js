@@ -378,6 +378,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      if (!env[_$]) {
 	        env[_$] = initVal;
+	      } else if (!initVal) {
+	        env[_$] = initVal;
 	      }
 	      return env[_$];
 	    }
