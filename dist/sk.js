@@ -378,7 +378,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      if (!env[_$]) {
 	        env[_$] = initVal;
-	      } else if (!initVal) {
+	      } else if (_lodash2.default.isEmpty(initVal)) {
 	        env[_$] = initVal;
 	      }
 	      return env[_$];
