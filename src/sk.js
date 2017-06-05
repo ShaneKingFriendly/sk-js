@@ -325,12 +325,15 @@ export default class SK {
   static CHAR_VARIES = '∝';
   static CHAR_VERTICAL = '|';
 
+  static CONTEXT_PATH = '';
+  static COOKIE_LANGUAGE = 'language';
+
   static DEFAULT_DOMAIN = '$sk';
   static DEFAULT_ENV = {};
-
-  static COOKIE_LANGUAGE = 'language';
   static DEFAULT_LANGUAGE = 'en_US';
-  static CONTEXT_PATH = '';
+  static DEFAULT_MOMENT_DATE = 'YYYY-MM-DD';
+  static DEFAULT_MOMENT_DATETIME = 'YYYY-MM-DD HH:mm:ss';
+  static DEFAULT_MOMENT_TIME = 'HH:mm:ss';
 
   /**
    * New or get namespace object.

@@ -849,11 +849,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	SK.CHAR_UNION = '∪';
 	SK.CHAR_VARIES = '∝';
 	SK.CHAR_VERTICAL = '|';
+	SK.CONTEXT_PATH = '';
+	SK.COOKIE_LANGUAGE = 'language';
 	SK.DEFAULT_DOMAIN = '$sk';
 	SK.DEFAULT_ENV = {};
-	SK.COOKIE_LANGUAGE = 'language';
 	SK.DEFAULT_LANGUAGE = 'en_US';
-	SK.CONTEXT_PATH = '';
+	SK.DEFAULT_MOMENT_DATE = 'YYYY-MM-DD';
+	SK.DEFAULT_MOMENT_DATETIME = 'YYYY-MM-DD HH:mm:ss';
+	SK.DEFAULT_MOMENT_TIME = 'HH:mm:ss';
 	exports.default = SK;
 	module.exports = exports['default'];
 
