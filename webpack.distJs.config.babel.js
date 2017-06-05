@@ -18,6 +18,14 @@ export default {
         commonjs: 'lodash',
         amd: 'lodash'
       }
+    },
+    {
+      'js-cookie': {
+        root: 'Cookies',
+        commonjs2: 'Cookies',
+        commonjs: 'Cookies',
+        amd: 'Cookies'
+      }
     }
   ],
 

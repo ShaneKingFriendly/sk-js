@@ -4,6 +4,23 @@ import _ from 'lodash';
 import assert from 'assert';
 import SK from './../src/sk';
 
+// let jsdom = require('jsdom').jsdom;
+// global.document = jsdom('<html></html>', {});
+// global.window = document.defaultView;
+// function propagateToGlobal(window) {
+//   for (var key in window) {
+//     if (!window.hasOwnProperty(key)) {
+//       continue;
+//     }
+//     if (key in global) {
+//       continue;
+//     }
+//     global[key] = window[key];
+//
+//   }
+// }
+// propagateToGlobal(window);
+
 describe('SK', () => {
 
   let testData = {};
@@ -220,12 +237,35 @@ describe('SK', () => {
       assert.deepEqual(SK.assign(true, f1, f2), skRst);
     });
   });
+  describe('SK.appendParameter', () => {
+    it('not ?', () => {
+      assert.equal(SK.appendParameter('a','b','c'), 'a?b=c');
+    });
+    it('has ?', () => {
+      assert.equal(SK.appendParameter('a?1=2','b','c'), 'a?1=2&b=c');
+    });
+  });
   describe('SK.descartes', () => {
     it('array and array to array', () => {
       assert.deepEqual(SK.descartes(['alert', 'btn'], ['success', 'info']), ['alert-success', 'alert-info', 'btn-success', 'btn-info']);
     });
     it('string and string to string', () => {
       assert.equal(SK.descartes('alert', 'link', '-'), 'alert-link');
+    });
+  });
+  describe('SK.getCurrentLanguage', () => {
+    it('default', () => {
+      assert.equal(SK.getCurrentLanguage(), SK.DEFAULT_LANGUAGE);
+    });
+  });
+  describe('SK.getSubPaths', () => {
+    it('1', () => {
+      assert.deepEqual(SK.getSubPaths('a/b'), ['/','/a/','/a/b/']);
+    });
+  });
+  describe('SK.getValidPath', () => {
+    it('1', () => {
+      assert.equal(SK.getValidPath('a/b'), '/a/b/');
     });
   });
   describe('SK.s4a', () => {

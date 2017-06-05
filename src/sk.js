@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import Cookies from 'js-cookie';
 
 /**
  * default of key function
@@ -96,7 +97,7 @@ if (!Array.prototype.skToggle) {
       let tmpIdx = this.indexOf(item);
       if (tmpIdx > -1) {
         this.splice(tmpIdx, 1);
-      }else {
+      } else {
         this.push(item);
       }
       return this;
@@ -259,86 +260,90 @@ if (!String.prototype.skFmtArr) {
 }
 
 export default class SK {
-  static STR_OF_CHAR_AMPERSAND = '&';
-  static STR_OF_CHAR_ANGLE = '∠';
-  static STR_OF_CHAR_APPROXIMATELY = '≈';
-  static STR_OF_CHAR_ARROW = '→';
-  static STR_OF_CHAR_ASTERISK = '*';
-  static STR_OF_CHAR_BACKSLASH = '\\';
-  static STR_OF_CHAR_CELSIUS = '℃';
-  static STR_OF_CHAR_CIRCLE = '⊙';
-  static STR_OF_CHAR_CIRCUMFERENCE = '○';
-  static STR_OF_CHAR_CLOSE_BRACE = '}';
-  static STR_OF_CHAR_CLOSE_BRACKET = ']';
-  static STR_OF_CHAR_CLOSE_PARENTHESIS = ')';
-  static STR_OF_CHAR_COLON = ':';
-  static STR_OF_CHAR_COMMA = ',';
-  static STR_OF_CHAR_DASH = '-';
-  static STR_OF_CHAR_DEGREE = '°';
-  static STR_OF_CHAR_DIVIDE = '÷';
-  static STR_OF_CHAR_DOT = '.';
-  static STR_OF_CHAR_DOUBLE_QUOTATION = '"';
-  static STR_OF_CHAR_EQUAL = '=';
-  static STR_OF_CHAR_EQUAL_APPROXIMATELY = '≌';
-  static STR_OF_CHAR_EQUIVALENT = '≡';
-  static STR_OF_CHAR_EXCLAMATION = '!';
-  static STR_OF_CHAR_HENCE = '∴';
-  static STR_OF_CHAR_INFINITY = '∞';
-  static STR_OF_CHAR_INTEGRAL = '∫';
-  static STR_OF_CHAR_INTERSECTION = '∩';
-  static STR_OF_CHAR_LESS = '<';
-  static STR_OF_CHAR_LESS_EQUAL = '≤';
-  static STR_OF_CHAR_MINUS = '-';
-  static STR_OF_CHAR_MINUTE = '′';
-  static STR_OF_CHAR_MULTIPLY = '×';
-  static STR_OF_CHAR_MORE = '>';
-  static STR_OF_CHAR_MORE_EQUAL = '≥';
-  static STR_OF_CHAR_NOT_EQUAL = '≠';
-  static STR_OF_CHAR_NOT_LESS = '≮';
-  static STR_OF_CHAR_NOT_MORE = '≯';
-  static STR_OF_CHAR_OPEN_BRACE = '{';
-  static STR_OF_CHAR_OPEN_BRACKET = '[';
-  static STR_OF_CHAR_OPEN_PARENTHESIS = '(';
-  static STR_OF_CHAR_PARALLEL = '‖';
-  static STR_OF_CHAR_PERCENT = '%';
-  static STR_OF_CHAR_PERMILL = '‰';
-  static STR_OF_CHAR_PERPENDICULAR = '⊥';
-  static STR_OF_CHAR_PI = 'π';
-  static STR_OF_CHAR_PLUS = '+';
-  static STR_OF_CHAR_PLUS_MINUS = '±';
-  static STR_OF_CHAR_POUND = '#';
-  static STR_OF_CHAR_PROPORTION = '∷';
-  static STR_OF_CHAR_QUESTION = '?';
-  static STR_OF_CHAR_SECOND = '〃';
-  static STR_OF_CHAR_SECTION = '§';
-  static STR_OF_CHAR_SEMICIRCLE = '⌒';
-  static STR_OF_CHAR_SEMICOLON = ';';
-  static STR_OF_CHAR_SIGMA = '∑';
-  static STR_OF_CHAR_SINCE = '∵';
-  static STR_OF_CHAR_SINGLE_QUOTATION = '\'';
-  static STR_OF_CHAR_SLASH = '/';
-  static STR_OF_CHAR_SQUARE = '√';
-  static STR_OF_CHAR_TRIANGLE = '△';
-  static STR_OF_CHAR_UNDERLINE = '_';
-  static STR_OF_CHAR_UNION = '∪';
-  static STR_OF_CHAR_VARIES = '∝';
-  static STR_OF_CHAR_VERTICAL = '|';
+  static CHAR_AMPERSAND = '&';
+  static CHAR_ANGLE = '∠';
+  static CHAR_APPROXIMATELY = '≈';
+  static CHAR_ARROW = '→';
+  static CHAR_ASTERISK = '*';
+  static CHAR_BACKSLASH = '\\';
+  static CHAR_CELSIUS = '℃';
+  static CHAR_CIRCLE = '⊙';
+  static CHAR_CIRCUMFERENCE = '○';
+  static CHAR_CLOSE_BRACE = '}';
+  static CHAR_CLOSE_BRACKET = ']';
+  static CHAR_CLOSE_PARENTHESIS = ')';
+  static CHAR_COLON = ':';
+  static CHAR_COMMA = ',';
+  static CHAR_DASH = '-';
+  static CHAR_DEGREE = '°';
+  static CHAR_DIVIDE = '÷';
+  static CHAR_DOT = '.';
+  static CHAR_DOUBLE_QUOTATION = '"';
+  static CHAR_EQUAL = '=';
+  static CHAR_EQUAL_APPROXIMATELY = '≌';
+  static CHAR_EQUIVALENT = '≡';
+  static CHAR_EXCLAMATION = '!';
+  static CHAR_HENCE = '∴';
+  static CHAR_INFINITY = '∞';
+  static CHAR_INTEGRAL = '∫';
+  static CHAR_INTERSECTION = '∩';
+  static CHAR_LESS = '<';
+  static CHAR_LESS_EQUAL = '≤';
+  static CHAR_MINUS = '-';
+  static CHAR_MINUTE = '′';
+  static CHAR_MULTIPLY = '×';
+  static CHAR_MORE = '>';
+  static CHAR_MORE_EQUAL = '≥';
+  static CHAR_NOT_EQUAL = '≠';
+  static CHAR_NOT_LESS = '≮';
+  static CHAR_NOT_MORE = '≯';
+  static CHAR_OPEN_BRACE = '{';
+  static CHAR_OPEN_BRACKET = '[';
+  static CHAR_OPEN_PARENTHESIS = '(';
+  static CHAR_PARALLEL = '‖';
+  static CHAR_PERCENT = '%';
+  static CHAR_PERMILL = '‰';
+  static CHAR_PERPENDICULAR = '⊥';
+  static CHAR_PI = 'π';
+  static CHAR_PLUS = '+';
+  static CHAR_PLUS_MINUS = '±';
+  static CHAR_POUND = '#';
+  static CHAR_PROPORTION = '∷';
+  static CHAR_QUESTION = '?';
+  static CHAR_SECOND = '〃';
+  static CHAR_SECTION = '§';
+  static CHAR_SEMICIRCLE = '⌒';
+  static CHAR_SEMICOLON = ';';
+  static CHAR_SIGMA = '∑';
+  static CHAR_SINCE = '∵';
+  static CHAR_SINGLE_QUOTATION = '\'';
+  static CHAR_SLASH = '/';
+  static CHAR_SQUARE = '√';
+  static CHAR_TRIANGLE = '△';
+  static CHAR_UNDERLINE = '_';
+  static CHAR_UNION = '∪';
+  static CHAR_VARIES = '∝';
+  static CHAR_VERTICAL = '|';
 
   static DEFAULT_DOMAIN = '$sk';
   static DEFAULT_ENV = {};
+
+  static COOKIE_LANGUAGE = 'language';
+  static DEFAULT_LANGUAGE = 'en_US';
+  static CONTEXT_PATH = '';
 
   /**
    * New or get namespace object.
    *
    * @param {string} $ namespace
-   * @param {Object} init value
+   * @param {Object} initVal init value
    * @param {Object} env window(browser) or global(nodejs) etc.
    * @returns {*} Returns the new assigner function.
    */
   static $($ = SK.DEFAULT_DOMAIN, initVal = {}, env = SK.DEFAULT_ENV) {
     if (!env[$]) {
       env[$] = initVal;
-    }else if (!_.isEmpty(initVal)) {
+    } else if (!_.isEmpty(initVal)) {
       env[$] = initVal;
     }
     return env[$];
@@ -353,6 +358,17 @@ export default class SK {
    */
   static _skAssignCustomizer(objValue, srcValue, key, object, source) {
     return SK.arePlainObject(objValue, srcValue, object, source) ? SK.assign(objValue, srcValue) : undefined;
+  }
+
+  /**
+   * Append parameter to url
+   * @param url
+   * @param param
+   * @param value
+   * @returns {string}
+   */
+  static appendParameter(url, param, value) {
+    return url + ((url.indexOf(SK.CHAR_QUESTION) == -1 ? SK.CHAR_QUESTION : SK.CHAR_AMPERSAND) + param + SK.CHAR_EQUAL + value);
   }
 
   /**
@@ -401,6 +417,21 @@ export default class SK {
   }
 
   /**
+   *
+   * @param key
+   * @param value
+   * @returns {*}
+   */
+  static cookies(key, value) {
+    if (arguments.length > 1) {
+      Cookies.remove(key);
+      return Cookies.set(key, value);
+    } else {
+      return Cookies.get(key);
+    }
+  }
+
+  /**
    * @param {Array|string} arr1
    * @param {Array|string} arr2
    * @param {string} concat
@@ -409,7 +440,7 @@ export default class SK {
    * descartes(['alert','btn'],['success','info']);//['alert-success','alert-info','btn-success','btn-info']
    * descartes('alert','link','-');//'alert-link'
    */
-  static descartes(arr1 = [], arr2 = [], concat = SK.STR_OF_CHAR_DASH) {
+  static descartes(arr1 = [], arr2 = [], concat = SK.CHAR_DASH) {
     let tmpArr1 = Array.isArray(arr1) ? arr1 : [arr1];
     let tmpArr2 = Array.isArray(arr2) ? arr2 : [arr2];
     let rtn = [];
@@ -419,6 +450,101 @@ export default class SK {
       })
     });
     return rtn.length === 1 ? rtn[0] : rtn;
+  }
+
+  /**
+   *
+   * @returns {string}
+   */
+  static getCurrentHref() {
+    return window.location.href;
+  }
+
+  static getCurrentLanguage() {
+    let language = SK.cookies(SK.COOKIE_LANGUAGE);
+    return language ? language : SK.DEFAULT_LANGUAGE;
+  }
+
+  /**
+   *
+   * @returns {string}
+   */
+  static getCurrentPath() {
+    var path = window.location.pathname;
+    path = path.substring(SK.CONTEXT_PATH.length, path.length);
+    path = _.endsWith(path, '.html') ? path.substring(0, path.length - 5) : path;
+    return path;
+  }
+
+  /**
+   *
+   * @returns {*}
+   */
+  static getCurrentSearch() {
+    return window.location.search;
+  }
+
+  /**
+   *
+   * @param param
+   * @param search
+   * @returns {*}
+   */
+  static getRequestParameter(param, search) {
+    search = search || SK.getCurrentSearch();
+    search = _.startsWith(search, SK.CHAR_QUESTION) ? search.slice(1) : search;
+    var reg = new RegExp('(^|&)' + param + '=([^&]*)(&|$)');
+    var r = window.location.search.substr(1).match(reg);
+    return r ? decodeURIComponent(r[2]) : undefined;
+  }
+
+  /**
+   *
+   * @param path
+   * @returns {string[]}
+   */
+  static getSubPaths(path) {
+    let rtn = ['/'];
+    path.split(SK.CHAR_SLASH).reduce((pre, cur) => {
+      if (SK.s4s(cur) === '') {
+        return pre;
+      } else {
+        let validPath = SK.getValidPath(pre + cur);
+        rtn.push(validPath);
+        return validPath;
+      }
+    }, '');
+    return rtn;
+  }
+
+  /**
+   *
+   * @param path
+   * @returns {string}
+   */
+  static getValidPath(path) {
+    return (_.startsWith(path, SK.CHAR_SLASH) ? '' : SK.CHAR_SLASH) + path + (_.endsWith(path, SK.CHAR_SLASH) ? '' : SK.CHAR_SLASH);
+  }
+
+  /**
+   *
+   * @param key
+   * @param value
+   */
+  static local(key, value) {
+    if (arguments.length > 1) {
+      return localStorage.setItem(key, value);
+    } else {
+      return localStorage.getItem(key);
+    }
+  }
+
+  /**
+   *
+   * @param url
+   */
+  static redirect(url) {
+    window.location.href = url;
   }
 
   /**
@@ -482,6 +608,19 @@ export default class SK {
   }
 
   /**
+   *
+   * @param key
+   * @param value
+   */
+  static session(key, value) {
+    if (arguments.length > 1) {
+      return sessionStorage.setItem(key, value);
+    } else {
+      return sessionStorage.getItem(key);
+    }
+  }
+
+  /**
    * @param word
    * @returns {string}
    * @example
@@ -507,6 +646,4 @@ export default class SK {
       return $21.toUpperCase();
     })
   }
-
-
 }

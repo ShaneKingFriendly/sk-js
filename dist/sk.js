@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("lodash"));
+		module.exports = factory(require("lodash"), require("Cookies"));
 	else if(typeof define === 'function' && define.amd)
-		define(["lodash"], factory);
+		define(["lodash", "Cookies"], factory);
 	else if(typeof exports === 'object')
-		exports["SK"] = factory(require("lodash"));
+		exports["SK"] = factory(require("lodash"), require("Cookies"));
 	else
-		root["SK"] = factory(root["_"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
+		root["SK"] = factory(root["_"], root["Cookies"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -65,6 +65,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _lodash = __webpack_require__(1);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
+
+	var _jsCookie = __webpack_require__(2);
+
+	var _jsCookie2 = _interopRequireDefault(_jsCookie);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -366,7 +370,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * New or get namespace object.
 	     *
 	     * @param {string} $ namespace
-	     * @param {Object} init value
+	     * @param {Object} initVal init value
 	     * @param {Object} env window(browser) or global(nodejs) etc.
 	     * @returns {*} Returns the new assigner function.
 	     */
@@ -396,6 +400,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: '_skAssignCustomizer',
 	    value: function _skAssignCustomizer(objValue, srcValue, key, object, source) {
 	      return SK.arePlainObject(objValue, srcValue, object, source) ? SK.assign(objValue, srcValue) : undefined;
+	    }
+
+	    /**
+	     * Append parameter to url
+	     * @param url
+	     * @param param
+	     * @param value
+	     * @returns {string}
+	     */
+
+	  }, {
+	    key: 'appendParameter',
+	    value: function appendParameter(url, param, value) {
+	      return url + ((url.indexOf(SK.CHAR_QUESTION) == -1 ? SK.CHAR_QUESTION : SK.CHAR_AMPERSAND) + param + SK.CHAR_EQUAL + value);
 	    }
 
 	    /**
@@ -459,6 +477,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    /**
+	     *
+	     * @param key
+	     * @param value
+	     * @returns {*}
+	     */
+
+	  }, {
+	    key: 'cookies',
+	    value: function cookies(key, value) {
+	      if (arguments.length > 1) {
+	        _jsCookie2.default.remove(key);
+	        return _jsCookie2.default.set(key, value);
+	      } else {
+	        return _jsCookie2.default.get(key);
+	      }
+	    }
+
+	    /**
 	     * @param {Array|string} arr1
 	     * @param {Array|string} arr2
 	     * @param {string} concat
@@ -473,7 +509,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function descartes() {
 	      var arr1 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 	      var arr2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-	      var concat = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : SK.STR_OF_CHAR_DASH;
+	      var concat = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : SK.CHAR_DASH;
 
 	      var tmpArr1 = Array.isArray(arr1) ? arr1 : [arr1];
 	      var tmpArr2 = Array.isArray(arr2) ? arr2 : [arr2];
@@ -484,6 +520,126 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 	      });
 	      return rtn.length === 1 ? rtn[0] : rtn;
+	    }
+
+	    /**
+	     *
+	     * @returns {string}
+	     */
+
+	  }, {
+	    key: 'getCurrentHref',
+	    value: function getCurrentHref() {
+	      return window.location.href;
+	    }
+	  }, {
+	    key: 'getCurrentLanguage',
+	    value: function getCurrentLanguage() {
+	      var language = SK.cookies(SK.COOKIE_LANGUAGE);
+	      return language ? language : SK.DEFAULT_LANGUAGE;
+	    }
+
+	    /**
+	     *
+	     * @returns {string}
+	     */
+
+	  }, {
+	    key: 'getCurrentPath',
+	    value: function getCurrentPath() {
+	      var path = window.location.pathname;
+	      path = path.substring(SK.CONTEXT_PATH.length, path.length);
+	      path = _lodash2.default.endsWith(path, '.html') ? path.substring(0, path.length - 5) : path;
+	      return path;
+	    }
+
+	    /**
+	     *
+	     * @returns {*}
+	     */
+
+	  }, {
+	    key: 'getCurrentSearch',
+	    value: function getCurrentSearch() {
+	      return window.location.search;
+	    }
+
+	    /**
+	     *
+	     * @param param
+	     * @param search
+	     * @returns {*}
+	     */
+
+	  }, {
+	    key: 'getRequestParameter',
+	    value: function getRequestParameter(param, search) {
+	      search = search || SK.getCurrentSearch();
+	      search = _lodash2.default.startsWith(search, SK.CHAR_QUESTION) ? search.slice(1) : search;
+	      var reg = new RegExp('(^|&)' + param + '=([^&]*)(&|$)');
+	      var r = window.location.search.substr(1).match(reg);
+	      return r ? decodeURIComponent(r[2]) : undefined;
+	    }
+
+	    /**
+	     *
+	     * @param path
+	     * @returns {string[]}
+	     */
+
+	  }, {
+	    key: 'getSubPaths',
+	    value: function getSubPaths(path) {
+	      var rtn = ['/'];
+	      path.split(SK.CHAR_SLASH).reduce(function (pre, cur) {
+	        if (SK.s4s(cur) === '') {
+	          return pre;
+	        } else {
+	          var validPath = SK.getValidPath(pre + cur);
+	          rtn.push(validPath);
+	          return validPath;
+	        }
+	      }, '');
+	      return rtn;
+	    }
+
+	    /**
+	     *
+	     * @param path
+	     * @returns {string}
+	     */
+
+	  }, {
+	    key: 'getValidPath',
+	    value: function getValidPath(path) {
+	      return (_lodash2.default.startsWith(path, SK.CHAR_SLASH) ? '' : SK.CHAR_SLASH) + path + (_lodash2.default.endsWith(path, SK.CHAR_SLASH) ? '' : SK.CHAR_SLASH);
+	    }
+
+	    /**
+	     *
+	     * @param key
+	     * @param value
+	     */
+
+	  }, {
+	    key: 'local',
+	    value: function local(key, value) {
+	      if (arguments.length > 1) {
+	        return localStorage.setItem(key, value);
+	      } else {
+	        return localStorage.getItem(key);
+	      }
+	    }
+
+	    /**
+	     *
+	     * @param url
+	     */
+
+	  }, {
+	    key: 'redirect',
+	    value: function redirect(url) {
+	      window.location.href = url;
 	    }
 
 	    /**
@@ -577,6 +733,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    /**
+	     *
+	     * @param key
+	     * @param value
+	     */
+
+	  }, {
+	    key: 'session',
+	    value: function session(key, value) {
+	      if (arguments.length > 1) {
+	        return sessionStorage.setItem(key, value);
+	      } else {
+	        return sessionStorage.getItem(key);
+	      }
+	    }
+
+	    /**
 	     * @param word
 	     * @returns {string}
 	     * @example
@@ -613,72 +785,75 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return SK;
 	}();
 
-	SK.STR_OF_CHAR_AMPERSAND = '&';
-	SK.STR_OF_CHAR_ANGLE = '∠';
-	SK.STR_OF_CHAR_APPROXIMATELY = '≈';
-	SK.STR_OF_CHAR_ARROW = '→';
-	SK.STR_OF_CHAR_ASTERISK = '*';
-	SK.STR_OF_CHAR_BACKSLASH = '\\';
-	SK.STR_OF_CHAR_CELSIUS = '℃';
-	SK.STR_OF_CHAR_CIRCLE = '⊙';
-	SK.STR_OF_CHAR_CIRCUMFERENCE = '○';
-	SK.STR_OF_CHAR_CLOSE_BRACE = '}';
-	SK.STR_OF_CHAR_CLOSE_BRACKET = ']';
-	SK.STR_OF_CHAR_CLOSE_PARENTHESIS = ')';
-	SK.STR_OF_CHAR_COLON = ':';
-	SK.STR_OF_CHAR_COMMA = ',';
-	SK.STR_OF_CHAR_DASH = '-';
-	SK.STR_OF_CHAR_DEGREE = '°';
-	SK.STR_OF_CHAR_DIVIDE = '÷';
-	SK.STR_OF_CHAR_DOT = '.';
-	SK.STR_OF_CHAR_DOUBLE_QUOTATION = '"';
-	SK.STR_OF_CHAR_EQUAL = '=';
-	SK.STR_OF_CHAR_EQUAL_APPROXIMATELY = '≌';
-	SK.STR_OF_CHAR_EQUIVALENT = '≡';
-	SK.STR_OF_CHAR_EXCLAMATION = '!';
-	SK.STR_OF_CHAR_HENCE = '∴';
-	SK.STR_OF_CHAR_INFINITY = '∞';
-	SK.STR_OF_CHAR_INTEGRAL = '∫';
-	SK.STR_OF_CHAR_INTERSECTION = '∩';
-	SK.STR_OF_CHAR_LESS = '<';
-	SK.STR_OF_CHAR_LESS_EQUAL = '≤';
-	SK.STR_OF_CHAR_MINUS = '-';
-	SK.STR_OF_CHAR_MINUTE = '′';
-	SK.STR_OF_CHAR_MULTIPLY = '×';
-	SK.STR_OF_CHAR_MORE = '>';
-	SK.STR_OF_CHAR_MORE_EQUAL = '≥';
-	SK.STR_OF_CHAR_NOT_EQUAL = '≠';
-	SK.STR_OF_CHAR_NOT_LESS = '≮';
-	SK.STR_OF_CHAR_NOT_MORE = '≯';
-	SK.STR_OF_CHAR_OPEN_BRACE = '{';
-	SK.STR_OF_CHAR_OPEN_BRACKET = '[';
-	SK.STR_OF_CHAR_OPEN_PARENTHESIS = '(';
-	SK.STR_OF_CHAR_PARALLEL = '‖';
-	SK.STR_OF_CHAR_PERCENT = '%';
-	SK.STR_OF_CHAR_PERMILL = '‰';
-	SK.STR_OF_CHAR_PERPENDICULAR = '⊥';
-	SK.STR_OF_CHAR_PI = 'π';
-	SK.STR_OF_CHAR_PLUS = '+';
-	SK.STR_OF_CHAR_PLUS_MINUS = '±';
-	SK.STR_OF_CHAR_POUND = '#';
-	SK.STR_OF_CHAR_PROPORTION = '∷';
-	SK.STR_OF_CHAR_QUESTION = '?';
-	SK.STR_OF_CHAR_SECOND = '〃';
-	SK.STR_OF_CHAR_SECTION = '§';
-	SK.STR_OF_CHAR_SEMICIRCLE = '⌒';
-	SK.STR_OF_CHAR_SEMICOLON = ';';
-	SK.STR_OF_CHAR_SIGMA = '∑';
-	SK.STR_OF_CHAR_SINCE = '∵';
-	SK.STR_OF_CHAR_SINGLE_QUOTATION = '\'';
-	SK.STR_OF_CHAR_SLASH = '/';
-	SK.STR_OF_CHAR_SQUARE = '√';
-	SK.STR_OF_CHAR_TRIANGLE = '△';
-	SK.STR_OF_CHAR_UNDERLINE = '_';
-	SK.STR_OF_CHAR_UNION = '∪';
-	SK.STR_OF_CHAR_VARIES = '∝';
-	SK.STR_OF_CHAR_VERTICAL = '|';
+	SK.CHAR_AMPERSAND = '&';
+	SK.CHAR_ANGLE = '∠';
+	SK.CHAR_APPROXIMATELY = '≈';
+	SK.CHAR_ARROW = '→';
+	SK.CHAR_ASTERISK = '*';
+	SK.CHAR_BACKSLASH = '\\';
+	SK.CHAR_CELSIUS = '℃';
+	SK.CHAR_CIRCLE = '⊙';
+	SK.CHAR_CIRCUMFERENCE = '○';
+	SK.CHAR_CLOSE_BRACE = '}';
+	SK.CHAR_CLOSE_BRACKET = ']';
+	SK.CHAR_CLOSE_PARENTHESIS = ')';
+	SK.CHAR_COLON = ':';
+	SK.CHAR_COMMA = ',';
+	SK.CHAR_DASH = '-';
+	SK.CHAR_DEGREE = '°';
+	SK.CHAR_DIVIDE = '÷';
+	SK.CHAR_DOT = '.';
+	SK.CHAR_DOUBLE_QUOTATION = '"';
+	SK.CHAR_EQUAL = '=';
+	SK.CHAR_EQUAL_APPROXIMATELY = '≌';
+	SK.CHAR_EQUIVALENT = '≡';
+	SK.CHAR_EXCLAMATION = '!';
+	SK.CHAR_HENCE = '∴';
+	SK.CHAR_INFINITY = '∞';
+	SK.CHAR_INTEGRAL = '∫';
+	SK.CHAR_INTERSECTION = '∩';
+	SK.CHAR_LESS = '<';
+	SK.CHAR_LESS_EQUAL = '≤';
+	SK.CHAR_MINUS = '-';
+	SK.CHAR_MINUTE = '′';
+	SK.CHAR_MULTIPLY = '×';
+	SK.CHAR_MORE = '>';
+	SK.CHAR_MORE_EQUAL = '≥';
+	SK.CHAR_NOT_EQUAL = '≠';
+	SK.CHAR_NOT_LESS = '≮';
+	SK.CHAR_NOT_MORE = '≯';
+	SK.CHAR_OPEN_BRACE = '{';
+	SK.CHAR_OPEN_BRACKET = '[';
+	SK.CHAR_OPEN_PARENTHESIS = '(';
+	SK.CHAR_PARALLEL = '‖';
+	SK.CHAR_PERCENT = '%';
+	SK.CHAR_PERMILL = '‰';
+	SK.CHAR_PERPENDICULAR = '⊥';
+	SK.CHAR_PI = 'π';
+	SK.CHAR_PLUS = '+';
+	SK.CHAR_PLUS_MINUS = '±';
+	SK.CHAR_POUND = '#';
+	SK.CHAR_PROPORTION = '∷';
+	SK.CHAR_QUESTION = '?';
+	SK.CHAR_SECOND = '〃';
+	SK.CHAR_SECTION = '§';
+	SK.CHAR_SEMICIRCLE = '⌒';
+	SK.CHAR_SEMICOLON = ';';
+	SK.CHAR_SIGMA = '∑';
+	SK.CHAR_SINCE = '∵';
+	SK.CHAR_SINGLE_QUOTATION = '\'';
+	SK.CHAR_SLASH = '/';
+	SK.CHAR_SQUARE = '√';
+	SK.CHAR_TRIANGLE = '△';
+	SK.CHAR_UNDERLINE = '_';
+	SK.CHAR_UNION = '∪';
+	SK.CHAR_VARIES = '∝';
+	SK.CHAR_VERTICAL = '|';
 	SK.DEFAULT_DOMAIN = '$sk';
 	SK.DEFAULT_ENV = {};
+	SK.COOKIE_LANGUAGE = 'language';
+	SK.DEFAULT_LANGUAGE = 'en_US';
+	SK.CONTEXT_PATH = '';
 	exports.default = SK;
 	module.exports = exports['default'];
 
@@ -687,6 +862,12 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
 
 /***/ }
 /******/ ])
