@@ -22,9 +22,9 @@ export default {
     {
       'js-cookie': {
         root: 'Cookies',
-        commonjs2: 'Cookies',
-        commonjs: 'Cookies',
-        amd: 'Cookies'
+        commonjs2: 'js-cookie',
+        commonjs: 'js-cookie',
+        amd: 'js-cookie'
       }
     }
   ],

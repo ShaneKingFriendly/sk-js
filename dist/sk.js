@@ -1,10 +1,10 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("lodash"), require("Cookies"));
+		module.exports = factory(require("lodash"), require("js-cookie"));
 	else if(typeof define === 'function' && define.amd)
-		define(["lodash", "Cookies"], factory);
+		define(["lodash", "js-cookie"], factory);
 	else if(typeof exports === 'object')
-		exports["SK"] = factory(require("lodash"), require("Cookies"));
+		exports["SK"] = factory(require("lodash"), require("js-cookie"));
 	else
 		root["SK"] = factory(root["_"], root["Cookies"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__) {
