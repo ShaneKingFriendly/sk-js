@@ -545,6 +545,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	     */
 
 	  }, {
+	    key: 'getCurrentOrigin',
+	    value: function getCurrentOrigin() {
+	      return window.location.origin;
+	    }
+
+	    /**
+	     *
+	     * @returns {string}
+	     */
+
+	  }, {
 	    key: 'getCurrentPath',
 	    value: function getCurrentPath() {
 	      var path = window.location.pathname;

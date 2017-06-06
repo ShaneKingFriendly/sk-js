@@ -472,6 +472,14 @@ export default class SK {
    *
    * @returns {string}
    */
+  static getCurrentOrigin() {
+    return window.location.origin;
+  }
+
+  /**
+   *
+   * @returns {string}
+   */
   static getCurrentPath() {
     var path = window.location.pathname;
     path = path.substring(SK.CONTEXT_PATH.length, path.length);
