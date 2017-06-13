@@ -521,6 +521,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      });
 	      return rtn.length === 1 ? rtn[0] : rtn;
 	    }
+	  }, {
+	    key: 'emptyFunc',
+	    value: function emptyFunc() {}
 
 	    /**
 	     *

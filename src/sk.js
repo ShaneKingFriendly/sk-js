@@ -455,6 +455,10 @@ export default class SK {
     return rtn.length === 1 ? rtn[0] : rtn;
   }
 
+  static emptyFunc(){
+
+  }
+
   /**
    *
    * @returns {string}
