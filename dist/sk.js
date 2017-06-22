@@ -413,7 +413,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'appendParameter',
 	    value: function appendParameter(url, param, value) {
-	      return url + ((url.indexOf(SK.CHAR_QUESTION) == -1 ? SK.CHAR_QUESTION : SK.CHAR_AMPERSAND) + param + SK.CHAR_EQUAL + value);
+	      if (url.indexOf(SK.CHAR_QUESTION) == -1) {
+	        return url + SK.CHAR_QUESTION + param + SK.CHAR_EQUAL + value;
+	      } else {
+	        var existParamValue = SK.getRequestParameter(param, url.split(SK.CHAR_QUESTION)[1]);
+	        if (existParamValue) {
+	          return url.replace(existParamValue, value);
+	        } else {
+	          return url + SK.CHAR_AMPERSAND + param + SK.CHAR_EQUAL + value;
+	        }
+	      }
 	    }
 
 	    /**

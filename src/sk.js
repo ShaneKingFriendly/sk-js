@@ -364,14 +364,26 @@ export default class SK {
   }
 
   /**
-   * Append parameter to url
+   * xxx.com,a,b => xxx.com?a=b
+   * xxx.com?a=b,a,c => xxx.com?a=c
+   * xxx.com?a=b,c,d => xxx.com?a=b&c=d
+   *
    * @param url
    * @param param
    * @param value
    * @returns {string}
    */
   static appendParameter(url, param, value) {
-    return url + ((url.indexOf(SK.CHAR_QUESTION) == -1 ? SK.CHAR_QUESTION : SK.CHAR_AMPERSAND) + param + SK.CHAR_EQUAL + value);
+    if(url.indexOf(SK.CHAR_QUESTION) == -1){
+      return url + SK.CHAR_QUESTION + param + SK.CHAR_EQUAL + value;
+    }else{
+      let existParamValue = SK.getRequestParameter(param, url.split(SK.CHAR_QUESTION)[1]);
+      if(existParamValue){
+        return url.replace(existParamValue, value);
+      }else{
+        return url + SK.CHAR_AMPERSAND + param + SK.CHAR_EQUAL + value;
+      }
+    }
   }
 
   /**
