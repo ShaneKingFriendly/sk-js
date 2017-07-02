@@ -4,9 +4,9 @@ import _ from 'lodash';
 import assert from 'assert';
 import SK from './../src/sk';
 
-let jsdom = require('jsdom').jsdom;
-global.document = jsdom('<html></html>', {});
-global.window = document.defaultView;
+let JSDOM = require('jsdom').JSDOM;
+global.document = new JSDOM('<html></html>', {url: "http://shaneking.org/", includeNodeLocations: true});
+global.window = document.window;
 function propagateToGlobal(window) {
   for (var key in window) {
     if (!window.hasOwnProperty(key)) {
