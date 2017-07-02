@@ -403,7 +403,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    /**
-	     * Append parameter to url
+	     * xxx.com,a,b => xxx.com?a=b
+	     * xxx.com?a=b,a,c => xxx.com?a=c
+	     * xxx.com?a=b,c,d => xxx.com?a=b&c=d
+	     *
 	     * @param url
 	     * @param param
 	     * @param value
