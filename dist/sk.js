@@ -775,22 +775,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    /**
-	     * @param word
-	     * @returns {string}
-	     * @example
-	     * upperWordFirstChar('path');//Path
-	     * upperWordFirstChar('list');//List
-	     */
-
-	  }, {
-	    key: 'upperWordFirstChar',
-	    value: function upperWordFirstChar(word) {
-	      return _lodash2.default.toString(word).replace(/(\w)/, function ($1) {
-	        return $1.toUpperCase();
-	      });
-	    }
-
-	    /**
 	     * @param words
 	     * @returns {string}
 	     * @example

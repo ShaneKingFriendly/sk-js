@@ -648,19 +648,6 @@ export default class SK {
   }
 
   /**
-   * @param word
-   * @returns {string}
-   * @example
-   * upperWordFirstChar('path');//Path
-   * upperWordFirstChar('list');//List
-   */
-  static upperWordFirstChar(word) {
-    return _.toString(word).replace(/(\w)/, ($1) => {
-      return $1.toUpperCase();
-    });
-  }
-
-  /**
    * @param words
    * @returns {string}
    * @example

@@ -335,15 +335,13 @@ describe('SK', () => {
       assert.equal(SK.s4s(NaN), '');
     });
   });
-  describe('SK.upperWordFirstChar', () => {
+  describe('SK.upperWordsFirstChar', () => {
     it('path -> Path', () => {
-      assert.equal(SK.upperWordFirstChar('path'), 'Path');
+      assert.equal(SK.upperWordsFirstChar('path'), 'Path');
     });
     it('list -> List', () => {
-      assert.equal(SK.upperWordFirstChar('list'), 'List');
+      assert.equal(SK.upperWordsFirstChar('list'), 'List');
     });
-  });
-  describe('SK.upperWordsFirstChar', () => {
     it('words', () => {
       assert.equal(SK.upperWordsFirstChar('xi nAn shi you xUe yuan china people'), 'Xi NAn Shi You XUe Yuan China People');
     });
