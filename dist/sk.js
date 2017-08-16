@@ -489,6 +489,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    /**
+	     * cookieStorage
 	     *
 	     * @param key
 	     * @param value
@@ -538,6 +539,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function emptyFunc() {}
 
 	    /**
+	     * the url of page or sub frame page
 	     *
 	     * @returns {string}
 	     */
@@ -547,14 +549,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function getCurrentHref() {
 	      return window.location.href;
 	    }
+
+	    /**
+	     * language in cookies if exist, else defautl
+	     *
+	     * @returns {string}
+	     */
+
 	  }, {
 	    key: 'getCurrentLanguage',
 	    value: function getCurrentLanguage() {
-	      var language = SK.cookies(SK.COOKIE_LANGUAGE);
+	      var language = SK.cookies(SK.STR_LANGUAGE);
 	      return language ? language : SK.DEFAULT_LANGUAGE;
 	    }
 
 	    /**
+	     * window.location.origin
 	     *
 	     * @returns {string}
 	     */
@@ -566,6 +576,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    /**
+	     * /a/b -> /a/b
+	     * /a/b/c.html -> /a/b/c
+	     * /context/a -> /a
 	     *
 	     * @returns {string}
 	     */
@@ -580,6 +593,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    /**
+	     * ?a=1&b=2
 	     *
 	     * @returns {*}
 	     */
@@ -591,6 +605,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    /**
+	     * (a,?a=1&b=2) -> 1
 	     *
 	     * @param param
 	     * @param search
@@ -608,6 +623,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    /**
+	     * /a/b -> ['/','/a/','/a/b/']
 	     *
 	     * @param path
 	     * @returns {string[]}
@@ -616,20 +632,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'getSubPaths',
 	    value: function getSubPaths(path) {
-	      var rtn = ['/'];
+	      var rtn = [SK.CHAR_SLASH];
 	      path.split(SK.CHAR_SLASH).reduce(function (pre, cur) {
-	        if (SK.s4s(cur) === '') {
+	        if (SK.s4s(cur) === SK.EMPTY) {
 	          return pre;
 	        } else {
 	          var validPath = SK.getValidPath(pre + cur);
 	          rtn.push(validPath);
 	          return validPath;
 	        }
-	      }, '');
+	      }, SK.EMPTY);
 	      return rtn;
 	    }
 
 	    /**
+	     * a/b/c -> /a/b/c/
 	     *
 	     * @param path
 	     * @returns {string}
@@ -638,10 +655,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'getValidPath',
 	    value: function getValidPath(path) {
-	      return (_lodash2.default.startsWith(path, SK.CHAR_SLASH) ? '' : SK.CHAR_SLASH) + path + (_lodash2.default.endsWith(path, SK.CHAR_SLASH) ? '' : SK.CHAR_SLASH);
+	      return (_lodash2.default.startsWith(path, SK.CHAR_SLASH) ? SK.EMPTY : SK.CHAR_SLASH) + path + (_lodash2.default.endsWith(path, SK.CHAR_SLASH) ? SK.EMPTY : SK.CHAR_SLASH);
 	    }
 
 	    /**
+	     * localStorage
 	     *
 	     * @param key
 	     * @param value
@@ -658,6 +676,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    /**
+	     * web redirect
 	     *
 	     * @param url
 	     */
@@ -753,12 +772,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 's4s',
 	    value: function s4s(value) {
-	      var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+	      var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : SK.EMPTY;
 
 	      return _lodash2.default.isBoolean(value) || _lodash2.default.isFinite(value) || _lodash2.default.isString(value) ? String(value) : defaultValue;
 	    }
 
 	    /**
+	     * sessionStorage
 	     *
 	     * @param key
 	     * @param value
@@ -775,9 +795,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    /**
+	     * upper first char
+	     *
 	     * @param words
 	     * @returns {string}
 	     * @example
+	     * upperWordsFirstChar('list');//List
 	     * upperWordsFirstChar('xi nAn shi you xUe yuan china people');//Xi NAn Shi You XUe Yuan China People
 	     */
 
@@ -859,8 +882,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	SK.CHAR_UNION = '∪';
 	SK.CHAR_VARIES = '∝';
 	SK.CHAR_VERTICAL = '|';
-	SK.CONTEXT_PATH = '';
-	SK.COOKIE_LANGUAGE = 'language';
+	SK.JS_KEYWORD_FUNCTION = 'function';
+	SK.EMPTY = '';
+	SK.STR_DEFAULT = 'default';
+	SK.STR_ERROR = 'error';
+	SK.STR_LANGUAGE = 'language';
+	SK.CONTEXT_PATH = SK.EMPTY;
 	SK.DEFAULT_DOMAIN = '$sk';
 	SK.DEFAULT_ENV = {};
 	SK.DEFAULT_LANGUAGE = 'en_US';

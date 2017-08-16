@@ -325,9 +325,14 @@ export default class SK {
   static CHAR_VARIES = '∝';
   static CHAR_VERTICAL = '|';
 
-  static CONTEXT_PATH = '';
-  static COOKIE_LANGUAGE = 'language';
+  static JS_KEYWORD_FUNCTION = 'function';
 
+  static EMPTY = '';
+  static STR_DEFAULT = 'default';
+  static STR_ERROR = 'error';
+  static STR_LANGUAGE = 'language';
+
+  static CONTEXT_PATH = SK.EMPTY;
   static DEFAULT_DOMAIN = '$sk';
   static DEFAULT_ENV = {};
   static DEFAULT_LANGUAGE = 'en_US';
@@ -432,6 +437,7 @@ export default class SK {
   }
 
   /**
+   * cookieStorage
    *
    * @param key
    * @param value
@@ -472,6 +478,7 @@ export default class SK {
   }
 
   /**
+   * the url of page or sub frame page
    *
    * @returns {string}
    */
@@ -479,12 +486,18 @@ export default class SK {
     return window.location.href;
   }
 
+  /**
+   * language in cookies if exist, else defautl
+   *
+   * @returns {string}
+   */
   static getCurrentLanguage() {
-    let language = SK.cookies(SK.COOKIE_LANGUAGE);
+    let language = SK.cookies(SK.STR_LANGUAGE);
     return language ? language : SK.DEFAULT_LANGUAGE;
   }
 
   /**
+   * window.location.origin
    *
    * @returns {string}
    */
@@ -493,6 +506,9 @@ export default class SK {
   }
 
   /**
+   * /a/b -> /a/b
+   * /a/b/c.html -> /a/b/c
+   * /context/a -> /a
    *
    * @returns {string}
    */
@@ -504,6 +520,7 @@ export default class SK {
   }
 
   /**
+   * ?a=1&b=2
    *
    * @returns {*}
    */
@@ -512,6 +529,7 @@ export default class SK {
   }
 
   /**
+   * (a,?a=1&b=2) -> 1
    *
    * @param param
    * @param search
@@ -526,34 +544,37 @@ export default class SK {
   }
 
   /**
+   * /a/b -> ['/','/a/','/a/b/']
    *
    * @param path
    * @returns {string[]}
    */
   static getSubPaths(path) {
-    let rtn = ['/'];
+    let rtn = [SK.CHAR_SLASH];
     path.split(SK.CHAR_SLASH).reduce((pre, cur) => {
-      if (SK.s4s(cur) === '') {
+      if (SK.s4s(cur) === SK.EMPTY) {
         return pre;
       } else {
         let validPath = SK.getValidPath(pre + cur);
         rtn.push(validPath);
         return validPath;
       }
-    }, '');
+    }, SK.EMPTY);
     return rtn;
   }
 
   /**
+   * a/b/c -> /a/b/c/
    *
    * @param path
    * @returns {string}
    */
   static getValidPath(path) {
-    return (_.startsWith(path, SK.CHAR_SLASH) ? '' : SK.CHAR_SLASH) + path + (_.endsWith(path, SK.CHAR_SLASH) ? '' : SK.CHAR_SLASH);
+    return (_.startsWith(path, SK.CHAR_SLASH) ? SK.EMPTY : SK.CHAR_SLASH) + path + (_.endsWith(path, SK.CHAR_SLASH) ? SK.EMPTY : SK.CHAR_SLASH);
   }
 
   /**
+   * localStorage
    *
    * @param key
    * @param value
@@ -567,6 +588,7 @@ export default class SK {
   }
 
   /**
+   * web redirect
    *
    * @param url
    */
@@ -630,11 +652,12 @@ export default class SK {
    * @param {string} defaultValue
    * @returns {string}
    */
-  static s4s(value, defaultValue = '') {
+  static s4s(value, defaultValue = SK.EMPTY) {
     return (_.isBoolean(value) || _.isFinite(value) || _.isString(value)) ? String(value) : defaultValue;
   }
 
   /**
+   * sessionStorage
    *
    * @param key
    * @param value
@@ -648,9 +671,12 @@ export default class SK {
   }
 
   /**
+   * upper first char
+   *
    * @param words
    * @returns {string}
    * @example
+   * upperWordsFirstChar('list');//List
    * upperWordsFirstChar('xi nAn shi you xUe yuan china people');//Xi NAn Shi You XUe Yuan China People
    */
   static upperWordsFirstChar(words) {
