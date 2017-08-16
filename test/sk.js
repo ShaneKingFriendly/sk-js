@@ -234,7 +234,7 @@ describe('SK', () => {
         f2 = () => {
         },
         skRst = f2;//if is array, empty old array
-      assert.deepEqual(SK.assign(true, f1, f2), skRst);
+      assert.deepEqual(SK.assign({}, f1, f2), skRst);
     });
   });
   describe('SK.appendParameter', () => {
