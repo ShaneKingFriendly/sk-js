@@ -895,6 +895,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	SK.STR_DEFAULT = 'default';
 	SK.STR_ERROR = 'error';
 	SK.STR_LANGUAGE = 'language';
+	SK.ENV_DEV = 'DEV';
+	SK.ENV_TEST = 'TEST';
+	SK.ENV_PROD = 'PROD';
 	SK.CONTEXT_PATH = SK.EMPTY;
 	SK.DEFAULT_DOMAIN = '$sk';
 	SK.DEFAULT_ENV = {};

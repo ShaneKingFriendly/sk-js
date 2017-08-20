@@ -329,7 +329,7 @@ export default class SK {
   static FILE_TYPE_HTML_WITH_POINT = SK.CHAR_DOT + SK.FILE_TYPE_HTML;
   static FILE_TYPE_JSON = 'json';
   static FILE_TYPE_JSON_WITH_POINT = SK.CHAR_DOT + SK.FILE_TYPE_JSON;
-  
+
   static REQUEST_METHOD_POST = 'POST';
   static REQUEST_METHOD_DELETE = 'DELETE';
   static REQUEST_METHOD_PUT = 'PUT';
@@ -341,6 +341,10 @@ export default class SK {
   static STR_DEFAULT = 'default';
   static STR_ERROR = 'error';
   static STR_LANGUAGE = 'language';
+
+  static ENV_DEV = 'DEV';
+  static ENV_TEST = 'TEST';
+  static ENV_PROD = 'PROD';
 
   static CONTEXT_PATH = SK.EMPTY;
   static DEFAULT_DOMAIN = '$sk';
