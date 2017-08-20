@@ -156,9 +156,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    enumerable: false,
 	    configurable: true,
 	    value: function value(item) {
-	      var tmpIdx = this.indexOf(item);
-	      if (tmpIdx > -1) {
-	        this.splice(tmpIdx, 1);
+	      var idx = this.indexOf(item);
+	      if (idx > -1) {
+	        this.splice(idx, 1);
 	      }
 	      return this;
 	    }
@@ -175,9 +175,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    enumerable: false,
 	    configurable: true,
 	    value: function value(item) {
-	      var tmpIdx = this.indexOf(item);
-	      if (tmpIdx > -1) {
-	        this.splice(tmpIdx, 1);
+	      var idx = this.indexOf(item);
+	      if (idx > -1) {
+	        this.splice(idx, 1);
 	      } else {
 	        this.push(item);
 	      }
@@ -286,21 +286,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	    configurable: true,
 	    value: function value(str, val) {
 	      var rtn = this;
-	      var tmpArr = str.split('.');
-	      var tmpIdx = 0;
+	      var arr = str.split('.');
+	      var idx = 0;
 	      if (arguments.length > 1) {
-	        for (; tmpIdx < tmpArr.length - 1; tmpIdx++) {
-	          if (rtn[tmpArr[tmpIdx]] === undefined) {
-	            rtn[tmpArr[tmpIdx]] = {};
+	        for (; idx < arr.length - 1; idx++) {
+	          if (rtn[arr[idx]] === undefined) {
+	            rtn[arr[idx]] = {};
 	          }
-	          rtn = rtn[tmpArr[tmpIdx]];
+	          rtn = rtn[arr[idx]];
 	        }
 	        if (rtn) {
-	          rtn[tmpArr[tmpIdx]] = val;
+	          rtn[arr[idx]] = val;
 	        }
 	      } else {
-	        for (; tmpIdx < tmpArr.length; tmpIdx++) {
-	          rtn = rtn[tmpArr[tmpIdx]];
+	        for (; idx < arr.length; idx++) {
+	          rtn = rtn[arr[idx]];
 	          if (rtn === undefined) {
 	            break;
 	          }
@@ -332,8 +332,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	if (!String.prototype.skCurrencyFmt) {
 	  String.prototype.skCurrencyFmt = function (fraction) {
 	    fraction = fraction > 0 && fraction <= 20 ? fraction : 2;
-	    var tmpArr = (parseFloat(this.replace(/[^\d\.-]/g, '')).toFixed(fraction) + '').split('.');
-	    return tmpArr[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '.' + tmpArr[1];
+	    var arr = (parseFloat(this.replace(/[^\d\.-]/g, '')).toFixed(fraction) + '').split('.');
+	    return arr[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '.' + arr[1];
 	  };
 	}
 	if (!String.prototype.skEmpty) {
@@ -343,16 +343,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	if (!String.prototype.skFmt) {
 	  String.prototype.skFmt = function (o) {
-	    return this.replace(/(\$\{\w+(\.\w+)*\})/g, function ($matched) {
+	    return this.replace(/(\$\{\w+(\.\w+)*\})/g, function ($replacement) {
 	      ///(\{\w+\.\})/g
-	      return o.skVal($matched.replace('${', '').replace('}', ''));
+	      return o.skVal($replacement.replace('${', '').replace('}', ''));
 	    });
 	  };
 	}
 	if (!String.prototype.skFmtArr) {
-	  String.prototype.skFmtArr = function (a) {
-	    return this.replace(/\$(\d+)/g, function ($_, $m) {
-	      return a[--$m];
+	  String.prototype.skFmtArr = function (array) {
+	    return this.replace(/\$(\d+)/g, function ($match, $p1) {
+	      return array[--$p1];
 	    });
 	  };
 	}
@@ -419,9 +419,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (url.indexOf(SK.CHAR_QUESTION) == -1) {
 	        return url + SK.CHAR_QUESTION + param + SK.CHAR_EQUAL + value;
 	      } else {
-	        var existParamValue = SK.getRequestParameter(param, url.split(SK.CHAR_QUESTION)[1]);
-	        if (existParamValue) {
-	          return url.replace(existParamValue, value);
+	        var currentValue = SK.getRequestParameter(param, url.split(SK.CHAR_QUESTION)[1]);
+	        if (currentValue) {
+	          return url.replace(param + SK.CHAR_EQUAL + currentValue, param + SK.CHAR_EQUAL + value);
 	        } else {
 	          return url + SK.CHAR_AMPERSAND + param + SK.CHAR_EQUAL + value;
 	        }
@@ -508,8 +508,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    /**
-	     * @param {Array|string} arr1
-	     * @param {Array|string} arr2
+	     * @param {Array|string} array
+	     * @param {Array|string} anotherArray
 	     * @param {string} concat
 	     * @returns {Array|string}
 	     * @example
@@ -520,16 +520,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'descartes',
 	    value: function descartes() {
-	      var arr1 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-	      var arr2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+	      var array = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+	      var anotherArray = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 	      var concat = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : SK.CHAR_DASH;
 
-	      var tmpArr1 = Array.isArray(arr1) ? arr1 : [arr1];
-	      var tmpArr2 = Array.isArray(arr2) ? arr2 : [arr2];
+	      var arr1 = Array.isArray(array) ? array : [array];
+	      var arr2 = Array.isArray(anotherArray) ? anotherArray : [anotherArray];
 	      var rtn = [];
-	      tmpArr1.forEach(function ($ele1) {
-	        tmpArr2.forEach(function ($ele2) {
-	          rtn.push($ele1 + concat + $ele2);
+	      arr1.forEach(function ($item) {
+	        arr2.forEach(function ($$item) {
+	          rtn.push($item + concat + $$item);
 	        });
 	      });
 	      return rtn.length === 1 ? rtn[0] : rtn;
@@ -588,7 +588,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function getCurrentPath() {
 	      var path = window.location.pathname;
 	      path = path.substring(SK.CONTEXT_PATH.length, path.length);
-	      path = _lodash2.default.endsWith(path, '.html') ? path.substring(0, path.length - 5) : path;
+	      path = _lodash2.default.endsWith(path, SK.FILE_TYPE_HTML_WITH_POINT) ? path.substring(0, path.length - 5) : path;
 	      return path;
 	    }
 
@@ -633,13 +633,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'getSubPaths',
 	    value: function getSubPaths(path) {
 	      var rtn = [SK.CHAR_SLASH];
-	      path.split(SK.CHAR_SLASH).reduce(function (pre, cur) {
-	        if (SK.s4s(cur) === SK.EMPTY) {
-	          return pre;
+	      path.split(SK.CHAR_SLASH).reduce(function ($accumulator, $item) {
+	        if (SK.s4s($item) === SK.EMPTY) {
+	          return $accumulator;
 	        } else {
-	          var validPath = SK.getValidPath(pre + cur);
-	          rtn.push(validPath);
-	          return validPath;
+	          var tmpValidPath = SK.getValidPath($accumulator + $item);
+	          rtn.push(tmpValidPath);
+	          return tmpValidPath;
 	        }
 	      }, SK.EMPTY);
 	      return rtn;
@@ -807,10 +807,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'upperWordsFirstChar',
 	    value: function upperWordsFirstChar(words) {
-	      return _lodash2.default.toString(words).replace(/\s[a-z]/g, function ($11) {
-	        return $11.toUpperCase();
-	      }).replace(/^[a-z]/, function ($21) {
-	        return $21.toUpperCase();
+	      return _lodash2.default.toString(words).replace(/\s[a-z]/g, function ($nonFirstWord) {
+	        return $nonFirstWord.toUpperCase();
+	      }).replace(/^[a-z]/, function ($firstWord) {
+	        return $firstWord.toUpperCase();
 	      });
 	    }
 	  }]);
@@ -882,6 +882,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	SK.CHAR_UNION = '∪';
 	SK.CHAR_VARIES = '∝';
 	SK.CHAR_VERTICAL = '|';
+	SK.FILE_TYPE_HTML = 'html';
+	SK.FILE_TYPE_HTML_WITH_POINT = SK.CHAR_DOT + SK.FILE_TYPE_HTML;
+	SK.FILE_TYPE_JSON = 'json';
+	SK.FILE_TYPE_JSON_WITH_POINT = SK.CHAR_DOT + SK.FILE_TYPE_JSON;
+	SK.REQUEST_METHOD_POST = 'POST';
+	SK.REQUEST_METHOD_DELETE = 'DELETE';
+	SK.REQUEST_METHOD_PUT = 'PUT';
+	SK.REQUEST_METHOD_GET = 'GET';
 	SK.JS_KEYWORD_FUNCTION = 'function';
 	SK.EMPTY = '';
 	SK.STR_DEFAULT = 'default';

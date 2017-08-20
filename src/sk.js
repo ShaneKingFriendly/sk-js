@@ -75,9 +75,9 @@ if (!Array.prototype.skRmv) {
     enumerable: false,
     configurable: true,
     value: function (item) {
-      let tmpIdx = this.indexOf(item);
-      if (tmpIdx > -1) {
-        this.splice(tmpIdx, 1);
+      let idx = this.indexOf(item);
+      if (idx > -1) {
+        this.splice(idx, 1);
       }
       return this;
     }
@@ -94,9 +94,9 @@ if (!Array.prototype.skToggle) {
     enumerable: false,
     configurable: true,
     value: function (item) {
-      let tmpIdx = this.indexOf(item);
-      if (tmpIdx > -1) {
-        this.splice(tmpIdx, 1);
+      let idx = this.indexOf(item);
+      if (idx > -1) {
+        this.splice(idx, 1);
       } else {
         this.push(item);
       }
@@ -191,21 +191,21 @@ if (!Object.prototype.skVal) {
     configurable: true,
     value: function (str, val) {
       let rtn = this;
-      let tmpArr = str.split('.');
-      let tmpIdx = 0;
+      let arr = str.split('.');
+      let idx = 0;
       if (arguments.length > 1) {
-        for (; tmpIdx < tmpArr.length - 1; tmpIdx++) {
-          if (rtn[tmpArr[tmpIdx]] === undefined) {
-            rtn[tmpArr[tmpIdx]] = {};
+        for (; idx < arr.length - 1; idx++) {
+          if (rtn[arr[idx]] === undefined) {
+            rtn[arr[idx]] = {};
           }
-          rtn = rtn[tmpArr[tmpIdx]];
+          rtn = rtn[arr[idx]];
         }
         if (rtn) {
-          rtn[tmpArr[tmpIdx]] = val;
+          rtn[arr[idx]] = val;
         }
       } else {
-        for (; tmpIdx < tmpArr.length; tmpIdx++) {
-          rtn = rtn[tmpArr[tmpIdx]];
+        for (; idx < arr.length; idx++) {
+          rtn = rtn[arr[idx]];
           if (rtn === undefined) {
             break;
           }
@@ -235,8 +235,8 @@ if (!String.prototype.skBlank) {
 if (!String.prototype.skCurrencyFmt) {
   String.prototype.skCurrencyFmt = function (fraction) {
     fraction = fraction > 0 && fraction <= 20 ? fraction : 2;
-    let tmpArr = (parseFloat(this.replace(/[^\d\.-]/g, '')).toFixed(fraction) + '').split('.');
-    return tmpArr[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '.' + tmpArr[1];
+    let arr = (parseFloat(this.replace(/[^\d\.-]/g, '')).toFixed(fraction) + '').split('.');
+    return arr[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '.' + arr[1];
   };
 }
 if (!String.prototype.skEmpty) {
@@ -246,15 +246,15 @@ if (!String.prototype.skEmpty) {
 }
 if (!String.prototype.skFmt) {
   String.prototype.skFmt = function (o) {
-    return this.replace(/(\$\{\w+(\.\w+)*\})/g, ($matched) => {///(\{\w+\.\})/g
-      return o.skVal($matched.replace('${', '').replace('}', ''));
+    return this.replace(/(\$\{\w+(\.\w+)*\})/g, ($replacement) => {///(\{\w+\.\})/g
+      return o.skVal($replacement.replace('${', '').replace('}', ''));
     });
   };
 }
 if (!String.prototype.skFmtArr) {
-  String.prototype.skFmtArr = function (a) {
-    return this.replace(/\$(\d+)/g, ($_, $m) => {
-      return a[--$m];
+  String.prototype.skFmtArr = function (array) {
+    return this.replace(/\$(\d+)/g, ($match, $p1) => {
+      return array[--$p1];
     });
   };
 }
@@ -325,6 +325,16 @@ export default class SK {
   static CHAR_VARIES = '∝';
   static CHAR_VERTICAL = '|';
 
+  static FILE_TYPE_HTML = 'html';
+  static FILE_TYPE_HTML_WITH_POINT = SK.CHAR_DOT + SK.FILE_TYPE_HTML;
+  static FILE_TYPE_JSON = 'json';
+  static FILE_TYPE_JSON_WITH_POINT = SK.CHAR_DOT + SK.FILE_TYPE_JSON;
+  
+  static REQUEST_METHOD_POST = 'POST';
+  static REQUEST_METHOD_DELETE = 'DELETE';
+  static REQUEST_METHOD_PUT = 'PUT';
+  static REQUEST_METHOD_GET = 'GET';
+
   static JS_KEYWORD_FUNCTION = 'function';
 
   static EMPTY = '';
@@ -379,13 +389,13 @@ export default class SK {
    * @returns {string}
    */
   static appendParameter(url, param, value) {
-    if(url.indexOf(SK.CHAR_QUESTION) == -1){
+    if (url.indexOf(SK.CHAR_QUESTION) == -1) {
       return url + SK.CHAR_QUESTION + param + SK.CHAR_EQUAL + value;
-    }else{
-      let existParamValue = SK.getRequestParameter(param, url.split(SK.CHAR_QUESTION)[1]);
-      if(existParamValue){
-        return url.replace(existParamValue, value);
-      }else{
+    } else {
+      let currentValue = SK.getRequestParameter(param, url.split(SK.CHAR_QUESTION)[1]);
+      if (currentValue) {
+        return url.replace(param + SK.CHAR_EQUAL + currentValue, param + SK.CHAR_EQUAL + value);
+      } else {
         return url + SK.CHAR_AMPERSAND + param + SK.CHAR_EQUAL + value;
       }
     }
@@ -453,27 +463,27 @@ export default class SK {
   }
 
   /**
-   * @param {Array|string} arr1
-   * @param {Array|string} arr2
+   * @param {Array|string} array
+   * @param {Array|string} anotherArray
    * @param {string} concat
    * @returns {Array|string}
    * @example
    * descartes(['alert','btn'],['success','info']);//['alert-success','alert-info','btn-success','btn-info']
    * descartes('alert','link','-');//'alert-link'
    */
-  static descartes(arr1 = [], arr2 = [], concat = SK.CHAR_DASH) {
-    let tmpArr1 = Array.isArray(arr1) ? arr1 : [arr1];
-    let tmpArr2 = Array.isArray(arr2) ? arr2 : [arr2];
+  static descartes(array = [], anotherArray = [], concat = SK.CHAR_DASH) {
+    let arr1 = Array.isArray(array) ? array : [array];
+    let arr2 = Array.isArray(anotherArray) ? anotherArray : [anotherArray];
     let rtn = [];
-    tmpArr1.forEach(($ele1) => {
-      tmpArr2.forEach(($ele2) => {
-        rtn.push($ele1 + concat + $ele2);
+    arr1.forEach(($item) => {
+      arr2.forEach(($$item) => {
+        rtn.push($item + concat + $$item);
       })
     });
     return rtn.length === 1 ? rtn[0] : rtn;
   }
 
-  static emptyFunc(){
+  static emptyFunc() {
 
   }
 
@@ -515,7 +525,7 @@ export default class SK {
   static getCurrentPath() {
     var path = window.location.pathname;
     path = path.substring(SK.CONTEXT_PATH.length, path.length);
-    path = _.endsWith(path, '.html') ? path.substring(0, path.length - 5) : path;
+    path = _.endsWith(path, SK.FILE_TYPE_HTML_WITH_POINT) ? path.substring(0, path.length - 5) : path;
     return path;
   }
 
@@ -551,13 +561,13 @@ export default class SK {
    */
   static getSubPaths(path) {
     let rtn = [SK.CHAR_SLASH];
-    path.split(SK.CHAR_SLASH).reduce((pre, cur) => {
-      if (SK.s4s(cur) === SK.EMPTY) {
-        return pre;
+    path.split(SK.CHAR_SLASH).reduce(($accumulator, $item) => {
+      if (SK.s4s($item) === SK.EMPTY) {
+        return $accumulator;
       } else {
-        let validPath = SK.getValidPath(pre + cur);
-        rtn.push(validPath);
-        return validPath;
+        let tmpValidPath = SK.getValidPath($accumulator + $item);
+        rtn.push(tmpValidPath);
+        return tmpValidPath;
       }
     }, SK.EMPTY);
     return rtn;
@@ -680,10 +690,10 @@ export default class SK {
    * upperWordsFirstChar('xi nAn shi you xUe yuan china people');//Xi NAn Shi You XUe Yuan China People
    */
   static upperWordsFirstChar(words) {
-    return _.toString(words).replace(/\s[a-z]/g, ($11) => {
-      return $11.toUpperCase();
-    }).replace(/^[a-z]/, ($21) => {
-      return $21.toUpperCase();
+    return _.toString(words).replace(/\s[a-z]/g, ($nonFirstWord) => {
+      return $nonFirstWord.toUpperCase();
+    }).replace(/^[a-z]/, ($firstWord) => {
+      return $firstWord.toUpperCase();
     })
   }
 }

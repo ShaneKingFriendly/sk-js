@@ -30,8 +30,8 @@ More to see [shaneking.org][].
 - [x] **SK.s4s(value, defaultValue = '')**: Safe string for value.
 
 ## Naming conventions
-- [x] **inner function parameter**: Begin $, like $item
-- [x] **inner function variable**: Begin tmp, like tmpVal
+- [x] **anonymous inner function parameter**: Begin $, like $item
+- [x] **anonymous inner function variable**: Begin tmp, like tmpVal
 
 ## Dependencies
 [![][versioneye img]][versioneye]

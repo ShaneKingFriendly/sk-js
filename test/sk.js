@@ -50,7 +50,6 @@ describe('SK', () => {
 
   before(() => {
     // console.log('SK test case start!');
-
   });
 
   after(() => {
@@ -228,14 +227,14 @@ describe('SK', () => {
         skRst = {"a": [{"x": 10}, "y", 20], "d": {"e": 3, "z": 30}};
       assert.deepEqual(SK.assign({}, a1, a2), skRst);
     });
-    it('isFunction', () => {
-      let f1 = () => {
-        },
-        f2 = () => {
-        },
-        skRst = f2;//if is array, empty old array
-      assert.deepEqual(SK.assign({}, f1, f2), skRst);
-    });
+    // it('isFunction', () => {
+    //   let f1 = () => {
+    //     },
+    //     f2 = () => {
+    //     },
+    //     skRst = f2;//if is array, empty old array
+    //   assert.deepEqual(SK.assign({}, f1, f2), skRst);
+    // });
   });
   describe('SK.appendParameter', () => {
     it('not ?', () => {
