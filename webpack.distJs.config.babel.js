@@ -31,12 +31,11 @@ export default {
 
   module: {
     loaders: [
-      {test: /\.js/, loader: 'babel?cacheDirectory', exclude: /node_modules/}
+      {test: /\.js/, loader: 'babel-loader?cacheDirectory', exclude: /node_modules/}
     ]
   },
 
   cache: true,
-  debug: true,
   stats: {
     colors: true,
     reasons: true,
