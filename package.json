@@ -23,8 +23,8 @@
     }
   ],
   "scripts": {
-    "lint": "eslint --ext .js src",
-    "test": "istanbul cover mocha && codecov"
+    "test": "istanbul cover mocha && codecov",
+    "lint": "eslint --ext .js src"
   },
   "files": [
     "dist",
