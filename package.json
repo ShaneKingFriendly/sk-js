@@ -1,7 +1,7 @@
 {
   "name": "sk-js",
   "description": "ShaneKing for JavaScript",
-  "version": "0.1.22",
+  "version": "0.1.23",
   "homepage": "https://github.com/ShaneKing/sk-js",
   "license": "MIT",
   "author": {
@@ -31,7 +31,10 @@
     "src",
     "LICENSE"
   ],
-  "main": "dist/sk.js",
+  "main": "lib/sk.js",
+  "directories": {
+    "lib": "lib/"
+  },
   "keywords": [
     "ShaneKing",
     "SK"
