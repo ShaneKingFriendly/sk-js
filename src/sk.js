@@ -234,9 +234,9 @@ if (!String.prototype.skBlank) {
 }
 if (!String.prototype.skCurrencyFmt) {
   String.prototype.skCurrencyFmt = function (fraction) {
-    fraction = fraction > 0 && fraction <= 20 ? fraction : 2;
+    fraction = fraction >= 0 && fraction <= 20 ? fraction : 2;
     let arr = (parseFloat(this.replace(/[^\d\.-]/g, '')).toFixed(fraction) + '').split('.');
-    return arr[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '.' + arr[1];
+    return arr[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + (fraction == 0 ? '' : ('.' + arr[1]));
   };
 }
 if (!String.prototype.skEmpty) {

@@ -110,7 +110,8 @@ describe('SK', () => {
   describe('Number.prototype.skCurrencyFmt', () => {
     it('+-', () => {
       assert.equal((-123456.789).skCurrencyFmt(2), '-123,456.79');
-      assert.equal((987654.321).skCurrencyFmt(2), '987,654.32');
+      assert.equal((987654.321).skCurrencyFmt(), '987,654.32');
+      assert.equal((987654.321).skCurrencyFmt(0), '987,654');
     });
   });
   describe('Object.prototype.skArr', () => {
@@ -165,7 +166,8 @@ describe('SK', () => {
   describe('String.prototype.skCurrencyFmt', () => {
     it('+-', () => {
       assert.equal('-123456.789'.skCurrencyFmt(2), '-123,456.79');
-      assert.equal('987654.321'.skCurrencyFmt(2), '987,654.32');
+      assert.equal('987654.321'.skCurrencyFmt(), '987,654.32');
+      assert.equal('987654.321'.skCurrencyFmt(0), '987,654');
     });
   });
   describe('String.prototype.skEmpty', () => {
