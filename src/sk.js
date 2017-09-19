@@ -353,6 +353,7 @@ export default class SK {
   static DEFAULT_MOMENT_DATE = 'YYYY-MM-DD';
   static DEFAULT_MOMENT_DATETIME = 'YYYY-MM-DD HH:mm:ss';
   static DEFAULT_MOMENT_TIME = 'HH:mm:ss';
+  static DEFAULT_MOMENT_TIMEZONE = 'Z';
 
   /**
    * New or get namespace object.
