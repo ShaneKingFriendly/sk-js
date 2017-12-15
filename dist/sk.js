@@ -929,6 +929,7 @@ SK.DEFAULT_LANGUAGE = 'en_US';
 SK.DEFAULT_MOMENT_DATE = 'YYYY-MM-DD';
 SK.DEFAULT_MOMENT_DATETIME = 'YYYY-MM-DD HH:mm:ss';
 SK.DEFAULT_MOMENT_TIME = 'HH:mm:ss';
+SK.DEFAULT_MOMENT_TIMEZONE = 'Z';
 exports.default = SK;
 module.exports = exports['default'];
 

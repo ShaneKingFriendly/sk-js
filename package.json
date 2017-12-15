@@ -1,7 +1,7 @@
 {
   "name": "sk-js",
   "description": "ShaneKing for JavaScript",
-  "version": "0.1.25",
+  "version": "0.1.26",
   "homepage": "https://github.com/ShaneKing/sk-js",
   "license": "MIT",
   "author": {
@@ -22,28 +22,32 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   ],
-  "scripts": {
-    "test": "istanbul cover mocha && codecov",
-    "lint": "eslint --ext .js src"
-  },
   "files": [
     "dist",
+    "lib",
     "src",
     "LICENSE"
   ],
-  "main": "dist/sk.js",
+  "main": "lib/sk.js",
   "keywords": [
     "ShaneKing",
     "SK"
   ],
+  "directories": {
+    "lib": "lib/"
+  },
+  "scripts": {
+    "test": "istanbul cover mocha && codecov",
+    "lint": "eslint --ext .js src"
+  },
   "dependencies": {
-    "js-cookie": "^2.1.4",
+    "js-cookie": "^2.2.0",
     "lodash": "^4.17.4"
   },
   "devDependencies": {
     "assert": "^1.4.1",
     "babel-core": "^6.26.0",
-    "babel-eslint": "^7.2.1",
+    "babel-eslint": "^8.0.3",
     "babel-loader": "^7.1.2",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-es2015": "^6.22.0",
@@ -51,10 +55,10 @@
     "babel-preset-stage-1": "^6.22.0",
     "babel-preset-stage-2": "^6.22.0",
     "babel-preset-stage-3": "^6.22.0",
-    "codecov": "^2.3.0",
+    "codecov": "^3.0.0",
     "commitplease": "latest",
     "eslint": "^4.5.0",
-    "eslint-config-airbnb": "^15.1.0",
+    "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.3.0",
@@ -66,7 +70,7 @@
     "gulp-uglify": "^3.0.0",
     "istanbul": "^0.4.5",
     "jsdom": "^11.0.0",
-    "mocha": "^3.2.0",
+    "mocha": "^4.0.1",
     "webpack-stream": "^4.0.0"
   },
   "commitplease": {
