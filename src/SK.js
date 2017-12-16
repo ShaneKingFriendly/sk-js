@@ -236,7 +236,7 @@ if (!String.prototype.skCurrencyFmt) {
   String.prototype.skCurrencyFmt = function (fraction) {
     fraction = fraction >= 0 && fraction <= 20 ? fraction : 2;
     let arr = (parseFloat(this.replace(/[^\d\.-]/g, '')).toFixed(fraction) + '').split('.');
-    return arr[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + (fraction == 0 ? '' : ('.' + arr[1]));
+    return arr[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + (fraction === 0 ? '' : ('.' + arr[1]));
   };
 }
 if (!String.prototype.skEmpty) {
@@ -394,7 +394,7 @@ export default class SK {
    * @returns {string}
    */
   static appendParameter(url, param, value) {
-    if (url.indexOf(SK.CHAR_QUESTION) == -1) {
+    if (url.indexOf(SK.CHAR_QUESTION) === -1) {
       return url + SK.CHAR_QUESTION + param + SK.CHAR_EQUAL + value;
     } else {
       let currentValue = SK.getRequestParameter(param, url.split(SK.CHAR_QUESTION)[1]);
@@ -528,7 +528,7 @@ export default class SK {
    * @returns {string}
    */
   static getCurrentPath() {
-    var path = window.location.pathname;
+    let path = window.location.pathname;
     path = path.substring(SK.CONTEXT_PATH.length, path.length);
     path = _.endsWith(path, SK.FILE_TYPE_HTML_WITH_POINT) ? path.substring(0, path.length - 5) : path;
     return path;
@@ -553,8 +553,8 @@ export default class SK {
   static getRequestParameter(param, search) {
     search = search || SK.getCurrentSearch();
     search = _.startsWith(search, SK.CHAR_QUESTION) ? search.slice(1) : search;
-    var reg = new RegExp('(^|&)' + param + '=([^&]*)(&|$)');
-    var r = window.location.search.substr(1).match(reg);
+    let reg = new RegExp('(^|&)' + param + '=([^&]*)(&|$)');
+    let r = search.match(reg);
     return r ? decodeURIComponent(r[2]) : undefined;
   }
 
