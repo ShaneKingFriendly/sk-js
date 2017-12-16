@@ -2,7 +2,7 @@
 
 import _ from 'lodash';
 import assert from 'assert';
-import SK from './../src/sk';
+import SK from '../src/SK';
 
 let JSDOM = require('jsdom').JSDOM;
 global.document = new JSDOM('<html></html>', {url: "http://shaneking.org/", includeNodeLocations: true});

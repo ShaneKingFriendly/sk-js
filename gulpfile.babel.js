@@ -13,7 +13,7 @@ gulp.task('distJs', ['distJsClean'], () => {
   gulp.start('distJsBuild');
 });
 gulp.task('distJsBuild', () => {
-  return gulp.src('src/sk.js')
+  return gulp.src('src/index.js')
     .pipe(gwebpack(distJsWebpack))
     .pipe(gulp.dest('dist/'))
     .pipe(gsourcemaps.init())

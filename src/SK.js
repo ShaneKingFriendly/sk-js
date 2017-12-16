@@ -435,17 +435,17 @@ export default class SK {
    * o1 == o3;//true
    * o1 === o3;//true
    *
+   * let o1 = {p1:1,f1:function(){console.log('f1');}}
+   * let o2 = {p2:2,f2:function(){console.log('f2');},f1:function(){console.log('f1 in o2')}};
+   * let o3 = {};
+   * let o4 = _.assign(o3,o1,o2);
+   * o4 === o3;//true
+   * o2.f1 === o4.f1;//true
+   * o4.f1();//f1 in o2
+   *
    * @static
    * @param {Object} object The destination object.
    * @param {...Object} objects The source objects.
-   * @example
-   *
-   * let o1 = {a:[{'b':1},'c',2], d:{e:3}};
-   * let o2 = {a:[{'x':10},'y',20], d:{z:30}};
-   * let o3 = SK.assign(o1,o2);
-   * JSON.stringify(o3);//{"a":[{"x":10},"y",20],"d":{"e":3,"z":30}}
-   * o1 == o3;//true
-   * o1 === o3;//true
    */
   static assign(object, ...objects) {
     return _.assignWith.apply(this, _.concat(object, objects, SK._skAssignCustomizer));

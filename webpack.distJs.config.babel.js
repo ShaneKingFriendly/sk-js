@@ -1,6 +1,6 @@
 export default {
   entry: {
-    'sk': './src/sk.js'
+    'sk': './src/index.js'
   },
 
   output: {

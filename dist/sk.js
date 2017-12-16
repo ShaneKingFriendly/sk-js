@@ -7,7 +7,7 @@
 		exports["SK"] = factory(require("lodash"), require("js-cookie"));
 	else
 		root["SK"] = factory(root["_"], root["Cookies"]);
-})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__) {
+})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -83,14 +83,34 @@ return /******/ (function(modules) { // webpackBootstrap
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.SK = undefined;
+
+var _SK2 = __webpack_require__(1);
+
+var _SK3 = _interopRequireDefault(_SK2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.SK = _SK3.default;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _lodash = __webpack_require__(1);
+var _lodash = __webpack_require__(2);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _jsCookie = __webpack_require__(2);
+var _jsCookie = __webpack_require__(3);
 
 var _jsCookie2 = _interopRequireDefault(_jsCookie);
 
@@ -489,17 +509,17 @@ var SK = function () {
      * o1 == o3;//true
      * o1 === o3;//true
      *
+     * let o1 = {p1:1,f1:function(){console.log('f1');}}
+     * let o2 = {p2:2,f2:function(){console.log('f2');},f1:function(){console.log('f1 in o2')}};
+     * let o3 = {};
+     * let o4 = _.assign(o3,o1,o2);
+     * o4 === o3;//true
+     * o2.f1 === o4.f1;//true
+     * o4.f1();//f1 in o2
+     *
      * @static
      * @param {Object} object The destination object.
      * @param {...Object} objects The source objects.
-     * @example
-     *
-     * let o1 = {a:[{'b':1},'c',2], d:{e:3}};
-     * let o2 = {a:[{'x':10},'y',20], d:{z:30}};
-     * let o3 = SK.assign(o1,o2);
-     * JSON.stringify(o3);//{"a":[{"x":10},"y",20],"d":{"e":3,"z":30}}
-     * o1 == o3;//true
-     * o1 === o3;//true
      */
 
   }, {
@@ -934,16 +954,16 @@ exports.default = SK;
 module.exports = exports['default'];
 
 /***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
-
-/***/ }),
 /* 2 */
 /***/ (function(module, exports) {
 
 module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
 
 /***/ })
 /******/ ]);
