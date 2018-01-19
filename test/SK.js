@@ -2,6 +2,7 @@
 
 import _ from 'lodash';
 import assert from 'assert';
+import '../src/Polyfill';
 import SK from '../src/SK';
 
 let JSDOM = require('jsdom').JSDOM;
