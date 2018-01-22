@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "crypto-js": "^3.1.9-1",
-    "jquery": "^3.2.1",
+    "jquery": "^3.3.1",
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.4",
     "nprogress": "^0.2.0"
@@ -60,7 +60,7 @@
     "gulp-babel": "^7.0.0",
     "gulp-clean": "^0.4.0",
     "istanbul": "^0.4.5",
-    "jsdom": "^11.0.0",
+    "jsdom": "^11.6.0",
     "mocha": "^5.0.0"
   }
 }
