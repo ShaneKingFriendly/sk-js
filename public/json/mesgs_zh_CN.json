@@ -1,0 +1,3 @@
+{
+  "${field}_is_required": "[${field}] 必填"
+}
