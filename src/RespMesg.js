@@ -17,8 +17,7 @@ export default class RespMesg {
   }
 
   getMessage() {
-    let key = Mesgs.RESP_MSG_KEY_PREFIX + this.code;
-    let i18nMsg = Mesgs.get(key);
+    let i18nMsg = Mesgs.get(this.code);
     let rtn = this.code;
     if (Array.isArray(this.args)) {
       rtn = i18nMsg.skFmtArr(this.args.map(arg => {
@@ -35,7 +34,7 @@ export default class RespMesg {
       }))
     } else if (_.isPlainObject(this.args) && !_.isEmpty(this.args)) {
       rtn = i18nMsg.skFmt(this.args);
-    } else if (i18nMsg !== key) {
+    } else if (i18nMsg !== this.code) {
       rtn = i18nMsg;
     }
     return rtn;

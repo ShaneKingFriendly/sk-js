@@ -8,7 +8,6 @@ export default class Mesgs {
 
   static PART_OF_HASH_PATH = '_Hash_';
   static PATH_PREFIX = '/json/mesg';
-  static RESP_MSG_KEY_PREFIX = 'Resp.';
   static SERVER_URL = '';
 
   static get(key, path) {
@@ -21,15 +20,6 @@ export default class Mesgs {
         rtn = tmpRtn;
         break;
       }
-    }
-    return rtn;
-  }
-
-  static getResp(key, path) {
-    let tmpKey = Mesgs.RESP_MSG_KEY_PREFIX + key;
-    let rtn = Mesgs.get(tmpKey, path);
-    if (rtn === tmpKey) {
-      rtn = Mesgs.get(key, path);
     }
     return rtn;
   }

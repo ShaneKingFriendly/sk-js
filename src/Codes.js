@@ -4,17 +4,17 @@ import SK from './SK';
 import Mesgs from './Mesgs';
 
 export default class Codes {
-  static codes = {};
+  static code = {};
   static hash = {};//current language hash
 
-  static PATH_PREFIX = '/json/codes';
+  static PATH_PREFIX = '/json/code';
   static SERVER_URL = '';
 
   static get(code, path) {
     let validPath = SK.getValidPath(path ? path : SK.getCurrentPath());
     let validPaths = Codes.getSubPaths(validPath, false);
     for (let i = 0; i < validPaths.length; i++) {
-      let validPathsCode0 = Codes.codes[validPaths[i]];
+      let validPathsCode0 = Codes.code[validPaths[i]];
       if (validPathsCode0) {
         let validPathsCodes = SK.s4a(validPathsCode0.skVal(code));
         if (validPathsCodes.length !== 0) {
@@ -26,12 +26,12 @@ export default class Codes {
   }
 
   static getSubPaths(path, justUnExisted) {
-    return justUnExisted ? _.difference(SK.getSubPaths(path), Object.keys(Codes.codes)) : SK.getSubPaths(path);
+    return justUnExisted ? _.difference(SK.getSubPaths(path), Object.keys(Codes.code)) : SK.getSubPaths(path);
   }
 
   static load(path) {
-    if (Codes.codes[path]) {
-      return $.when(Codes.codes[path]);
+    if (Codes.code[path]) {
+      return $.when(Codes.code[path]);
     } else {
       if ($.isEmptyObject(Codes.hash)) {
         let deferred = $.Deferred();
@@ -47,7 +47,7 @@ export default class Codes {
             method: SK.REQUEST_METHOD_GET,
             url: SK.CONTEXT_PATH + Codes.PATH_PREFIX + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT
           }).done($resp => {
-            Mesgs.jsonNodeParser($resp, SK.EMPTY, Codes.codes);
+            Mesgs.jsonNodeParser($resp, SK.EMPTY, Codes.code);
           }).always(() => {
             deferred.resolve();
           });
@@ -63,7 +63,7 @@ export default class Codes {
             method: SK.REQUEST_METHOD_GET,
             url: SK.CONTEXT_PATH + Codes.PATH_PREFIX + validPath + Codes.hash[validPath] + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT
           }).done($resp => {
-            Codes.codes[validPath] = $resp;
+            Codes.code[validPath] = $resp;
           });
         }));
       }
@@ -82,10 +82,10 @@ export default class Codes {
   }
 
   static unload(path) {
-    if (Object.keys(Codes.codes).filter($existPath => {
+    if (Object.keys(Codes.code).filter($existPath => {
         return $existPath.indexOf(path) !== -1;
       }).length === 1) {
-      delete Codes.codes[path];
+      delete Codes.code[path];
     }
   }
 }
