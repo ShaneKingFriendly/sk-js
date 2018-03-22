@@ -17,10 +17,10 @@ export default class RespMesg {
   }
 
   getMessage() {
-    let i18nMsg = Mesgs.get(this.code);
+    let msg = Mesgs.get(this.code);
     let rtn = this.code;
     if (Array.isArray(this.args)) {
-      rtn = i18nMsg.skFmtArr(this.args.map(arg => {
+      rtn = msg.skFmtArr(this.args.map(arg => {
         let tmpRtn = null;
         if (_.isPlainObject(arg) && arg.code && arg.id) {
           tmpRtn = Codes.get(arg.code).find(item => {
@@ -33,9 +33,9 @@ export default class RespMesg {
         return tmpRtn;
       }))
     } else if (_.isPlainObject(this.args) && !_.isEmpty(this.args)) {
-      rtn = i18nMsg.skFmt(this.args);
-    } else if (i18nMsg !== this.code) {
-      rtn = i18nMsg;
+      rtn = msg.skFmt(this.args);
+    } else if (msg !== this.code) {
+      rtn = msg;
     }
     return rtn;
   }

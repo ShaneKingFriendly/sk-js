@@ -1,7 +1,7 @@
 {
   "name": "sk-js",
   "description": "ShaneKing for JavaScript",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "https://github.com/ShaneKing/sk-js",
   "license": "MIT",
   "author": {
@@ -41,8 +41,7 @@
     "crypto-js": "^3.1.9-1",
     "jquery": "^3.3.1",
     "js-cookie": "^2.2.0",
-    "lodash": "^4.17.4",
-    "nprogress": "^0.2.0"
+    "lodash": "^4.17.4"
   },
   "devDependencies": {
     "assert": "^1.4.1",
