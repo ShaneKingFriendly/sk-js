@@ -11,11 +11,11 @@ export default class Mesgs {
   static SERVER_URL = '';
 
   static get(key, path) {
-    let validPath = SK.getValidPath(path ? path : SK.getCurrentPath());
-    let validPaths = Mesgs.getSubPaths(validPath, false);
+    const validPath = SK.getValidPath(path || SK.getCurrentPath());
+    const validPaths = Mesgs.getSubPaths(validPath, false);
     let rtn = SK.s4s(key);
-    for (let i = 0; i < validPaths.length; i++) {
-      let tmpRtn = SK.s4o(Mesgs.mesg[validPaths[i]]).skVal(key);
+    for (let i = 0; i < validPaths.length; i += 1) {
+      const tmpRtn = SK.s4o(Mesgs.mesg[validPaths[i]]).skVal(key);
       if (!_.isNil(tmpRtn)) {
         rtn = tmpRtn;
         break;
@@ -35,10 +35,10 @@ export default class Mesgs {
    * @param pathObjects
    */
   static jsonNodeParser(jsonObject, existPath, pathObjects) {
-    let pathObject = {};
+    const pathObject = {};
     Object.keys(jsonObject).forEach($path => {
       if ($path === SK.CHAR_SLASH) {
-        let rootObject = jsonObject[$path];
+        const rootObject = jsonObject[$path];
         Object.keys(rootObject).forEach(key => {
           pathObject[key] = rootObject[key];
         });
@@ -65,9 +65,8 @@ export default class Mesgs {
   static load(path) {
     if (Mesgs.mesg[path]) {
       return $.when(Mesgs.mesg[path]);
-    } else {
-      if ($.isEmptyObject(Mesgs.hash)) {
-        let $Deferred = $.Deferred();
+    } else if ($.isEmptyObject(Mesgs.hash)) {
+        const $Deferred = $.Deferred();
         Mesgs.loadHash().done(() => {
           Mesgs.load(path).always(() => {
             $Deferred.resolve();
@@ -78,7 +77,7 @@ export default class Mesgs {
             cache: false,
             dataType: SK.FILE_TYPE_JSON,
             method: SK.REQUEST_METHOD_GET,
-            url: SK.CONTEXT_PATH + Mesgs.PATH_PREFIX + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT
+            url: SK.CONTEXT_PATH + Mesgs.PATH_PREFIX + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT,
           }).done($resp => {
             Mesgs.jsonNodeParser($resp, SK.EMPTY, Mesgs.mesg);
           }).always(() => {
@@ -87,20 +86,19 @@ export default class Mesgs {
         });
         return $Deferred;
       } else {
-        return $.when.apply($, Mesgs.getSubPaths(path, true).filter(validPath => {
+        return $.when(...Mesgs.getSubPaths(path, true).filter(validPath => {
           return Mesgs.hash[validPath];
         }).map(validPath => {
           return $.ajax({
             cache: true,
             dataType: SK.FILE_TYPE_JSON,
             method: SK.REQUEST_METHOD_GET,
-            url: SK.CONTEXT_PATH + Mesgs.PATH_PREFIX + validPath + Mesgs.hash[validPath] + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT
+            url: SK.CONTEXT_PATH + Mesgs.PATH_PREFIX + validPath + Mesgs.hash[validPath] + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT,
           }).done($resp => {
             Mesgs.mesg[validPath] = $resp;
           });
         }));
       }
-    }
   }
 
   static loadHash() {
@@ -108,7 +106,7 @@ export default class Mesgs {
       cache: false,
       dataType: SK.FILE_TYPE_JSON,
       method: SK.REQUEST_METHOD_GET,
-      url: Mesgs.SERVER_URL + Mesgs.PATH_PREFIX + Mesgs.PART_OF_HASH_PATH + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT
+      url: Mesgs.SERVER_URL + Mesgs.PATH_PREFIX + Mesgs.PART_OF_HASH_PATH + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT,
     }).done($resp => {
       Mesgs.hash = $resp;
     });

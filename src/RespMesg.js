@@ -4,10 +4,10 @@ import Mesgs from './Mesgs';
 
 export default class RespMesg {
   static TYPE = {
-    SUCCESS: 'Success',//Just prompt
-    INFO: 'Info',//Just prompt
-    WARNING: 'Warning',//Business continue, but must prompt
-    ERROR: 'Error'//Unknown Exception(done == false), UI will prompt details; Business Stop(done == true), process by component
+    SUCCESS: 'Success', //Just prompt
+    INFO: 'Info', //Just prompt
+    WARNING: 'Warning', //Business continue, but must prompt
+    ERROR: 'Error', //Unknown Exception(done == false), UI will prompt details; Business Stop(done == true), process by component
   };
 
   constructor(mesg) {
@@ -17,21 +17,21 @@ export default class RespMesg {
   }
 
   getMessage() {
-    let msg = Mesgs.get(this.code);
+    const msg = Mesgs.get(this.code);
     let rtn = this.code;
     if (Array.isArray(this.args)) {
       rtn = msg.skFmtArr(this.args.map(arg => {
         let tmpRtn = null;
         if (_.isPlainObject(arg) && arg.code && arg.id) {
           tmpRtn = Codes.get(arg.code).find(item => {
-            return item.id = arg.id
+            return item.id === arg.id;
           });
           tmpRtn = tmpRtn ? tmpRtn.text : arg;
         } else {
           tmpRtn = arg;
         }
         return tmpRtn;
-      }))
+      }));
     } else if (_.isPlainObject(this.args) && !_.isEmpty(this.args)) {
       rtn = msg.skFmt(this.args);
     } else if (msg !== this.code) {

@@ -1,5 +1,6 @@
 import _ from 'lodash';
 
+/*eslint no-extend-native: "off"*/
 /**
  * default of key function
  *
@@ -10,7 +11,7 @@ import _ from 'lodash';
  * @returns {*}
  */
 function _skKeyFunc(key, item, context) {
-  return _.isPlainObject(context) ? _.startsWith(key, 'skIdx') : ('skIdx' + key);
+  return _.isPlainObject(context) ? _.startsWith(key, 'skIdx') : (`skIdx${key}`);
 }
 /**
  * @example
@@ -21,13 +22,13 @@ if (!Array.prototype.skArr) {
     writable: true,
     enumerable: false,
     configurable: true,
-    value: function (recursive, keyFunc = _skKeyFunc) {
-      let rtn = [];
+    value (recursive, keyFunc = _skKeyFunc) {
+      const rtn = [];
       this.forEach(($item) => {
         rtn.push((recursive && (_.isArray($item) || _.isPlainObject($item))) ? $item.skArr(recursive, keyFunc) : $item);
       });
       return rtn;
-    }
+    },
   });
 }
 if (!Array.prototype.skFilter) {
@@ -35,15 +36,15 @@ if (!Array.prototype.skFilter) {
     writable: true,
     enumerable: false,
     configurable: true,
-    value: function (recursive, filterFunc) {
-      let rtn = [];
+    value (recursive, filterFunc) {
+      const rtn = [];
       this.forEach(($item, $index) => {
         if (_.isFunction(filterFunc) && filterFunc($index, $item, this)) {
-          rtn.push((recursive && (_.isArray($item) || _.isPlainObject($item))) ? $item.skFilter(recursive, filterFunc) : $item)
+          rtn.push((recursive && (_.isArray($item) || _.isPlainObject($item))) ? $item.skFilter(recursive, filterFunc) : $item);
         }
       });
       return rtn;
-    }
+    },
   });
 }
 /**
@@ -55,13 +56,13 @@ if (!Array.prototype.skObj) {
     writable: true,
     enumerable: false,
     configurable: true,
-    value: function (recursive, keyFunc = _skKeyFunc) {
-      let rtn = {};
+    value (recursive, keyFunc = _skKeyFunc) {
+      const rtn = {};
       this.forEach(($item, $index) => {
         rtn[_.isFunction(keyFunc) ? keyFunc($index, $item, this) : $index] = (recursive && (_.isArray($item) || _.isPlainObject($item))) ? $item.skObj(recursive, keyFunc) : $item;
       });
       return rtn;
-    }
+    },
   });
 }
 /**
@@ -73,13 +74,13 @@ if (!Array.prototype.skRmv) {
     writable: true,
     enumerable: false,
     configurable: true,
-    value: function (item) {
-      let idx = this.indexOf(item);
+    value (item) {
+      const idx = this.indexOf(item);
       if (idx > -1) {
         this.splice(idx, 1);
       }
       return this;
-    }
+    },
   });
 }
 /**
@@ -92,15 +93,15 @@ if (!Array.prototype.skToggle) {
     writable: true,
     enumerable: false,
     configurable: true,
-    value: function (item) {
-      let idx = this.indexOf(item);
+    value (item) {
+      const idx = this.indexOf(item);
       if (idx > -1) {
         this.splice(idx, 1);
       } else {
         this.push(item);
       }
       return this;
-    }
+    },
   });
 }
 /**
@@ -121,12 +122,12 @@ if (!Object.prototype.skArr) {
     writable: true,
     enumerable: false,
     configurable: true,
-    value: function (recursive, keyFunc = _skKeyFunc) {
-      let rtnArr = [];
-      let rtnObj = {};
+    value (recursive, keyFunc = _skKeyFunc) {
+      const rtnArr = [];
+      const rtnObj = {};
       Object.keys(this).forEach(($key) => {
-        let tmpVal = this[$key];
-        let rtn = (recursive && (_.isPlainObject(tmpVal) || _.isArray(tmpVal))) ? tmpVal.skArr(recursive, keyFunc) : tmpVal;
+        const tmpVal = this[$key];
+        const rtn = (recursive && (_.isPlainObject(tmpVal) || _.isArray(tmpVal))) ? tmpVal.skArr(recursive, keyFunc) : tmpVal;
 
         rtnObj[$key] = rtn;
         if (_.isFunction(keyFunc) && keyFunc($key, tmpVal, this)) {
@@ -134,17 +135,7 @@ if (!Object.prototype.skArr) {
         }
       });
       return Object.keys(rtnObj).length === rtnArr.length ? rtnArr : rtnObj;
-    }
-  });
-}
-if (!Object.prototype.skAssign) {
-  Object.defineProperty(Object.prototype, 'skAssign', {
-    writable: true,
-    enumerable: false,
-    configurable: true,
-    value: function (...objects) {
-      return SK.assign.apply(this, _.concat(this, objects));
-    }
+    },
   });
 }
 if (!Object.prototype.skFilter) {
@@ -152,16 +143,16 @@ if (!Object.prototype.skFilter) {
     writable: true,
     enumerable: false,
     configurable: true,
-    value: function (recursive, filterFunc) {
-      let rtn = {};
+    value (recursive, filterFunc) {
+      const rtn = {};
       Object.keys(this).forEach(($key) => {
-        let tmpVal = this[$key];
+        const tmpVal = this[$key];
         if (_.isFunction(filterFunc) && filterFunc($key, tmpVal, this)) {
           rtn[$key] = (recursive && (_.isArray(tmpVal) || _.isPlainObject(tmpVal))) ? tmpVal.skFilter(recursive, filterFunc) : tmpVal;
         }
       });
       return rtn;
-    }
+    },
   });
 }
 /**
@@ -173,14 +164,14 @@ if (!Object.prototype.skObj) {
     writable: true,
     enumerable: false,
     configurable: true,
-    value: function (recursive, keyFunc = _skKeyFunc) {
-      let rtn = {};
+    value (recursive, keyFunc = _skKeyFunc) {
+      const rtn = {};
       Object.keys(this).forEach(($key) => {
-        let tmpVal = this[$key];
+        const tmpVal = this[$key];
         rtn[$key] = (recursive && (_.isArray(tmpVal) || _.isPlainObject(tmpVal))) ? tmpVal.skObj(recursive, keyFunc) : tmpVal;
       });
       return rtn;
-    }
+    },
   });
 }
 if (!Object.prototype.skVal) {
@@ -188,12 +179,12 @@ if (!Object.prototype.skVal) {
     writable: true,
     enumerable: false,
     configurable: true,
-    value: function (str, val) {
+    value (str, val) {
       let rtn = this;
-      let arr = str.split('.');
+      const arr = str.split('.');
       let idx = 0;
       if (arguments.length > 1) {
-        for (; idx < arr.length - 1; idx++) {
+        for (; idx < arr.length - 1; idx += 1) {
           if (rtn[arr[idx]] === undefined) {
             rtn[arr[idx]] = {};
           }
@@ -203,7 +194,7 @@ if (!Object.prototype.skVal) {
           rtn[arr[idx]] = val;
         }
       } else {
-        for (; idx < arr.length; idx++) {
+        for (; idx < arr.length; idx += 1) {
           rtn = rtn[arr[idx]];
           if (rtn === undefined) {
             break;
@@ -211,7 +202,7 @@ if (!Object.prototype.skVal) {
         }
       }
       return rtn;
-    }
+    },
   });
 }
 if (!Object.prototype.skVals) {
@@ -219,11 +210,11 @@ if (!Object.prototype.skVals) {
     writable: true,
     enumerable: false,
     configurable: true,
-    value: function () {
+    value () {
       return Object.keys(this).map(($key) => {
         return this[$key];
       });
-    }
+    },
   });
 }
 if (!String.prototype.skBlank) {
@@ -234,8 +225,8 @@ if (!String.prototype.skBlank) {
 if (!String.prototype.skCurrencyFmt) {
   String.prototype.skCurrencyFmt = function (fraction) {
     fraction = fraction >= 0 && fraction <= 20 ? fraction : 2;
-    let arr = (parseFloat(this.replace(/[^\d\.-]/g, '')).toFixed(fraction) + '').split('.');
-    return arr[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + (fraction === 0 ? '' : ('.' + arr[1]));
+    const arr = (`${parseFloat(this.replace(/[^\d\.-]/g, '')).toFixed(fraction)}`).split('.');
+    return arr[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + (fraction === 0 ? '' : (`.${arr[1]}`));
   };
 }
 if (!String.prototype.skEmpty) {
@@ -245,15 +236,16 @@ if (!String.prototype.skEmpty) {
 }
 if (!String.prototype.skFmt) {
   String.prototype.skFmt = function (o) {
-    return this.replace(/(\$\{\w+(\.\w+)*\})/g, ($replacement) => {///(\{\w+\.\})/g
-      return o.skVal($replacement.replace('${', '').replace('}', ''));
+    return this.replace(/(\$#\{\w+(\.\w+)*\})/g, ($replacement) => { ///(\{\w+\.\})/g
+      return o.skVal($replacement.replace('$#{', '').replace('}', ''));
     });
   };
 }
 if (!String.prototype.skFmtArr) {
   String.prototype.skFmtArr = function (array) {
-    return this.replace(/\$(\d+)/g, ($match, $p1) => {
-      return array[--$p1];
+    return this.replace(/\$#(\d+)/g, ($match, $p1) => {
+      $p1 -= 1;
+      return array[$p1];
     });
   };
 }

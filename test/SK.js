@@ -180,12 +180,12 @@ describe('SK', () => {
   describe('String.prototype.skFmt', () => {
     let r = 'My $name {is} ShaneKing, i {am from Shanghai';
     it('1', () => {
-      let s = 'My $name {is} ${name}, i {am from ${city}';
+      let s = 'My $name {is} $#{name}, i {am from $#{city}';
       let o = {name: 'ShaneKing', city: 'Shanghai'};
       assert.equal(s.skFmt(o), r);
     });
     it('2', () => {
-      let s = 'My $name {is} ${person.name}, i {am from ${local.city}';
+      let s = 'My $name {is} $#{person.name}, i {am from $#{local.city}';
       let o = {person: {name: 'ShaneKing'}, local: {city: 'Shanghai'}};
       assert.equal(s.skFmt(o), r);
     });
@@ -193,13 +193,13 @@ describe('SK', () => {
   describe('String.prototype.skFmtArr', () => {
     it('1', () => {
       let r = 'My $name ${is} ShaneKing';
-      let s = 'My $name ${is} $1';
+      let s = 'My $name ${is} $#1';
       let a = ['ShaneKing'];
       assert.equal(s.skFmtArr(a), r);
     });
     it('2', () => {
       let r = 'My $name ${is} ShaneKing, i am$ from Shanghai';
-      let s = 'My $name ${is} $1, i am$ from $2';
+      let s = 'My $name ${is} $#1, i am$ from $#2';
       let a = ['ShaneKing', 'Shanghai'];
       assert.equal(s.skFmtArr(a), r);
     });

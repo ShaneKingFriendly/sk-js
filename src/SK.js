@@ -139,7 +139,7 @@ export default class SK {
     if (url.indexOf(SK.CHAR_QUESTION) === -1) {
       return url + SK.CHAR_QUESTION + param + SK.CHAR_EQUAL + value;
     } else {
-      let currentValue = SK.getRequestParameter(param, url.split(SK.CHAR_QUESTION)[1]);
+      const currentValue = SK.getRequestParameter(param, url.split(SK.CHAR_QUESTION)[1]);
       if (currentValue) {
         return url.replace(param + SK.CHAR_EQUAL + currentValue, param + SK.CHAR_EQUAL + value);
       } else {
@@ -219,13 +219,13 @@ export default class SK {
    * descartes('alert','link','-');//'alert-link'
    */
   static descartes(array = [], anotherArray = [], concat = SK.CHAR_DASH) {
-    let arr1 = Array.isArray(array) ? array : [array];
-    let arr2 = Array.isArray(anotherArray) ? anotherArray : [anotherArray];
-    let rtn = [];
+    const arr1 = Array.isArray(array) ? array : [array];
+    const arr2 = Array.isArray(anotherArray) ? anotherArray : [anotherArray];
+    const rtn = [];
     arr1.forEach(($item) => {
       arr2.forEach(($$item) => {
         rtn.push($item + concat + $$item);
-      })
+      });
     });
     return rtn.length === 1 ? rtn[0] : rtn;
   }
@@ -249,8 +249,8 @@ export default class SK {
    * @returns {string}
    */
   static getCurrentLanguage() {
-    let language = SK.cookies(SK.STR_LANGUAGE);
-    return language ? language : SK.DEFAULT_LANGUAGE;
+    const language = SK.cookies(SK.STR_LANGUAGE);
+    return language || SK.DEFAULT_LANGUAGE;
   }
 
   /**
@@ -295,8 +295,8 @@ export default class SK {
   static getRequestParameter(param, search) {
     search = search || SK.getCurrentSearch();
     search = _.startsWith(search, SK.CHAR_QUESTION) ? search.slice(1) : search;
-    let reg = new RegExp('(^|&)' + param + '=([^&]*)(&|$)');
-    let r = search.match(reg);
+    const reg = new RegExp(`(^|&)${param}=([^&]*)(&|$)`);
+    const r = search.match(reg);
     return r ? decodeURIComponent(r[2]) : undefined;
   }
 
@@ -307,12 +307,12 @@ export default class SK {
    * @returns {string[]}
    */
   static getSubPaths(path) {
-    let rtn = [SK.CHAR_SLASH];
+    const rtn = [SK.CHAR_SLASH];
     path.split(SK.CHAR_SLASH).reduce(($accumulator, $item) => {
       if (SK.s4s($item) === SK.EMPTY) {
         return $accumulator;
       } else {
-        let tmpValidPath = SK.getValidPath($accumulator + $item);
+        const tmpValidPath = SK.getValidPath($accumulator + $item);
         rtn.push(tmpValidPath);
         return tmpValidPath;
       }
@@ -441,6 +441,6 @@ export default class SK {
       return $nonFirstWord.toUpperCase();
     }).replace(/^[a-z]/, ($firstWord) => {
       return $firstWord.toUpperCase();
-    })
+    });
   }
 }

@@ -3,10 +3,9 @@ import SK from './SK';
 import Validator from './Validator';
 
 export default class Model {
-
   static EvtType = {
     Changed: 'Changed',
-    Errored: 'Errored'
+    Errored: 'Errored',
   };
 
   static PROP_SK = 'skModel';
@@ -23,7 +22,6 @@ export default class Model {
    * @param validator
    */
   constructor(freeObject = {}, validator = new Validator()) {
-
     this.errors = {};
     this.idListeners = {};
     this.monitors = {};
@@ -42,15 +40,15 @@ export default class Model {
    */
   static object2ModelIds(prefix, modelIds = [], object = {}) {
     Object.keys(object).forEach(($k) => {
-      let tmpKey = prefix + (String(prefix).skBlank() ? SK.EMPTY : SK.CHAR_DOT) + $k;
-      let tmpVal = object[$k];
+      const tmpKey = prefix + (String(prefix).skBlank() ? SK.EMPTY : SK.CHAR_DOT) + $k;
+      const tmpVal = object[$k];
       if (_.isPlainObject(tmpVal)) {
-        Model.object2ModelIds(tmpKey, modelIds, tmpVal)
+        Model.object2ModelIds(tmpKey, modelIds, tmpVal);
       } else if (SK.s4b(tmpVal) && tmpVal) {
         modelIds.push(tmpKey);
       }
     });
-  };
+  }
 
   /**
    * @param sao is string[reg], array[string] or object
@@ -143,20 +141,20 @@ export default class Model {
   }
 
   fireChangedEvent(id, old, current) {
-    this.fireEvent({model: this, id: id, old: old, current: current, type: Model.EvtType.Changed});
+    this.fireEvent({ model: this, id, old, current, type: Model.EvtType.Changed });
   }
 
   fireErroredEvent(id, old, current) {
-    this.fireEvent({model: this, id: id, old: old, current: current, type: Model.EvtType.Errored});
+    this.fireEvent({ model: this, id, old, current, type: Model.EvtType.Errored });
   }
 
   fireEvent(evt) {
-    let matchedListeners = [];
-    let idListeners = this.idListeners[evt.type] ? this.idListeners[evt.type] : {};
-    matchedListeners.push.apply(matchedListeners, idListeners[evt.id] ? idListeners[evt.id] : []);
-    let regListeners = this.regListeners[evt.type] ? this.regListeners[evt.type] : {};
+    const matchedListeners = [];
+    const idListeners = this.idListeners[evt.type] ? this.idListeners[evt.type] : {};
+    matchedListeners.push(...idListeners[evt.id] ? idListeners[evt.id] : []);
+    const regListeners = this.regListeners[evt.type] ? this.regListeners[evt.type] : {};
     Object.keys(regListeners).forEach(reg => {
-      matchedListeners.push.apply(matchedListeners, evt.id.match(reg) ? listeners[reg] : []);
+      matchedListeners.push(...evt.id.match(reg) ? regListeners[reg] : []);
     });
 
     matchedListeners.forEach(listener => {
@@ -226,7 +224,7 @@ export default class Model {
   }
 
   skVal(id, value) {
-    let oldValue = this.freeObject.skVal(id);
+    const oldValue = this.freeObject.skVal(id);
     if (arguments.length > 1) {
       if (oldValue !== value) {
         this.freeObject.skVal(id, value);
@@ -240,7 +238,7 @@ export default class Model {
 
   //validator begin
   addAllValidatorMonitor() {
-    let tmpModelIds = this.getValidator().getModelIds();
+    const tmpModelIds = this.getValidator().getModelIds();
     Object.keys(tmpModelIds).forEach(($key) => {
       this.addValidatorMonitor($key, tmpModelIds[$key]);
     });
@@ -256,7 +254,7 @@ export default class Model {
     if (!this.monitors[modelId]) {
       this.errors[modelId] = {};
       this.monitors[modelId] = this.validate.bind(modelId);
-      this.addIdChangedListener(modelId, this.monitors[modelId])
+      this.addIdChangedListener(modelId, this.monitors[modelId]);
     }
     if (rule === Validator.PROP_DEPS) {
       //when dependencies changed, need validate too
@@ -264,18 +262,18 @@ export default class Model {
         if (_.isRegExp($i)) {
           this.addRegChangedListener($i, this.monitors[modelId]);
         } else {
-          this.addIdChangedListener($i, this.monitors[modelId])
+          this.addIdChangedListener($i, this.monitors[modelId]);
         }
       });
     } else {
-      let tmpSettingDeps = setting[Validator.PROP_DEPS];
+      const tmpSettingDeps = setting[Validator.PROP_DEPS];
       if (tmpSettingDeps) {
         //see Validator.constructor comments
         Model.parseSao(tmpSettingDeps).forEach(($i) => {
           if (_.isRegExp($i)) {
             this.addRegChangedListener($i, this.monitors[modelId]);
           } else {
-            this.addIdChangedListener($i, this.monitors[modelId])
+            this.addIdChangedListener($i, this.monitors[modelId]);
           }
         });
       }
@@ -283,8 +281,8 @@ export default class Model {
   }
 
   execValidate(rule, id, func, model, setting) {
-    let tmpRtn = func(model, model.skVal(id), setting);
-    if (!_.isBoolean(tmpRtn)) {//true or message
+    const tmpRtn = func(model, model.skVal(id), setting);
+    if (!_.isBoolean(tmpRtn)) { //true or message
       this.errors.skVal(id + SK.CHAR_DOT + rule, tmpRtn);
     } else {
       delete this.errors[id][rule];
@@ -299,7 +297,7 @@ export default class Model {
           if (_.isRegExp($i)) {
             this.rmvRegChangedListener($i, this.monitors[id]);
           } else {
-            this.rmvIdChangedListener($i, this.monitors[id])
+            this.rmvIdChangedListener($i, this.monitors[id]);
           }
         });
       } else {
@@ -309,22 +307,22 @@ export default class Model {
   }
 
   rmvValidatorRuleMonitor(id, rule, setting) {
-    let tmpSettingDeps = setting[Validator.PROP_DEPS];
+    const tmpSettingDeps = setting[Validator.PROP_DEPS];
     if (tmpSettingDeps) {
       Model.parseSao(tmpSettingDeps).forEach(($i) => {
         if (_.isRegExp($i)) {
           this.rmvRegChangedListener($i, this.monitors[id]);
         } else {
-          this.rmvIdChangedListener($i, this.monitors[id])
+          this.rmvIdChangedListener($i, this.monitors[id]);
         }
       });
     }
   }
 
   validate(evt) {
-    let tmpModelId = this;
-    let tmpModel = evt.model;
-    let tmpConfig = evt.model.getValidator().getModelIds()[tmpModelId];
+    const tmpModelId = this;
+    const tmpModel = evt.model;
+    const tmpConfig = evt.model.getValidator().getModelIds()[tmpModelId];
     if (tmpConfig && _.isObject(tmpConfig)) {
       Object.keys(tmpConfig).forEach(($key) => {
         if ($key === Validator.PROP_SCENARIO) {
@@ -332,7 +330,7 @@ export default class Model {
         } else if ($key === Validator.PROP_FUNC) {
           tmpModel.execValidate($key, tmpModelId, tmpConfig[$key], tmpModel, undefined);
         } else {
-          let tmpRule = tmpModel.getValidator().getRules()[$key];
+          const tmpRule = tmpModel.getValidator().getRules()[$key];
           if (_.isFunction(tmpRule)) {
             tmpModel.execValidate($key, tmpModelId, tmpRule, tmpModel, tmpConfig[$key]);
           } else if (_.isObject(tmpRule) && _.isFunction(tmpRule[Validator.PROP_FUNC])) {
@@ -344,10 +342,10 @@ export default class Model {
   }
 
   validateByScenario(scenario) {
-    let configs = this.getValidator().getModelIds();
+    const configs = this.getValidator().getModelIds();
     Object.keys(configs).forEach(($modelId) => {
       if (!scenario || scenario === configs[$modelId][Validator.PROP_SCENARIO]) {
-        this.validate.call($modelId, {model: this});
+        this.validate.call($modelId, { model: this });
       }
     });
   }
