@@ -7,11 +7,11 @@ export default class Codes {
   static code = {};
   static hash = {};//current language hash
 
-  static PATH_PREFIX = '/json/code';
+  static PATH_PREFIX = '/json/codes';
   static SERVER_URL = '';
 
-  static get(code, path) {
-    const validPath = SK.getValidPath(path || SK.getCurrentPath());
+  static get(code, path = SK.getCurrentPath()) {
+    const validPath = SK.getValidPath(path);
     const validPaths = Codes.getSubPaths(validPath, false);
     for (let i = 0; i < validPaths.length; i += 1) {
       const validPathsCode0 = Codes.code[validPaths[i]];
@@ -29,7 +29,8 @@ export default class Codes {
     return justUnExisted ? _.difference(SK.getSubPaths(path), Object.keys(Codes.code)) : SK.getSubPaths(path);
   }
 
-  static load(path) {
+  static load(path = SK.getCurrentPath()) {
+    path = SK.getValidPath(path);
     if (Codes.code[path]) {
       return $.when(Codes.code[path]);
     } else if ($.isEmptyObject(Codes.hash)) {
@@ -80,10 +81,10 @@ export default class Codes {
   }
 
   static unload(path) {
-    if (Object.keys(Codes.code).filter($existPath => {
-        return $existPath.indexOf(path) !== -1;
-      }).length === 1) {
-      delete Codes.code[path];
-    }
+    Object.keys(Codes.code).filter($existPath => {
+      return _.startsWith($existPath, path);
+    }).forEach($existPath => {
+      delete Codes.code[$existPath];
+    });
   }
 }

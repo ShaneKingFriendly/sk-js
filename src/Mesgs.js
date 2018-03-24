@@ -7,11 +7,11 @@ export default class Mesgs {
   static mesg = {};//all
 
   static PART_OF_HASH_PATH = '_Hash_';
-  static PATH_PREFIX = '/json/mesg';
+  static PATH_PREFIX = '/json/mesgs';
   static SERVER_URL = '';
 
-  static get(key, path) {
-    const validPath = SK.getValidPath(path || SK.getCurrentPath());
+  static get(key, path = SK.getCurrentPath()) {
+    const validPath = SK.getValidPath(path);
     const validPaths = Mesgs.getSubPaths(validPath, false);
     let rtn = SK.s4s(key);
     for (let i = 0; i < validPaths.length; i += 1) {
@@ -62,7 +62,8 @@ export default class Mesgs {
    * @param path
    * @returns {*} Promise
    */
-  static load(path) {
+  static load(path = SK.getCurrentPath()) {
+    path = SK.getValidPath(path);
     if (Mesgs.mesg[path]) {
       return $.when(Mesgs.mesg[path]);
     } else if ($.isEmptyObject(Mesgs.hash)) {
@@ -113,10 +114,10 @@ export default class Mesgs {
   }
 
   static unload(path) {
-    if (Object.keys(Mesgs.mesg).filter($existPath => {
-        return $existPath.indexOf(path) !== -1;
-      }).length === 1) {
-      delete Mesgs.mesg[path];
-    }
+    Object.keys(Mesgs.mesg).filter($existPath => {
+      return _.startsWith($existPath, path);
+    }).forEach($existPath => {
+      delete Mesgs.mesg[$existPath];
+    });
   }
 }
