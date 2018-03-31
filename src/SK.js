@@ -249,8 +249,12 @@ export default class SK {
    * @returns {string}
    */
   static getCurrentLanguage() {
-    const language = SK.cookies(SK.STR_LANGUAGE);
-    return language || SK.DEFAULT_LANGUAGE;
+    let language = SK.local(SK.STR_LANGUAGE);
+    if(!language){
+      SK.local(SK.STR_LANGUAGE, SK.DEFAULT_LANGUAGE);
+      language = SK.local(SK.STR_LANGUAGE);
+    }
+    return language;
   }
 
   /**

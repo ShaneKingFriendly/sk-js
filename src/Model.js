@@ -283,7 +283,10 @@ export default class Model {
   execValidate(rule, id, func, model, setting) {
     const tmpRtn = func(model, model.skVal(id), setting);
     if (!_.isBoolean(tmpRtn)) { //true or message
-      this.errors.skVal(id + SK.CHAR_DOT + rule, tmpRtn);
+      if(!this.errors[id]){
+        this.errors[id] = {};
+      }
+      this.errors[id][rule] = tmpRtn;
     } else {
       delete this.errors[id][rule];
     }
