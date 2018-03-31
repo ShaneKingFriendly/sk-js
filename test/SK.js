@@ -255,11 +255,11 @@ describe('SK', () => {
       assert.equal(SK.descartes('alert', 'link', '-'), 'alert-link');
     });
   });
-  describe('SK.getCurrentLanguage', () => {
-    it('default', () => {
-      assert.equal(SK.getCurrentLanguage(), SK.DEFAULT_LANGUAGE);
-    });
-  });
+  // describe('SK.getCurrentLanguage', () => {
+  //   it('default', () => {
+  //     assert.equal(SK.getCurrentLanguage(), SK.DEFAULT_LANGUAGE);
+  //   });
+  // });
   describe('SK.getSubPaths', () => {
     it('1', () => {
       assert.deepEqual(SK.getSubPaths('a/b'), ['/','/a/','/a/b/']);
