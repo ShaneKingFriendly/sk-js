@@ -249,10 +249,10 @@ export default class SK {
    * @returns {string}
    */
   static getCurrentLanguage() {
-    let language = SK.local(SK.STR_LANGUAGE);
+    let language = SK.cookies(SK.STR_LANGUAGE);
     if(!language){
-      SK.local(SK.STR_LANGUAGE, SK.DEFAULT_LANGUAGE);
-      language = SK.local(SK.STR_LANGUAGE);
+      SK.cookies(SK.STR_LANGUAGE, SK.DEFAULT_LANGUAGE);
+      language = SK.cookies(SK.STR_LANGUAGE);
     }
     return language;
   }
