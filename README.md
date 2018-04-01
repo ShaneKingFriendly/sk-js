@@ -154,7 +154,8 @@ MVC'M
 ### Validator
 ```javascript
   /**
-   *
+   * MVC'V（Validator）
+   * 
    * @param modelIds
    * {
    *   "id1": {

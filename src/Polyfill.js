@@ -13,6 +13,7 @@ import _ from 'lodash';
 function _skKeyFunc(key, item, context) {
   return _.isPlainObject(context) ? _.startsWith(key, 'skIdx') : (`skIdx${key}`);
 }
+
 /**
  * @example
  * [2,{skIdx0:3,skIdx1:[4,{skIdx0:5,skIdx1:[]}]}] -> [2,[3,[4,[5,[]]]]]
@@ -22,7 +23,7 @@ if (!Array.prototype.skArr) {
     writable: true,
     enumerable: false,
     configurable: true,
-    value (recursive, keyFunc = _skKeyFunc) {
+    value(recursive, keyFunc = _skKeyFunc) {
       const rtn = [];
       this.forEach(($item) => {
         rtn.push((recursive && (_.isArray($item) || _.isPlainObject($item))) ? $item.skArr(recursive, keyFunc) : $item);
@@ -36,7 +37,7 @@ if (!Array.prototype.skFilter) {
     writable: true,
     enumerable: false,
     configurable: true,
-    value (recursive, filterFunc) {
+    value(recursive, filterFunc) {
       const rtn = [];
       this.forEach(($item, $index) => {
         if (_.isFunction(filterFunc) && filterFunc($index, $item, this)) {
@@ -56,7 +57,7 @@ if (!Array.prototype.skObj) {
     writable: true,
     enumerable: false,
     configurable: true,
-    value (recursive, keyFunc = _skKeyFunc) {
+    value(recursive, keyFunc = _skKeyFunc) {
       const rtn = {};
       this.forEach(($item, $index) => {
         rtn[_.isFunction(keyFunc) ? keyFunc($index, $item, this) : $index] = (recursive && (_.isArray($item) || _.isPlainObject($item))) ? $item.skObj(recursive, keyFunc) : $item;
@@ -74,7 +75,7 @@ if (!Array.prototype.skRmv) {
     writable: true,
     enumerable: false,
     configurable: true,
-    value (item) {
+    value(item) {
       const idx = this.indexOf(item);
       if (idx > -1) {
         this.splice(idx, 1);
@@ -93,7 +94,7 @@ if (!Array.prototype.skToggle) {
     writable: true,
     enumerable: false,
     configurable: true,
-    value (item) {
+    value(item) {
       const idx = this.indexOf(item);
       if (idx > -1) {
         this.splice(idx, 1);
@@ -101,6 +102,22 @@ if (!Array.prototype.skToggle) {
         this.push(item);
       }
       return this;
+    },
+  });
+}
+if (!Array.prototype.skTrans) {
+  Object.defineProperty(Array.prototype, 'skTrans', {
+    writable: true,
+    enumerable: false,
+    configurable: true,
+    value(recursive, transFunc) {
+      const rtn = [];
+      this.forEach(($item, $index) => {
+        if (_.isFunction(transFunc)) {
+          rtn.push((recursive && (_.isArray($item) || _.isPlainObject($item))) ? $item.skTrans(recursive, transFunc) : transFunc($index, $item, this));
+        }
+      });
+      return rtn;
     },
   });
 }
@@ -122,7 +139,7 @@ if (!Object.prototype.skArr) {
     writable: true,
     enumerable: false,
     configurable: true,
-    value (recursive, keyFunc = _skKeyFunc) {
+    value(recursive, keyFunc = _skKeyFunc) {
       const rtnArr = [];
       const rtnObj = {};
       Object.keys(this).forEach(($key) => {
@@ -143,7 +160,7 @@ if (!Object.prototype.skFilter) {
     writable: true,
     enumerable: false,
     configurable: true,
-    value (recursive, filterFunc) {
+    value(recursive, filterFunc) {
       const rtn = {};
       Object.keys(this).forEach(($key) => {
         const tmpVal = this[$key];
@@ -164,11 +181,28 @@ if (!Object.prototype.skObj) {
     writable: true,
     enumerable: false,
     configurable: true,
-    value (recursive, keyFunc = _skKeyFunc) {
+    value(recursive, keyFunc = _skKeyFunc) {
       const rtn = {};
       Object.keys(this).forEach(($key) => {
         const tmpVal = this[$key];
         rtn[$key] = (recursive && (_.isArray(tmpVal) || _.isPlainObject(tmpVal))) ? tmpVal.skObj(recursive, keyFunc) : tmpVal;
+      });
+      return rtn;
+    },
+  });
+}
+if (!Object.prototype.skTrans) {
+  Object.defineProperty(Object.prototype, 'skTrans', {
+    writable: true,
+    enumerable: false,
+    configurable: true,
+    value(recursive, transFunc) {
+      const rtn = {};
+      Object.keys(this).forEach(($key) => {
+        const tmpVal = this[$key];
+        if (_.isFunction(transFunc)) {
+          rtn[$key] = (recursive && (_.isArray(tmpVal) || _.isPlainObject(tmpVal))) ? tmpVal.skTrans(recursive, transFunc) : transFunc($key, tmpVal, this);
+        }
       });
       return rtn;
     },
@@ -179,7 +213,7 @@ if (!Object.prototype.skVal) {
     writable: true,
     enumerable: false,
     configurable: true,
-    value (str, val) {
+    value(str, val) {
       let rtn = this;
       const arr = str.split('.');
       let idx = 0;
@@ -210,7 +244,7 @@ if (!Object.prototype.skVals) {
     writable: true,
     enumerable: false,
     configurable: true,
-    value () {
+    value() {
       return Object.keys(this).map(($key) => {
         return this[$key];
       });
