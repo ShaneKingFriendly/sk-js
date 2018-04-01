@@ -1,8 +1,44 @@
 # [ShaneKing for JavaScript][]
 More to see [shaneking.org][].
 
+## Info
+### Dependencies
+[![][versioneye img]][versioneye]
 
-## Codes
+[![][david img]][david]
+[![][davidDev img]][davidDev]
+[![][davidPeer img]][davidPeer]
+
+### Build
+[![][travis img]][travis]
+
+### Test
+[![][codecov img]][codecov]
+[![][codacy img]][codacy]
+
+### Release
+[![][npmbadge img]][npmbadge]
+[![][npmDownloadbadge img]][npmDownloadbadge]
+
+[![][npmDetailBadge img]][npmDetailBadge]
+
+### Discussion
+[![][gitter img]][gitter]
+
+### License
+[![][license img]][license]
+
+ShaneKing is released under [MIT][].
+
+
+## Conventions
+### Naming conventions
+- [x] **anonymous inner function parameter**: Begin $, like $item
+- [x] **anonymous inner function variable**: Begin tmp, like tmpVal
+
+
+## Details
+### Codes
 ```json
 {
   "/":{
@@ -24,16 +60,14 @@ More to see [shaneking.org][].
 - [x] **loadHash()**: gulp-sk-i18n plugin can split by path, like codes_Hash_en_US.json contain {"/":"22abc1fb"} -> 22abc1fb_en_US.json
 - [x] **unload(path)**: '/a' -> will delete /a**/*
 
-
-## Crypto
+### Crypto
 ```java
 REF：https://github.com/ShaneKing/org.shaneking.skava/blob/mirror/src/main/java/org/shaneking/skava/crypto/AES.java
 ```
 - [x] **aesDecrypt(cipherText, salt, iv, passPhrase, iterations, keySize)**: 'plainText' -> '2SZ/de9I0rvxO7s9wdCohQ=='
 - [x] **aesEncrypt(plainText, salt, iv, passPhrase, iterations, keySize)**: '2SZ/de9I0rvxO7s9wdCohQ==' -> 'plainText'
 
-
-## Mesgs
+### Mesgs
 ```json
 {
   "/": {
@@ -53,8 +87,7 @@ REF：https://github.com/ShaneKing/org.shaneking.skava/blob/mirror/src/main/java
 - [x] **loadHash()**: gulp-sk-i18n plugin can split by path, like mesgs_Hash_en_US.json contain {"/auth/":"34d85247"} -> /auth/34d85247_en_US.json
 - [x] **unload(path)**: '/a' -> will delete /a**/*
 
-
-## Model
+### Model
 ```java
 MVC'M
 ```
@@ -66,8 +99,7 @@ MVC'M
 - [x] **XXXValidatorXXXMonitor**: monitor on model for validate
 - [x] **validateXXX**: exec validates
 
-
-## Polyfill
+### Polyfill
 - [x] **Array.prototype.skArr(recursive, keyFunc)**: [2,{skIdx0:3,skIdx1:[4,{skIdx0:5,skIdx1:[]}]}] -> [2,[3,[4,[5,[]]]]]
 - [x] **Array.prototype.skFilter(recursive, filterFunc)**: filter recursive
 - [x] **Array.prototype.skObj(recursive, keyFunc)**: [1,{a:2,b:[3,{c:4,d:[5,{}]}]}] -> {skIdx0:1,skIdx1:{a:2,b:{skIdx0:3,skIdx1:{c:4,d:{skIdx0:5,skIdx1:{}}}}}}
@@ -85,18 +117,15 @@ MVC'M
 - [x] **String.prototype.skFmt(o)**: 'My $name {is} $#{name}, i {am from $#{city}'.skFmt({name: 'ShaneKing', city: 'China'}) -> 'My $name {is} ShaneKing, i {am from China'
 - [x] **String.prototype.skFmtArr(a)**: 'My $name $#{is} $1, i am$ from $2'.skFmtArr(['ShaneKing', 'China']) -> 'My $name $#{is} ShaneKing, i am$ from China'
 
-
-## Resp
+### Resp
 - [x] **constructor(respJsonData)**: build Resp by response json data
 
-
-## RespMesg
+### RespMesg
 - [x] **constructor(mesg)**: build message by response json data
 - [x] **getMessage()**: get message
 - [x] **getType()**: get Message Type
 
-
-## SK
+### SK
 - [x] **$($, initVal, env)**: New or get namespace object. eg. `var $sk = SK.$('$sk', {}, window)`
 - [x] **appendParameter(url, param, value)**: ('/a','b','c') -> /a?b=c
 - [x] **arePlainObject(...values)**: 
@@ -122,8 +151,7 @@ MVC'M
 - [x] **session(key, value)**: need reload every new use
 - [x] **upperWordsFirstChar(words)**: 'xi nAn shi you xUe yuan china people' -> 'Xi NAn Shi You XUe Yuan China People'
 
-
-## Validator
+### Validator
 ```javascript
   /**
    *
@@ -156,43 +184,8 @@ MVC'M
 - [x] **getRules()**: 
 
 
-
-## Naming conventions
-- [x] **anonymous inner function parameter**: Begin $, like $item
-- [x] **anonymous inner function variable**: Begin tmp, like tmpVal
-
-## Dependencies
-[![][versioneye img]][versioneye]
-
-[![][david img]][david]
-[![][davidDev img]][davidDev]
-[![][davidPeer img]][davidPeer]
-
-## Build
-[![][travis img]][travis]
-
-## Test
-[![][codecov img]][codecov]
-[![][codacy img]][codacy]
-
-## Release
-[![][npmbadge img]][npmbadge]
-[![][npmDownloadbadge img]][npmDownloadbadge]
-
-[![][npmDetailBadge img]][npmDetailBadge]
-
-## Discussion
-[![][gitter img]][gitter]
-
-## License
-[![][license img]][license]
-
-ShaneKing is released under [MIT][].
-
-
 [ShaneKing for JavaScript]: http://shaneking.org/c/sk-js
 [shaneking.org]: http://shaneking.org/
-
 
 [versioneye]:https://www.versioneye.com/user/projects/56fa049335630e003e0a8ab9
 [versioneye img]:https://www.versioneye.com/user/projects/56fa049335630e003e0a8ab9/badge.svg
@@ -203,10 +196,8 @@ ShaneKing is released under [MIT][].
 [davidPeer]:https://david-dm.org/ShaneKing/sk-js#info=peerDependencies
 [davidPeer img]:https://david-dm.org/ShaneKing/sk-js/peer-status.svg
 
-
 [travis]:https://travis-ci.org/ShaneKing/sk-js
 [travis img]:https://travis-ci.org/ShaneKing/sk-js.png
-
 
 [codecov]:https://codecov.io/github/ShaneKing/sk-js?branch=mirror
 [codecov img]:https://codecov.io/github/ShaneKing/sk-js/coverage.svg?branch=mirror
@@ -215,7 +206,6 @@ ShaneKing is released under [MIT][].
 [saucelabs]:https://saucelabs.com/u/ShaneKing
 [saucelabs img]:https://saucelabs.com/browser-matrix/ShaneKing.svg
 
-
 [npmbadge]:https://www.npmjs.com/package/sk-js
 [npmbadge img]:https://img.shields.io/npm/v/sk-js.svg
 [npmDownloadbadge]:https://www.npmjs.com/package/sk-js
@@ -223,10 +213,8 @@ ShaneKing is released under [MIT][].
 [npmDetailBadge]:https://www.npmjs.com/package/sk-js
 [npmDetailBadge img]:https://nodei.co/npm/sk-js.png?downloads=true&downloadRank=true&stars=true
 
-
 [gitter]:https://gitter.im/ShaneKing/sk-js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
 [gitter img]:https://badges.gitter.im/Join%20Chat.svg
-
 
 [MIT]: https://opensource.org/licenses/MIT
 [license]:LICENSE
