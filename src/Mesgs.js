@@ -60,50 +60,55 @@ export default class Mesgs {
   /**
    *
    * @param path
+   * @param async
    * @returns {*} Promise
    */
-  static load(path = SK.getCurrentPath()) {
+  static load(path = SK.getCurrentPath(), async = true) {
     path = SK.getValidPath(path);
     if (Mesgs.mesg[path]) {
       return $.when(Mesgs.mesg[path]);
     } else if ($.isEmptyObject(Mesgs.hash)) {
-        const $Deferred = $.Deferred();
-        Mesgs.loadHash().done(() => {
-          Mesgs.load(path).always(() => {
-            $Deferred.resolve();
-          });
-        }).fail(() => {
-          Mesgs.hash.env = SK.ENV_DEV;
-          $.ajax({
-            cache: false,
-            dataType: SK.FILE_TYPE_JSON,
-            method: SK.REQUEST_METHOD_GET,
-            url: SK.CONTEXT_PATH + Mesgs.PATH_PREFIX + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT,
-          }).done($resp => {
-            Mesgs.jsonNodeParser($resp, SK.EMPTY, Mesgs.mesg);
-          }).always(() => {
-            $Deferred.resolve();
-          });
+      const $Deferred = $.Deferred();
+      console.log(111);
+      Mesgs.loadHash(async).done(() => {
+        Mesgs.load(path, async).always(() => {
+          $Deferred.resolve();
         });
-        return $Deferred;
-      } else {
-        return $.when(...Mesgs.getSubPaths(path, true).filter(validPath => {
-          return Mesgs.hash[validPath];
-        }).map(validPath => {
-          return $.ajax({
-            cache: true,
-            dataType: SK.FILE_TYPE_JSON,
-            method: SK.REQUEST_METHOD_GET,
-            url: SK.CONTEXT_PATH + Mesgs.PATH_PREFIX + validPath + Mesgs.hash[validPath] + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT,
-          }).done($resp => {
-            Mesgs.mesg[validPath] = $resp;
-          });
-        }));
-      }
+      }).fail(() => {
+        Mesgs.hash.env = SK.ENV_DEV;
+        $.ajax({
+          async: async,
+          cache: false,
+          dataType: SK.FILE_TYPE_JSON,
+          method: SK.REQUEST_METHOD_GET,
+          url: SK.CONTEXT_PATH + Mesgs.PATH_PREFIX + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT,
+        }).done($resp => {
+          Mesgs.jsonNodeParser($resp, SK.EMPTY, Mesgs.mesg);
+        }).always(() => {
+          $Deferred.resolve();
+        });
+      });
+      return $Deferred;
+    } else {
+      return $.when(...Mesgs.getSubPaths(path, true).filter(validPath => {
+        return Mesgs.hash[validPath];
+      }).map(validPath => {
+        return $.ajax({
+          async: async,
+          cache: true,
+          dataType: SK.FILE_TYPE_JSON,
+          method: SK.REQUEST_METHOD_GET,
+          url: SK.CONTEXT_PATH + Mesgs.PATH_PREFIX + validPath + Mesgs.hash[validPath] + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT,
+        }).done($resp => {
+          Mesgs.mesg[validPath] = $resp;
+        });
+      }));
+    }
   }
 
-  static loadHash() {
+  static loadHash(async = true) {
     return $.ajax({
+      async: async,
       cache: false,
       dataType: SK.FILE_TYPE_JSON,
       method: SK.REQUEST_METHOD_GET,

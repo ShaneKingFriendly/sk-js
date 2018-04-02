@@ -29,19 +29,20 @@ export default class Codes {
     return justUnExisted ? _.difference(SK.getSubPaths(path), Object.keys(Codes.code)) : SK.getSubPaths(path);
   }
 
-  static load(path = SK.getCurrentPath()) {
+  static load(path = SK.getCurrentPath(), async = true) {
     path = SK.getValidPath(path);
     if (Codes.code[path]) {
       return $.when(Codes.code[path]);
     } else if ($.isEmptyObject(Codes.hash)) {
       const deferred = $.Deferred();
-      Codes.loadHash().done(() => {
-        Codes.load(path).always(() => {
+      Codes.loadHash(async).done(() => {
+        Codes.load(path, async).always(() => {
           deferred.resolve();
         });
       }).fail(() => {
         Codes.hash.env = SK.ENV_DEV;
         $.ajax({
+          async: async,
           cache: false,
           dataType: SK.FILE_TYPE_JSON,
           method: SK.REQUEST_METHOD_GET,
@@ -58,6 +59,7 @@ export default class Codes {
         return Codes.hash[validPath];
       }).map(validPath => {
         return $.ajax({
+          async: async,
           cache: true,
           dataType: SK.FILE_TYPE_JSON,
           method: SK.REQUEST_METHOD_GET,
@@ -69,8 +71,9 @@ export default class Codes {
     }
   }
 
-  static loadHash() {
+  static loadHash(async = true) {
     return $.ajax({
+      async: async,
       cache: false,
       dataType: SK.FILE_TYPE_JSON,
       method: SK.REQUEST_METHOD_GET,
