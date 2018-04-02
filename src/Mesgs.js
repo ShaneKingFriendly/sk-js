@@ -69,7 +69,6 @@ export default class Mesgs {
       return $.when(Mesgs.mesg[path]);
     } else if ($.isEmptyObject(Mesgs.hash)) {
       const $Deferred = $.Deferred();
-      console.log(111);
       Mesgs.loadHash(async).done(() => {
         Mesgs.load(path, async).always(() => {
           $Deferred.resolve();
