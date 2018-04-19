@@ -76,7 +76,7 @@ export default class Mesgs {
       }).fail(() => {
         Mesgs.hash.env = SK.ENV_DEV;
         $.ajax({
-          async: async,
+          async,
           cache: false,
           dataType: SK.FILE_TYPE_JSON,
           method: SK.REQUEST_METHOD_GET,
@@ -93,7 +93,7 @@ export default class Mesgs {
         return Mesgs.hash[validPath];
       }).map(validPath => {
         return $.ajax({
-          async: async,
+          async,
           cache: true,
           dataType: SK.FILE_TYPE_JSON,
           method: SK.REQUEST_METHOD_GET,
@@ -107,7 +107,7 @@ export default class Mesgs {
 
   static loadHash(async = true) {
     return $.ajax({
-      async: async,
+      async,
       cache: false,
       dataType: SK.FILE_TYPE_JSON,
       method: SK.REQUEST_METHOD_GET,

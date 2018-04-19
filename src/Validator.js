@@ -13,7 +13,7 @@ export default class Validator {
         return true;
       }
       if (SK.s4s(value) === SK.EMPTY) {
-        return Mesgs.get("$#{field}_is_required").skFmt({field: Mesgs.get(settings.field)});
+        return Mesgs.get("$#{field}_is_required").skFmt({ field: Mesgs.get(settings.field) });
       } else {
         return true;
       }

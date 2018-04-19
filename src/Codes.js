@@ -42,7 +42,7 @@ export default class Codes {
       }).fail(() => {
         Codes.hash.env = SK.ENV_DEV;
         $.ajax({
-          async: async,
+          async,
           cache: false,
           dataType: SK.FILE_TYPE_JSON,
           method: SK.REQUEST_METHOD_GET,
@@ -59,7 +59,7 @@ export default class Codes {
         return Codes.hash[validPath];
       }).map(validPath => {
         return $.ajax({
-          async: async,
+          async,
           cache: true,
           dataType: SK.FILE_TYPE_JSON,
           method: SK.REQUEST_METHOD_GET,
@@ -73,7 +73,7 @@ export default class Codes {
 
   static loadHash(async = true) {
     return $.ajax({
-      async: async,
+      async,
       cache: false,
       dataType: SK.FILE_TYPE_JSON,
       method: SK.REQUEST_METHOD_GET,

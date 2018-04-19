@@ -250,7 +250,7 @@ export default class SK {
    */
   static getCurrentLanguage() {
     let language = SK.cookies(SK.STR_LANGUAGE);
-    if(!language){
+    if (!language) {
       SK.cookies(SK.STR_LANGUAGE, SK.DEFAULT_LANGUAGE);
       language = SK.cookies(SK.STR_LANGUAGE);
     }
