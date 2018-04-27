@@ -177,6 +177,8 @@ export default class SK {
    * o1 == o3;//true
    * o1 === o3;//true
    *
+   * {"a":[{"x":10},"y",20],"d":{"e":3,"z":30}}
+   *
    * let o1 = {p1:1,f1:function(){console.log('f1');}}
    * let o2 = {p2:2,f2:function(){console.log('f2');},f1:function(){console.log('f1 in o2')}};
    * let o3 = {};
