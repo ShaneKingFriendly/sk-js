@@ -1,7 +1,7 @@
 {
   "name": "sk-js",
   "description": "ShaneKing for JavaScript",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "homepage": "https://github.com/ShaneKing/sk-js",
   "license": "MIT",
   "author": {
@@ -42,7 +42,7 @@
     "crypto-js": "^3.1.9-1",
     "jquery": "^3.3.1",
     "js-cookie": "^2.2.0",
-    "lodash": "^4.17.5"
+    "lodash": "^4.17.10"
   },
   "devDependencies": {
     "assert": "^1.4.1",
@@ -55,7 +55,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
     "babel-register": "^6.26.0",
-    "codecov": "^3.0.0",
+    "codecov": "^3.0.1",
     "eslint": "^4.18.2",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.11.0",
@@ -65,7 +65,7 @@
     "gulp-babel": "^7.0.1",
     "gulp-clean": "^0.4.0",
     "istanbul": "^0.4.5",
-    "jsdom": "^11.8.0",
+    "jsdom": "^11.10.0",
     "mocha": "^5.1.1"
   }
 }
