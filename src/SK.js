@@ -63,6 +63,7 @@ export default class SK {
   static CHAR_SQUARE = '√';
   static CHAR_TRIANGLE = '△';
   static CHAR_UNDERLINE = '_';
+  static CHAR_UNDERLINE_DOUBLE = '__';
   static CHAR_UNION = '∪';
   static CHAR_VARIES = '∝';
   static CHAR_VERTICAL = '|';
