@@ -193,7 +193,7 @@ export default class SK {
    * @param {...Object} objects The source objects.
    */
   static assign(object, ...objects) {
-    return _.assignWith.apply(this, _.concat(object, objects, SK._skAssignCustomizer));
+    return _.assignWith(object, ...objects, SK._skAssignCustomizer);
   }
 
   /**

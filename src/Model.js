@@ -171,6 +171,10 @@ export default class Model {
     return SK.s4o(this.errors[id]);
   }
 
+  getFreeObject() {
+    return this.freeObject;
+  }
+
   getValidator() {
     return this.validator;
   }

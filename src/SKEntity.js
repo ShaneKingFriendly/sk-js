@@ -1,0 +1,18 @@
+export default {
+  uid: undefined,
+  version: undefined,
+  extJson: undefined,
+  createDate: undefined,
+  createTime: undefined,
+  createUserId: undefined,
+  createUser: undefined,
+  lastModifyDate: undefined,
+  lastModifyTime: undefined,
+  lastModifyUserId: undefined,
+  lastModifyUser: undefined,
+  invalid: undefined,
+  invalidDate: undefined,
+  invalidTime: undefined,
+  invalidUserId: undefined,
+  invalidUser: undefined,
+}
