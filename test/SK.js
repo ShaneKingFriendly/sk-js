@@ -90,6 +90,18 @@ describe('SK', () => {
         skRst = {"a": [{"x": 10}, "y", 20], "d": {"e": 3, "z": 30}};
       assert.deepEqual(SK.assign({}, a1, a2), skRst);
     });
+    it('deep copy', () => {
+      let a = {a:1};
+      let b = SK.assign({},{b:a});
+      assert.equal(a,b.b);
+    });
+    it('deep copy exist', () => {
+      let a1 = {a:2};
+      let a = {a:1};
+      let b = SK.assign({b:a1},{b:a});
+      assert.equal(a1,b.b);
+      assert.notEqual(a,b.b);
+    });
     // it('isFunction', () => {
     //   let f1 = () => {
     //     },
@@ -113,6 +125,33 @@ describe('SK', () => {
     });
     it('string and string to string', () => {
       assert.equal(SK.descartes('alert', 'link', '-'), 'alert-link');
+    });
+  });
+  describe('SK.extend', () => {
+    it('array replace by new', () => {
+      let a1 = {a: [{'a': 1}, 'b', 2]},
+        a2 = {a: [{'x': 3}, 'y', 4]},
+        skRst = {a: [{'x': 3}, 'y', 4]};//if is array, empty old array
+      assert.deepEqual(SK.extend(true, {}, a1, a2), skRst);
+    });
+    it('deep while object node', () => {
+      let a1 = {a: [{'b': 1}, 'c', 2], d: {e: 3}},
+        a2 = {a: [{'x': 10}, 'y', 20], d: {z: 30}},
+        skRst = {"a": [{"x": 10}, "y", 20], "d": {"e": 3, "z": 30}};
+      assert.deepEqual(SK.extend(true, {}, a1, a2), skRst);
+    });
+    it('deep copy', () => {
+      let a = {a:1};
+      let b = SK.extend(true, {},{b:a});
+      assert.notEqual(a,b.b);
+    });
+  });
+  describe('SK.extends', () => {
+    it('array replace by new', () => {
+      let a1 = {a: [{'a': 1}, 'b', 2]},
+        a2 = {a: undefined};
+      assert.deepEqual(SK.extend(true, {}, a1, a2), a1);
+      assert.deepEqual(SK.extends(true, {}, a1, a2), a2);
     });
   });
   // describe('SK.getCurrentLanguage', () => {
