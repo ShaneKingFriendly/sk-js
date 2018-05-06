@@ -1,5 +1,5 @@
 export default {
-  uid: undefined,
+  id: undefined,
   version: undefined,
   extJson: undefined,
   createDatetime: undefined,
