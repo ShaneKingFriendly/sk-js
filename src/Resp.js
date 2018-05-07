@@ -9,4 +9,12 @@ export default class Resp {
       this.mesg = new RespMesg(respJsonData.mesg);
     }
   }
+
+  getMesg(){
+    return this.mesg;
+  }
+
+  getMessage() {
+    return this.mesg ? this.mesg.getMessage() : undefined;
+  }
 }
