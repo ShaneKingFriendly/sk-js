@@ -175,6 +175,11 @@ export default class Model {
     return this.freeObject;
   }
 
+  setFreeObject(freeObject = {}){
+    this.freeObject = freeObject;
+    return this;
+  }
+
   getValidator() {
     return this.validator;
   }

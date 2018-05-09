@@ -69,6 +69,9 @@ export default class SK {
   static CHAR_VARIES = '∝';
   static CHAR_VERTICAL = '|';
 
+  static CHAR_MALE = "♂";
+  static CHAR_FEMALE = "♀";
+
   static FILE_TYPE_HTML = 'html';
   static FILE_TYPE_HTML_WITH_POINT = SK.CHAR_DOT + SK.FILE_TYPE_HTML;
   static FILE_TYPE_JSON = 'json';
