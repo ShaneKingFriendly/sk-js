@@ -3,5 +3,5 @@ import SKEntity from './SKEntity';
 
 export default SK.extends(true, {}, SKEntity, {
   refType: undefined,
-  refUid: undefined,
+  refId: undefined,
 })

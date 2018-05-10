@@ -154,11 +154,6 @@ describe('SK', () => {
       assert.deepEqual(SK.extends(true, {}, a1, a2), a2);
     });
   });
-  // describe('SK.getCurrentLanguage', () => {
-  //   it('default', () => {
-  //     assert.equal(SK.getCurrentLanguage(), SK.DEFAULT_LANGUAGE);
-  //   });
-  // });
   describe('SK.getSubPaths', () => {
     it('1', () => {
       assert.deepEqual(SK.getSubPaths('a/b'), ['/','/a/','/a/b/']);
