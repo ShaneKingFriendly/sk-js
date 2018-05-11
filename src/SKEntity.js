@@ -8,7 +8,7 @@ export default {
   lastModifyDatetime: undefined,
   lastModifyUserId: undefined,
   lastModifyUser: undefined,
-  invalid: '0',
+  invalid: undefined,
   invalidDatetime: undefined,
   invalidUserId: undefined,
   invalidUser: undefined,
