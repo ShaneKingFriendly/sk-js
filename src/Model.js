@@ -171,6 +171,11 @@ export default class Model {
     return SK.s4o(this.errors[id]);
   }
 
+  setErrors(errors = {}) {
+    this.errors = errors;
+    return this;
+  }
+
   getFreeObject() {
     return this.freeObject;
   }
