@@ -1,9 +1,9 @@
 'use strict';
 
 import assert from 'assert';
-import Crypto from '../src/Crypto.js';
+import SKCrypto from '../src/SKCrypto.js';
 
-describe('Crypto', () => {
+describe('SKCrypto', () => {
 
   let plainText = 'plainText';
   let cipherText = '2SZ/de9I0rvxO7s9wdCohQ==';
@@ -26,12 +26,12 @@ describe('Crypto', () => {
 
   describe('encrypts', () => {
     it('aesEncrypt', () => {
-      assert.equal(Crypto.aesEncrypt(plainText), cipherText);
+      assert.equal(SKCrypto.aesEncrypt(plainText), cipherText);
     });
   });
   describe('decrypts', () => {
     it('aesDecrypt', () => {
-      assert.equal(Crypto.aesDecrypt(cipherText), plainText);
+      assert.equal(SKCrypto.aesDecrypt(cipherText), plainText);
     });
   });
 });
