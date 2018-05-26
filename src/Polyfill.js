@@ -25,8 +25,8 @@ if (!Array.prototype.skArr) {
     configurable: true,
     value(recursive, keyFunc = _skKeyFunc) {
       const rtn = [];
-      this.forEach(($item) => {
-        rtn.push((recursive && (_.isArray($item) || _.isPlainObject($item))) ? $item.skArr(recursive, keyFunc) : $item);
+      this.forEach((item) => {
+        rtn.push((recursive && (_.isArray(item) || _.isPlainObject(item))) ? item.skArr(recursive, keyFunc) : item);
       });
       return rtn;
     },
@@ -39,9 +39,9 @@ if (!Array.prototype.skFilter) {
     configurable: true,
     value(recursive, filterFunc) {
       const rtn = [];
-      this.forEach(($item, $index) => {
-        if (_.isFunction(filterFunc) && filterFunc($index, $item, this)) {
-          rtn.push((recursive && (_.isArray($item) || _.isPlainObject($item))) ? $item.skFilter(recursive, filterFunc) : $item);
+      this.forEach((item, index) => {
+        if (_.isFunction(filterFunc) && filterFunc(index, item, this)) {
+          rtn.push((recursive && (_.isArray(item) || _.isPlainObject(item))) ? item.skFilter(recursive, filterFunc) : item);
         }
       });
       return rtn;
@@ -59,8 +59,8 @@ if (!Array.prototype.skObj) {
     configurable: true,
     value(recursive, keyFunc = _skKeyFunc) {
       const rtn = {};
-      this.forEach(($item, $index) => {
-        rtn[_.isFunction(keyFunc) ? keyFunc($index, $item, this) : $index] = (recursive && (_.isArray($item) || _.isPlainObject($item))) ? $item.skObj(recursive, keyFunc) : $item;
+      this.forEach((item, index) => {
+        rtn[_.isFunction(keyFunc) ? keyFunc(index, item, this) : index] = (recursive && (_.isArray(item) || _.isPlainObject(item))) ? item.skObj(recursive, keyFunc) : item;
       });
       return rtn;
     },
@@ -112,9 +112,9 @@ if (!Array.prototype.skTrans) {
     configurable: true,
     value(recursive, transFunc) {
       const rtn = [];
-      this.forEach(($item, $index) => {
+      this.forEach((item, index) => {
         if (_.isFunction(transFunc)) {
-          rtn.push((recursive && (_.isArray($item) || _.isPlainObject($item))) ? $item.skTrans(recursive, transFunc) : transFunc($index, $item, this));
+          rtn.push((recursive && (_.isArray(item) || _.isPlainObject(item))) ? item.skTrans(recursive, transFunc) : transFunc(index, item, this));
         }
       });
       return rtn;
@@ -142,12 +142,12 @@ if (!Object.prototype.skArr) {
     value(recursive, keyFunc = _skKeyFunc) {
       const rtnArr = [];
       const rtnObj = {};
-      Object.keys(this).forEach(($key) => {
-        const tmpVal = this[$key];
+      Object.keys(this).forEach((key) => {
+        const tmpVal = this[key];
         const rtn = (recursive && (_.isPlainObject(tmpVal) || _.isArray(tmpVal))) ? tmpVal.skArr(recursive, keyFunc) : tmpVal;
 
-        rtnObj[$key] = rtn;
-        if (_.isFunction(keyFunc) && keyFunc($key, tmpVal, this)) {
+        rtnObj[key] = rtn;
+        if (_.isFunction(keyFunc) && keyFunc(key, tmpVal, this)) {
           rtnArr.push(rtn);
         }
       });
@@ -162,10 +162,10 @@ if (!Object.prototype.skFilter) {
     configurable: true,
     value(recursive, filterFunc) {
       const rtn = {};
-      Object.keys(this).forEach(($key) => {
-        const tmpVal = this[$key];
-        if (_.isFunction(filterFunc) && filterFunc($key, tmpVal, this)) {
-          rtn[$key] = (recursive && (_.isArray(tmpVal) || _.isPlainObject(tmpVal))) ? tmpVal.skFilter(recursive, filterFunc) : tmpVal;
+      Object.keys(this).forEach((key) => {
+        const tmpVal = this[key];
+        if (_.isFunction(filterFunc) && filterFunc(key, tmpVal, this)) {
+          rtn[key] = (recursive && (_.isArray(tmpVal) || _.isPlainObject(tmpVal))) ? tmpVal.skFilter(recursive, filterFunc) : tmpVal;
         }
       });
       return rtn;
@@ -183,9 +183,9 @@ if (!Object.prototype.skObj) {
     configurable: true,
     value(recursive, keyFunc = _skKeyFunc) {
       const rtn = {};
-      Object.keys(this).forEach(($key) => {
-        const tmpVal = this[$key];
-        rtn[$key] = (recursive && (_.isArray(tmpVal) || _.isPlainObject(tmpVal))) ? tmpVal.skObj(recursive, keyFunc) : tmpVal;
+      Object.keys(this).forEach((key) => {
+        const tmpVal = this[key];
+        rtn[key] = (recursive && (_.isArray(tmpVal) || _.isPlainObject(tmpVal))) ? tmpVal.skObj(recursive, keyFunc) : tmpVal;
       });
       return rtn;
     },
@@ -198,10 +198,10 @@ if (!Object.prototype.skTrans) {
     configurable: true,
     value(recursive, transFunc) {
       const rtn = {};
-      Object.keys(this).forEach(($key) => {
-        const tmpVal = this[$key];
+      Object.keys(this).forEach((key) => {
+        const tmpVal = this[key];
         if (_.isFunction(transFunc)) {
-          rtn[$key] = (recursive && (_.isArray(tmpVal) || _.isPlainObject(tmpVal))) ? tmpVal.skTrans(recursive, transFunc) : transFunc($key, tmpVal, this);
+          rtn[key] = (recursive && (_.isArray(tmpVal) || _.isPlainObject(tmpVal))) ? tmpVal.skTrans(recursive, transFunc) : transFunc(key, tmpVal, this);
         }
       });
       return rtn;
@@ -245,8 +245,8 @@ if (!Object.prototype.skVals) {
     enumerable: false,
     configurable: true,
     value() {
-      return Object.keys(this).map(($key) => {
-        return this[$key];
+      return Object.keys(this).map((key) => {
+        return this[key];
       });
     },
   });
@@ -270,16 +270,16 @@ if (!String.prototype.skEmpty) {
 }
 if (!String.prototype.skFmt) {
   String.prototype.skFmt = function (o) {
-    return this.replace(/(\$#\{\w+(\.\w+)*\})/g, ($replacement) => { ///(\{\w+\.\})/g
-      return o.skVal($replacement.replace('$#{', '').replace('}', ''));
+    return this.replace(/(\$#\{\w+(\.\w+)*\})/g, (replacement) => { ///(\{\w+\.\})/g
+      return o.skVal(replacement.replace('$#{', '').replace('}', ''));
     });
   };
 }
 if (!String.prototype.skFmtArr) {
   String.prototype.skFmtArr = function (array) {
-    return this.replace(/\$#(\d+)/g, ($match, $p1) => {
-      $p1 -= 1;
-      return array[$p1];
+    return this.replace(/\$#(\d+)/g, (match, p1) => {
+      p1 -= 1;
+      return array[p1];
     });
   };
 }

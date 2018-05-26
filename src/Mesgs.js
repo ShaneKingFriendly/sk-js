@@ -36,18 +36,18 @@ export default class Mesgs {
    */
   static jsonNodeParser(jsonObject, existPath, pathObjects) {
     const pathObject = {};
-    Object.keys(jsonObject).forEach($path => {
-      if ($path === SK.CHAR_SLASH) {
-        const rootObject = jsonObject[$path];
+    Object.keys(jsonObject).forEach(path => {
+      if (path === SK.CHAR_SLASH) {
+        const rootObject = jsonObject[path];
         Object.keys(rootObject).forEach(key => {
           pathObject[key] = rootObject[key];
         });
-      } else if (_.endsWith($path, SK.CHAR_SLASH)) {
-        pathObjects[existPath + (_.startsWith($path, SK.CHAR_SLASH) ? $path : (SK.CHAR_SLASH + $path))] = jsonObject[$path];
-      } else if (_.startsWith($path, SK.CHAR_SLASH)) {
-        Mesgs.jsonNodeParser(jsonObject[$path], existPath + $path, pathObjects);
+      } else if (_.endsWith(path, SK.CHAR_SLASH)) {
+        pathObjects[existPath + (_.startsWith(path, SK.CHAR_SLASH) ? path : (SK.CHAR_SLASH + path))] = jsonObject[path];
+      } else if (_.startsWith(path, SK.CHAR_SLASH)) {
+        Mesgs.jsonNodeParser(jsonObject[path], existPath + path, pathObjects);
       } else {
-        pathObject[$path] = jsonObject[$path];
+        pathObject[path] = jsonObject[path];
       }
     });
     // if (Object.keys(pathObject).length > 0) {
@@ -81,8 +81,8 @@ export default class Mesgs {
           dataType: SK.FILE_TYPE_JSON,
           method: SK.REQUEST_METHOD_GET,
           url: SK.CONTEXT_PATH + Mesgs.PATH_PREFIX + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT,
-        }).done($resp => {
-          Mesgs.jsonNodeParser($resp, SK.EMPTY, Mesgs.mesg);
+        }).done(resp => {
+          Mesgs.jsonNodeParser(resp, SK.EMPTY, Mesgs.mesg);
         }).always(() => {
           $Deferred.resolve();
         });
@@ -98,8 +98,8 @@ export default class Mesgs {
           dataType: SK.FILE_TYPE_JSON,
           method: SK.REQUEST_METHOD_GET,
           url: SK.CONTEXT_PATH + Mesgs.PATH_PREFIX + validPath + Mesgs.hash[validPath] + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT,
-        }).done($resp => {
-          Mesgs.mesg[validPath] = $resp;
+        }).done(resp => {
+          Mesgs.mesg[validPath] = resp;
         });
       }));
     }
@@ -112,16 +112,16 @@ export default class Mesgs {
       dataType: SK.FILE_TYPE_JSON,
       method: SK.REQUEST_METHOD_GET,
       url: Mesgs.SERVER_URL + Mesgs.PATH_PREFIX + Mesgs.PART_OF_HASH_PATH + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT,
-    }).done($resp => {
-      Mesgs.hash = $resp;
+    }).done(resp => {
+      Mesgs.hash = resp;
     });
   }
 
   static unload(path) {
-    Object.keys(Mesgs.mesg).filter($existPath => {
-      return _.startsWith($existPath, path);
-    }).forEach($existPath => {
-      delete Mesgs.mesg[$existPath];
+    Object.keys(Mesgs.mesg).filter(existPath => {
+      return _.startsWith(existPath, path);
+    }).forEach(existPath => {
+      delete Mesgs.mesg[existPath];
     });
   }
 }

@@ -161,8 +161,8 @@ export default class SK {
    */
   static arePlainObject(...values) {
     let rtn = true;
-    values.forEach(($item) => {
-      rtn = rtn && _.isPlainObject($item);
+    values.forEach((item) => {
+      rtn = rtn && _.isPlainObject(item);
     });
     return rtn;
   }
@@ -229,9 +229,9 @@ export default class SK {
     const arr1 = Array.isArray(array) ? array : [array];
     const arr2 = Array.isArray(anotherArray) ? anotherArray : [anotherArray];
     const rtn = [];
-    arr1.forEach(($item) => {
-      arr2.forEach(($$item) => {
-        rtn.push($item + concat + $$item);
+    arr1.forEach((item1) => {
+      arr2.forEach((item2) => {
+        rtn.push(item1 + concat + item2);
       });
     });
     return rtn.length === 1 ? rtn[0] : rtn;
@@ -455,11 +455,11 @@ export default class SK {
    */
   static getSubPaths(path) {
     const rtn = [SK.CHAR_SLASH];
-    path.split(SK.CHAR_SLASH).reduce(($accumulator, $item) => {
-      if (SK.s4s($item) === SK.EMPTY) {
-        return $accumulator;
+    path.split(SK.CHAR_SLASH).reduce((sum, item) => {
+      if (SK.s4s(item) === SK.EMPTY) {
+        return sum;
       } else {
-        const tmpValidPath = SK.getValidPath($accumulator + $item);
+        const tmpValidPath = SK.getValidPath(sum + item);
         rtn.push(tmpValidPath);
         return tmpValidPath;
       }
@@ -584,10 +584,10 @@ export default class SK {
    * upperWordsFirstChar('xi nAn shi you xUe yuan china people');//Xi NAn Shi You XUe Yuan China People
    */
   static upperWordsFirstChar(words) {
-    return _.toString(words).replace(/\s[a-z]/g, ($nonFirstWord) => {
-      return $nonFirstWord.toUpperCase();
-    }).replace(/^[a-z]/, ($firstWord) => {
-      return $firstWord.toUpperCase();
+    return _.toString(words).replace(/\s[a-z]/g, (nonFirstWord) => {
+      return nonFirstWord.toUpperCase();
+    }).replace(/^[a-z]/, (firstWord) => {
+      return firstWord.toUpperCase();
     });
   }
 }

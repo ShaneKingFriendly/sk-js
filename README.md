@@ -31,12 +31,6 @@ More to see [shaneking.org][].
 ShaneKing is released under [MIT][].
 
 
-## Conventions
-### Naming conventions
-- [x] **anonymous inner function parameter**: Begin $, like $item
-- [x] **anonymous inner function variable**: Begin tmp, like tmpVal
-
-
 ## Details
 ### Codes
 ```json

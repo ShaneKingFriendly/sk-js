@@ -47,10 +47,10 @@ export default class Codes {
           dataType: SK.FILE_TYPE_JSON,
           method: SK.REQUEST_METHOD_GET,
           url: SK.CONTEXT_PATH + Codes.PATH_PREFIX + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT,
-        }).done($resp => {
-          Mesgs.jsonNodeParser($resp, SK.EMPTY, Codes.code);
-          Object.keys(Codes.code).forEach(($item) => {
-            Codes.loadMesg(Codes.code[$item]);
+        }).done(resp => {
+          Mesgs.jsonNodeParser(resp, SK.EMPTY, Codes.code);
+          Object.keys(Codes.code).forEach((item) => {
+            Codes.loadMesg(Codes.code[item]);
           })
         }).always(() => {
           deferred.resolve();
@@ -58,18 +58,18 @@ export default class Codes {
       });
       return deferred;
     } else {
-      return $.when(...Codes.getSubPaths(path, true).filter($validPath => {
-        return Codes.hash[$validPath];
-      }).map($validPath => {
+      return $.when(...Codes.getSubPaths(path, true).filter(validPath => {
+        return Codes.hash[validPath];
+      }).map(validPath => {
         return $.ajax({
           async,
           cache: true,
           dataType: SK.FILE_TYPE_JSON,
           method: SK.REQUEST_METHOD_GET,
-          url: SK.CONTEXT_PATH + Codes.PATH_PREFIX + $validPath + Codes.hash[$validPath] + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT,
-        }).done($resp => {
-          Codes.code[$validPath] = $resp;
-          Codes.loadMesg(Codes.code[$validPath]);
+          url: SK.CONTEXT_PATH + Codes.PATH_PREFIX + validPath + Codes.hash[validPath] + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT,
+        }).done(resp => {
+          Codes.code[validPath] = resp;
+          Codes.loadMesg(Codes.code[validPath]);
         });
       }));
     }
@@ -82,16 +82,16 @@ export default class Codes {
       dataType: SK.FILE_TYPE_JSON,
       method: SK.REQUEST_METHOD_GET,
       url: Codes.SERVER_URL + Codes.PATH_PREFIX + Mesgs.PART_OF_HASH_PATH + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT,
-    }).done($resp => {
-      Codes.hash = $resp;
+    }).done(resp => {
+      Codes.hash = resp;
     });
   }
 
   static loadMesg(pathObject) {
-    Object.keys(pathObject).forEach(($item1) => {
-      if(_.isArray(pathObject[$item1])){
-        pathObject[$item1].forEach(($item2) => {
-          pathObject[$item1+SK.CHAR_UNDERLINE_DOUBLE+$item2.id] = $item2.text ? $item2.text : $item2.label;
+    Object.keys(pathObject).forEach((key) => {
+      if(_.isArray(pathObject[key])){
+        pathObject[key].forEach((item) => {
+          pathObject[key+SK.CHAR_UNDERLINE_DOUBLE+item.id] = item.text ? item.text : item.label;
         });
       }
     })
@@ -112,10 +112,10 @@ export default class Codes {
   }
 
   static unload(path) {
-    Object.keys(Codes.code).filter($existPath => {
-      return _.startsWith($existPath, path);
-    }).forEach($existPath => {
-      delete Codes.code[$existPath];
+    Object.keys(Codes.code).filter(existPath => {
+      return _.startsWith(existPath, path);
+    }).forEach(existPath => {
+      delete Codes.code[existPath];
     });
   }
 }
