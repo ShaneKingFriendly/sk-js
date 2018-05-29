@@ -9,6 +9,7 @@ export default class SK {
   static CHAR_ARROW = '→';
   static CHAR_ASTERISK = '*';
   static CHAR_BACKSLASH = '\\';
+  static CHAR_BLANK = ' ';
   static CHAR_CELSIUS = '℃';
   static CHAR_CIRCLE = '⊙';
   static CHAR_CIRCUMFERENCE = '○';
