@@ -1,7 +1,7 @@
 # [ShaneKing for JavaScript][]
 More to see [shaneking.org][].
 
-## Info
+## Badge
 ### Dependencies
 [![][versioneye img]][versioneye]
 
@@ -31,7 +31,7 @@ More to see [shaneking.org][].
 ShaneKing is released under [MIT][].
 
 
-## Details
+## Directory conventions
 ### Codes
 ```json
 {
