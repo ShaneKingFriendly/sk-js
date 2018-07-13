@@ -28,7 +28,7 @@ More to see [shaneking.org][].
 ### License
 [![][license img]][license]
 
-ShaneKing is released under [MIT][].
+ShaneKing is released under [Apache-2.0][].
 
 
 ## Directory conventions
@@ -203,6 +203,6 @@ MVC'M
 [gitter]:https://gitter.im/ShaneKing/sk-js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
 [gitter img]:https://badges.gitter.im/Join%20Chat.svg
 
-[MIT]: https://opensource.org/licenses/MIT
+[Apache-2.0]: https://opensource.org/licenses/Apache-2.0
 [license]:LICENSE
-[license img]:https://img.shields.io/badge/License-MIT-blue.svg
+[license img]:https://img.shields.io/badge/License-Apache--2.0-blue.svg

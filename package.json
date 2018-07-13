@@ -3,7 +3,7 @@
   "description": "ShaneKing for JavaScript",
   "version": "0.2.15",
   "homepage": "https://github.com/ShaneKing/sk-js",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "author": {
     "name": "ShaneKing",
     "email": "github@azolla.org",
@@ -18,8 +18,8 @@
   },
   "licenses": [
     {
-      "type": "MIT",
-      "url": "https://opensource.org/licenses/MIT"
+      "type": "Apache-2.0",
+      "url": "https://opensource.org/licenses/Apache-2.0"
     }
   ],
   "files": [
