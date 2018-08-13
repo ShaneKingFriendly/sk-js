@@ -141,11 +141,11 @@ export default class Model {
   }
 
   fireChangedEvent(id, old, current) {
-    this.fireEvent({ model: this, id, old, current, type: Model.EvtType.Changed });
+    this.fireEvent({model: this, id, old, current, type: Model.EvtType.Changed});
   }
 
   fireErroredEvent(id, old, current) {
-    this.fireEvent({ model: this, id, old, current, type: Model.EvtType.Errored });
+    this.fireEvent({model: this, id, old, current, type: Model.EvtType.Errored});
   }
 
   fireEvent(evt) {
@@ -180,7 +180,7 @@ export default class Model {
     return this.freeObject;
   }
 
-  setFreeObject(freeObject = {}){
+  setFreeObject(freeObject = {}) {
     this.freeObject = freeObject;
     return this;
   }
@@ -308,7 +308,7 @@ export default class Model {
       Object.keys(tmpConfig).filter((key) => key !== Validator.PROP_DEPS).forEach((key) => {
         if (key === Validator.PROP_FUNC) {
           tmpModel.execValidate(key, tmpModelId, tmpConfig[key], tmpModel, tmpConfig[key]);
-        } else if(!_.isFunction(tmpConfig[key].exec) || tmpConfig[key].exec(tmpModel, tmpModelId, key)){//rule.exec
+        } else if (!_.isFunction(tmpConfig[key].exec) || tmpConfig[key].exec(tmpModel, tmpModelId, key)) {//rule.exec
           const tmpRule = tmpModel.getValidator().getRules()[key];
           if (_.isFunction(tmpRule)) {
             tmpModel.execValidate(key, tmpModelId, tmpRule, tmpModel, tmpConfig[key]);
@@ -321,7 +321,7 @@ export default class Model {
   validateAll() {
     const configs = this.getValidator().getModelIds();
     Object.keys(configs).forEach((modelId) => {
-      this.validate.call(modelId, { model: this });
+      this.validate.call(modelId, {model: this});
     });
   }
 

@@ -1,6 +1,5 @@
 'use strict';
 
-import _ from 'lodash';
 import assert from 'assert';
 import '../src/Polyfill';
 import SK from '../src/SK';
@@ -8,6 +7,7 @@ import SK from '../src/SK';
 let JSDOM = require('jsdom').JSDOM;
 global.document = new JSDOM('<html></html>', {url: "http://shaneking.org/", includeNodeLocations: true});
 global.window = document.window;
+
 function propagateToGlobal(window) {
   for (var key in window) {
     if (!window.hasOwnProperty(key)) {
@@ -20,6 +20,7 @@ function propagateToGlobal(window) {
 
   }
 }
+
 propagateToGlobal(window);
 
 describe('SK', () => {
@@ -91,16 +92,16 @@ describe('SK', () => {
       assert.deepEqual(SK.assign({}, a1, a2), skRst);
     });
     it('deep copy', () => {
-      let a = {a:1};
-      let b = SK.assign({},{b:a});
-      assert.equal(a,b.b);
+      let a = {a: 1};
+      let b = SK.assign({}, {b: a});
+      assert.equal(a, b.b);
     });
     it('deep copy exist', () => {
-      let a1 = {a:2};
-      let a = {a:1};
-      let b = SK.assign({b:a1},{b:a});
-      assert.equal(a1,b.b);
-      assert.notEqual(a,b.b);
+      let a1 = {a: 2};
+      let a = {a: 1};
+      let b = SK.assign({b: a1}, {b: a});
+      assert.equal(a1, b.b);
+      assert.notEqual(a, b.b);
     });
     // it('isFunction', () => {
     //   let f1 = () => {
@@ -113,10 +114,10 @@ describe('SK', () => {
   });
   describe('SK.appendParameter', () => {
     it('not ?', () => {
-      assert.equal(SK.appendParameter('a','b','c'), 'a?b=c');
+      assert.equal(SK.appendParameter('a', 'b', 'c'), 'a?b=c');
     });
     it('has ?', () => {
-      assert.equal(SK.appendParameter('a?1=2','b','c'), 'a?1=2&b=c');
+      assert.equal(SK.appendParameter('a?1=2', 'b', 'c'), 'a?1=2&b=c');
     });
   });
   describe('SK.descartes', () => {
@@ -141,9 +142,9 @@ describe('SK', () => {
       assert.deepEqual(SK.extend(true, {}, a1, a2), skRst);
     });
     it('deep copy', () => {
-      let a = {a:1};
-      let b = SK.extend(true, {},{b:a});
-      assert.notEqual(a,b.b);
+      let a = {a: 1};
+      let b = SK.extend(true, {}, {b: a});
+      assert.notEqual(a, b.b);
     });
   });
   describe('SK.extends', () => {
@@ -156,7 +157,7 @@ describe('SK', () => {
   });
   describe('SK.getSubPaths', () => {
     it('1', () => {
-      assert.deepEqual(SK.getSubPaths('a/b'), ['/','/a/','/a/b/']);
+      assert.deepEqual(SK.getSubPaths('a/b'), ['/', '/a/', '/a/b/']);
     });
   });
   describe('SK.getValidPath', () => {

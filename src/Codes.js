@@ -89,9 +89,9 @@ export default class Codes {
 
   static loadMesg(pathObject) {
     Object.keys(pathObject).forEach((key) => {
-      if(_.isArray(pathObject[key])){
+      if (_.isArray(pathObject[key])) {
         pathObject[key].forEach((item) => {
-          pathObject[key+SK.CHAR_UNDERLINE_DOUBLE+item.id] = item.text ? item.text : item.label;
+          pathObject[key + SK.CHAR_UNDERLINE_DOUBLE + item.id] = item.text ? item.text : item.label;
         });
       }
     })

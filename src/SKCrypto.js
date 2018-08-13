@@ -12,8 +12,8 @@ export default class SKCrypto {
       CryptoJS.PBKDF2(
         passPhrase,
         CryptoJS.enc.Hex.parse(salt),
-        { iterations, keySize }),
-      { iv: CryptoJS.enc.Hex.parse(iv) }).toString(CryptoJS.enc.Utf8);
+        {iterations, keySize}),
+      {iv: CryptoJS.enc.Hex.parse(iv)}).toString(CryptoJS.enc.Utf8);
   }
 
   static aesEncrypt(plainText, salt = SKCrypto.DEFAULT_SALT, iv = salt.substr(0, salt.length / 2), passPhrase = salt, iterations = salt.length, keySize = (salt.length * 2) / 32) {
@@ -22,7 +22,7 @@ export default class SKCrypto {
       CryptoJS.PBKDF2(
         passPhrase,
         CryptoJS.enc.Hex.parse(salt),
-        { iterations, keySize }),
-      { iv: CryptoJS.enc.Hex.parse(iv) }).ciphertext.toString(CryptoJS.enc.Base64);
+        {iterations, keySize}),
+      {iv: CryptoJS.enc.Hex.parse(iv)}).ciphertext.toString(CryptoJS.enc.Base64);
   }
 }

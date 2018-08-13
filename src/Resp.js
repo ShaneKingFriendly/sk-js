@@ -10,7 +10,7 @@ export default class Resp {
     }
   }
 
-  getMesg(){
+  getMesg() {
     return this.mesg;
   }
 

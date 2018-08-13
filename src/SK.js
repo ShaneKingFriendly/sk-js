@@ -86,15 +86,13 @@ export default class SK {
   static JS_KEYWORD_FUNCTION = 'function';
 
   static EMPTY = '';
+  static CONTEXT_PATH = SK.EMPTY;
   static STR_DEFAULT = 'default';
   static STR_ERROR = 'error';
   static STR_LANGUAGE = 'language';
-
   static ENV_DEV = 'DEV';
   static ENV_TEST = 'TEST';
   static ENV_PROD = 'PROD';
-
-  static CONTEXT_PATH = SK.EMPTY;
   static DEFAULT_DOMAIN = '$sk';
   static DEFAULT_ENV = {};
   static DEFAULT_LANGUAGE = 'en_US';
