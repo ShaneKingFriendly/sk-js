@@ -93,14 +93,16 @@ export default class Model {
    * @param listener please bind context
    */
   addIdListener(id, type, listener) {
-    if (!this.idListeners[type]) {
-      this.idListeners[type] = {};
-    }
-    if (!this.idListeners[type][id]) {
-      this.idListeners[type][id] = [];
-    }
-    if (this.idListeners[type][id].indexOf(listener) < 0) {
-      this.idListeners[type][id].push(listener);
+    if (id) {
+      if (!this.idListeners[type]) {
+        this.idListeners[type] = {};
+      }
+      if (!this.idListeners[type][id]) {
+        this.idListeners[type][id] = [];
+      }
+      if (this.idListeners[type][id].indexOf(listener) < 0) {
+        this.idListeners[type][id].push(listener);
+      }
     }
   }
 
@@ -129,14 +131,16 @@ export default class Model {
    * @param listener please bind context
    */
   addRegListener(reg, type, listener) {
-    if (!this.regListeners[type]) {
-      this.regListeners[type] = {};
-    }
-    if (!this.regListeners[type][reg]) {
-      this.regListeners[type][reg] = [];
-    }
-    if (this.regListeners[type][reg].indexOf(listener) < 0) {
-      this.regListeners[type][reg].push(listener);
+    if (reg) {
+      if (!this.regListeners[type]) {
+        this.regListeners[type] = {};
+      }
+      if (!this.regListeners[type][reg]) {
+        this.regListeners[type][reg] = [];
+      }
+      if (this.regListeners[type][reg].indexOf(listener) < 0) {
+        this.regListeners[type][reg].push(listener);
+      }
     }
   }
 
@@ -206,14 +210,16 @@ export default class Model {
   }
 
   rmvIdListener(id, type, listener) {
-    if (!this.idListeners[type]) {
-      this.idListeners[type] = {};
-    }
-    if (!this.idListeners[type][id]) {
-      this.idListeners[type][id] = [];
-    }
-    if (this.idListeners[type][id].indexOf(listener) >= 0) {
-      this.idListeners[type][id].skRmv(listener);
+    if (id) {
+      if (!this.idListeners[type]) {
+        this.idListeners[type] = {};
+      }
+      if (!this.idListeners[type][id]) {
+        this.idListeners[type][id] = [];
+      }
+      if (this.idListeners[type][id].indexOf(listener) >= 0) {
+        this.idListeners[type][id].skRmv(listener);
+      }
     }
   }
 
@@ -226,14 +232,16 @@ export default class Model {
   }
 
   rmvRegListener(reg, type, listener) {
-    if (!this.regListeners[type]) {
-      this.regListeners[type] = {};
-    }
-    if (!this.regListeners[type][reg]) {
-      this.regListeners[type][reg] = [];
-    }
-    if (this.regListeners[type][reg].indexOf(listener) >= 0) {
-      this.regListeners[type][reg].skRmv(listener);
+    if (reg) {
+      if (!this.regListeners[type]) {
+        this.regListeners[type] = {};
+      }
+      if (!this.regListeners[type][reg]) {
+        this.regListeners[type][reg] = [];
+      }
+      if (this.regListeners[type][reg].indexOf(listener) >= 0) {
+        this.regListeners[type][reg].skRmv(listener);
+      }
     }
   }
 
