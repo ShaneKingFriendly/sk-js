@@ -66,12 +66,6 @@ describe('SK', () => {
   afterEach(() => {
     //console.log('some test case done!');
   });
-
-  describe('Array.prototype.skArr', () => {
-    it('recursive', () => {
-      assert.deepEqual(testData.skVal('A.Arr.i1').skArr(true), testData.skVal('A.Arr.o1'));
-    });
-  });
   describe('Array.prototype.skFilter', () => {
     it('skFilter', () => {
       assert.deepEqual(testData.skVal('A.Filter.i1').skFilter(false, function (k, v) {
@@ -82,21 +76,6 @@ describe('SK', () => {
       assert.deepEqual(testData.skVal('A.Filter.i1').skFilter(true, function (k, v, c) {
         return _.isPlainObject(c) && k === 'a' || Array.isArray(c) && v !== 'skB2';
       }), testData.skVal('A.Filter.o2'));
-    });
-  });
-  describe('Array.prototype.skObj', () => {
-    it('prefix', () => {
-      assert.deepEqual(testData.skVal('A.Obj.i1').skObj(false, function (k) {
-        return 'skI' + k;
-      }), testData.skVal('A.Obj.o1'));
-    });
-    it('recursive', () => {
-      assert.deepEqual([1, {a: 2, b: [3, {c: 4, d: [5, {}]}]}].skObj(true, function (k) {
-        return 'skIdx' + k;
-      }), {
-        skIdx0: 1,
-        skIdx1: {a: 2, b: {skIdx0: 3, skIdx1: {c: 4, d: {skIdx0: 5, skIdx1: {}}}}}
-      });
     });
   });
   describe('Array.prototype.skRmv', () => {
@@ -130,26 +109,11 @@ describe('SK', () => {
       assert.equal((987654.321).skCurrencyFmt(0), '987,654');
     });
   });
-  describe('Object.prototype.skArr', () => {
-    it('recursive', () => {
-      assert.deepEqual(testData.skVal('O.Arr.i1').skArr(true, function (k) {
-        return _.startsWith(k, 'skIdx')
-      }), testData.skVal('O.Arr.o1'));
-    });
-  });
   describe('Object.prototype.skFilter', () => {
     it('recursive', () => {
       assert.deepEqual(testData.skVal('O.Filter.i1').skFilter(true, function (k, v, c) {
         return _.isPlainObject(c) && Array.isArray(v) || Array.isArray(c) && _.isPlainObject(v);
       }), testData.skVal('O.Filter.o1'));
-    });
-  });
-  describe('Object.prototype.skObj', () => {
-    it('recursive', () => {
-      assert.deepEqual(testData.skVal('O.Filter.i1').skObj(true, function (k) {
-        // console.log('Object.prototype.skObj'+JSON.stringify(c));
-        return 'skIdx' + k;
-      }), testData.skVal('O.Obj.o1'));
     });
   });
   describe('Object.prototype.skVal', () => {
@@ -164,6 +128,12 @@ describe('SK', () => {
     o.skVal('c.z', 3);
     it('set', () => {
       assert.deepEqual(o, r);
+    });
+    it('array get', () => {
+      assert.deepEqual({a: 1, b: [1, 2, 3]}.skVal('b[2]'), 3);
+    });
+    it('array get', () => {
+      assert.deepEqual({a: 1, b: [1, 2, 3]}.skVal('b[2]', 4), {a: 1, b: [1, 2, 4]});
     });
   });
   describe('Object.prototype.skVals', () => {

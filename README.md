@@ -94,15 +94,11 @@ MVC'M
 - **validateXXX**: exec validates
 
 ### Polyfill
-- **Array.prototype.skArr(recursive, keyFunc)**: [2,{skIdx0:3,skIdx1:[4,{skIdx0:5,skIdx1:[]}]}] -> [2,[3,[4,[5,[]]]]]
 - **Array.prototype.skFilter(recursive, filterFunc)**: filter recursive
-- **Array.prototype.skObj(recursive, keyFunc)**: [1,{a:2,b:[3,{c:4,d:[5,{}]}]}] -> {skIdx0:1,skIdx1:{a:2,b:{skIdx0:3,skIdx1:{c:4,d:{skIdx0:5,skIdx1:{}}}}}}
 - **Array.prototype.skRmv(item)**: [1,2,3].skRmv(2) -> [1,3]
 - **Array.prototype.skToggle(item)**: [1,2,3].skToggle(2) -> [1,3], [1,3].skToggle(2) -> [1,2,3]
 - **Number.prototype.skCurrencyFmt(fraction)**: (-123456.789).skCurrencyFmt(2) -> '-123,456.79'
-- **Object.prototype.skArr(recursive, keyFunc)**: {skIdx0:1,skIdx1:[2,{skIdx0:3,skIdx1:[4,{skIdx0:5,skIdx1:[]}]}]} -> [1,[2,[3,[4,[5,[]]]]]]
 - **Object.prototype.skFilter(recursive, filterFunc)**: filter recursive
-- **Object.prototype.skObj(recursive, keyFunc)**: {a:2,b:[3,{c:4,d:[5,{}]}]} -> {a:2,b:{skIdx0:3,skIdx1:{c:4,d:{skIdx0:5,skIdx1:{}}}}}
 - **Object.prototype.skVal(str, val)**: like $.val()
 - **Object.prototype.skVals()**: {a: {x: 1}, b: {y: 2}} -> [{x: 1}, {y: 2}]
 - **String.prototype.skBlank()**: ' '.skBlank() -> true, ''.skBlank() -> true

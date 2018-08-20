@@ -1,37 +1,17 @@
 import _ from 'lodash';
 
 /*eslint no-extend-native: "off"*/
-/**
- * default of key function
- *
- * @private
- * @param key index of array or property name of object
- * @param item value of array by index or value of object by property name
- * @param context array or object
- * @returns {*}
- */
-function _skKeyFunc(key, item, context) {
-  return _.isPlainObject(context) ? _.startsWith(key, 'skIdx') : (`skIdx${key}`);
-}
 
 /**
- * @example
- * [2,{skIdx0:3,skIdx1:[4,{skIdx0:5,skIdx1:[]}]}] -> [2,[3,[4,[5,[]]]]]
+ * @param subId 'a' or 'b[2]' of 'a.b[2].c'
+ * @returns {*}
+ * @private
  */
-if (!Array.prototype.skArr) {
-  Object.defineProperty(Array.prototype, 'skArr', {
-    writable: true,
-    enumerable: false,
-    configurable: true,
-    value(recursive, keyFunc = _skKeyFunc) {
-      const rtn = [];
-      this.forEach((item) => {
-        rtn.push((recursive && (_.isArray(item) || _.isPlainObject(item))) ? item.skArr(recursive, keyFunc) : item);
-      });
-      return rtn;
-    },
-  });
+function _skParseSubId(subId) {
+  const bracketIdx = subId.indexOf('[');
+  return bracketIdx > -1 ? {p: subId.substring(0, bracketIdx), i: subId.substring(bracketIdx + 1, subId.length - 1)} : {p: subId};
 }
+
 if (!Array.prototype.skFilter) {
   Object.defineProperty(Array.prototype, 'skFilter', {
     writable: true,
@@ -43,24 +23,6 @@ if (!Array.prototype.skFilter) {
         if (_.isFunction(filterFunc) && filterFunc(index, item, this)) {
           rtn.push((recursive && (_.isArray(item) || _.isPlainObject(item))) ? item.skFilter(recursive, filterFunc) : item);
         }
-      });
-      return rtn;
-    },
-  });
-}
-/**
- * @example
- * [1,{a:2,b:[3,{c:4,d:[5,{}]}]}] -> {skIdx0:1,skIdx1:{a:2,b:{skIdx0:3,skIdx1:{c:4,d:{skIdx0:5,skIdx1:{}}}}}}
- */
-if (!Array.prototype.skObj) {
-  Object.defineProperty(Array.prototype, 'skObj', {
-    writable: true,
-    enumerable: false,
-    configurable: true,
-    value(recursive, keyFunc = _skKeyFunc) {
-      const rtn = {};
-      this.forEach((item, index) => {
-        rtn[_.isFunction(keyFunc) ? keyFunc(index, item, this) : index] = (recursive && (_.isArray(item) || _.isPlainObject(item))) ? item.skObj(recursive, keyFunc) : item;
       });
       return rtn;
     },
@@ -130,31 +92,6 @@ if (!Number.prototype.skCurrencyFmt) {
     return String(this).skCurrencyFmt(fraction);
   };
 }
-/**
- * @example
- * {skIdx0:1,skIdx1:[2,{skIdx0:3,skIdx1:[4,{skIdx0:5,skIdx1:[]}]}]} -> [1,[2,[3,[4,[5,[]]]]]]
- */
-if (!Object.prototype.skArr) {
-  Object.defineProperty(Object.prototype, 'skArr', {
-    writable: true,
-    enumerable: false,
-    configurable: true,
-    value(recursive, keyFunc = _skKeyFunc) {
-      const rtnArr = [];
-      const rtnObj = {};
-      Object.keys(this).forEach((key) => {
-        const tmpVal = this[key];
-        const rtn = (recursive && (_.isPlainObject(tmpVal) || _.isArray(tmpVal))) ? tmpVal.skArr(recursive, keyFunc) : tmpVal;
-
-        rtnObj[key] = rtn;
-        if (_.isFunction(keyFunc) && keyFunc(key, tmpVal, this)) {
-          rtnArr.push(rtn);
-        }
-      });
-      return Object.keys(rtnObj).length === rtnArr.length ? rtnArr : rtnObj;
-    },
-  });
-}
 if (!Object.prototype.skFilter) {
   Object.defineProperty(Object.prototype, 'skFilter', {
     writable: true,
@@ -167,25 +104,6 @@ if (!Object.prototype.skFilter) {
         if (_.isFunction(filterFunc) && filterFunc(key, tmpVal, this)) {
           rtn[key] = (recursive && (_.isArray(tmpVal) || _.isPlainObject(tmpVal))) ? tmpVal.skFilter(recursive, filterFunc) : tmpVal;
         }
-      });
-      return rtn;
-    },
-  });
-}
-/**
- * @example
- * {a:2,b:[3,{c:4,d:[5,{}]}]} -> {a:2,b:{skIdx0:3,skIdx1:{c:4,d:{skIdx0:5,skIdx1:{}}}}}
- */
-if (!Object.prototype.skObj) {
-  Object.defineProperty(Object.prototype, 'skObj', {
-    writable: true,
-    enumerable: false,
-    configurable: true,
-    value(recursive, keyFunc = _skKeyFunc) {
-      const rtn = {};
-      Object.keys(this).forEach((key) => {
-        const tmpVal = this[key];
-        rtn[key] = (recursive && (_.isArray(tmpVal) || _.isPlainObject(tmpVal))) ? tmpVal.skObj(recursive, keyFunc) : tmpVal;
       });
       return rtn;
     },
@@ -219,17 +137,24 @@ if (!Object.prototype.skVal) {
       let idx = 0;
       if (arguments.length > 1) {
         for (; idx < arr.length - 1; idx += 1) {
-          if (rtn[arr[idx]] === undefined) {
-            rtn[arr[idx]] = {};
+          const pi = _skParseSubId(arr[idx]);
+          if (rtn[pi.p] === undefined) {
+            rtn[pi.p] = pi.i === undefined ? {} : [];
           }
-          rtn = rtn[arr[idx]];
+          rtn = pi.i === undefined ? rtn[pi.p] : rtn[pi.p][pi.i];
         }
         if (rtn) {
-          rtn[arr[idx]] = val;
+          const pi = _skParseSubId(arr[idx]);
+          if (pi.i === undefined) {
+            rtn[pi.p] = val;
+          } else {
+            rtn[pi.p][pi.i] = val;
+          }
         }
       } else {
         for (; idx < arr.length; idx += 1) {
-          rtn = rtn[arr[idx]];
+          const pi = _skParseSubId(arr[idx]);
+          rtn = pi.i === undefined ? rtn[pi.p] : rtn[pi.p][pi.i];
           if (rtn === undefined) {
             break;
           }
