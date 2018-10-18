@@ -40,7 +40,7 @@ export default class Model {
    */
   static object2ModelIds(prefix, modelIds = [], object = {}) {
     Object.keys(object).forEach((key) => {
-      const tmpKey = prefix + (String(prefix).skBlank() ? SK.EMPTY : SK.CHAR_DOT) + key;
+      const tmpKey = prefix + (String(prefix).skBlank() ? SK.CHAR_EMPTY : SK.CHAR_DOT) + key;
       const tmpVal = object[key];
       if (_.isPlainObject(tmpVal)) {
         Model.object2ModelIds(tmpKey, modelIds, tmpVal);
@@ -58,7 +58,7 @@ export default class Model {
     let rtn = [];
     if (sao) {
       if (_.isPlainObject(sao)) {
-        Model.object2ModelIds(SK.EMPTY, rtn, sao);
+        Model.object2ModelIds(SK.CHAR_EMPTY, rtn, sao);
       } else if (_.isArray(sao)) {
         rtn = rtn.concat(sao);
       } else if (_.isString(sao)) {

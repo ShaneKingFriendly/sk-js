@@ -46,9 +46,9 @@ export default class Codes {
           cache: false,
           dataType: SK.FILE_TYPE_JSON,
           method: SK.REQUEST_METHOD_GET,
-          url: SK.CONTEXT_PATH + Codes.PATH_PREFIX + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT,
+          url: SK.DEFAULT_CONTEXT_PATH + Codes.PATH_PREFIX + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT,
         }).done(resp => {
-          Mesgs.jsonNodeParser(resp, SK.EMPTY, Codes.code);
+          Mesgs.jsonNodeParser(resp, SK.CHAR_EMPTY, Codes.code);
           Object.keys(Codes.code).forEach((item) => {
             Codes.loadMesg(Codes.code[item]);
           })
@@ -66,7 +66,7 @@ export default class Codes {
           cache: true,
           dataType: SK.FILE_TYPE_JSON,
           method: SK.REQUEST_METHOD_GET,
-          url: SK.CONTEXT_PATH + Codes.PATH_PREFIX + validPath + Codes.hash[validPath] + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT,
+          url: SK.DEFAULT_CONTEXT_PATH + Codes.PATH_PREFIX + validPath + Codes.hash[validPath] + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT,
         }).done(resp => {
           Codes.code[validPath] = resp;
           Codes.loadMesg(Codes.code[validPath]);

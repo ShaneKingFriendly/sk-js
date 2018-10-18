@@ -7,7 +7,7 @@ export default class Validator {
   static PROP_FUNC = 'func';
   static RULES = {
     required: (model, value, settings) => {
-      return SK.s4s(value) === SK.EMPTY ? Mesgs.get("$#{field}_is_required").skFmt({field: Mesgs.get(settings.field)}) : true;
+      return SK.s4s(value) === SK.CHAR_EMPTY ? Mesgs.get("$#{field}_is_required").skFmt({field: Mesgs.get(settings.field)}) : true;
     },
     email: (model, value, settings) => {
       return /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/.test(value) ? true : Mesgs.get("$#{field}_must_be_an_email").skFmt({field: Mesgs.get(settings.field)});

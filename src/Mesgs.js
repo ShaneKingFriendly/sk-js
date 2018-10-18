@@ -80,9 +80,9 @@ export default class Mesgs {
           cache: false,
           dataType: SK.FILE_TYPE_JSON,
           method: SK.REQUEST_METHOD_GET,
-          url: SK.CONTEXT_PATH + Mesgs.PATH_PREFIX + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT,
+          url: SK.DEFAULT_CONTEXT_PATH + Mesgs.PATH_PREFIX + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT,
         }).done(resp => {
-          Mesgs.jsonNodeParser(resp, SK.EMPTY, Mesgs.mesg);
+          Mesgs.jsonNodeParser(resp, SK.CHAR_EMPTY, Mesgs.mesg);
         }).always(() => {
           $Deferred.resolve();
         });
@@ -97,7 +97,7 @@ export default class Mesgs {
           cache: true,
           dataType: SK.FILE_TYPE_JSON,
           method: SK.REQUEST_METHOD_GET,
-          url: SK.CONTEXT_PATH + Mesgs.PATH_PREFIX + validPath + Mesgs.hash[validPath] + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT,
+          url: SK.DEFAULT_CONTEXT_PATH + Mesgs.PATH_PREFIX + validPath + Mesgs.hash[validPath] + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT,
         }).done(resp => {
           Mesgs.mesg[validPath] = resp;
         });

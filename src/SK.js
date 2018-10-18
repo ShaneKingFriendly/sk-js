@@ -23,6 +23,7 @@ export default class SK {
   static CHAR_DIVIDE = '÷';
   static CHAR_DOT = '.';
   static CHAR_DOUBLE_QUOTATION = '"';
+  static CHAR_EMPTY = '';
   static CHAR_EQUAL = '=';
   static CHAR_EQUAL_APPROXIMATELY = '≌';
   static CHAR_EQUIVALENT = '≡';
@@ -72,34 +73,36 @@ export default class SK {
 
   static CHAR_MALE = "♂";
   static CHAR_FEMALE = "♀";
+  static DEFAULT_CONTEXT_PATH = SK.CHAR_EMPTY;
+  static ENV_DEV = 'dev';
+  static ENV_TEST = 'test';
 
   static FILE_TYPE_HTML = 'html';
   static FILE_TYPE_HTML_WITH_POINT = SK.CHAR_DOT + SK.FILE_TYPE_HTML;
   static FILE_TYPE_JSON = 'json';
   static FILE_TYPE_JSON_WITH_POINT = SK.CHAR_DOT + SK.FILE_TYPE_JSON;
+  static ENV_PROD = 'prod';
+  static JS_KEYWORD_BOOLEAN = 'boolean';
+  static JS_KEYWORD_FUNCTION = 'function';
+  static JS_KEYWORD_OBJECT = 'object';
+  static LANGUAGE_en_US = 'en_US';
 
   static REQUEST_METHOD_POST = 'POST';
   static REQUEST_METHOD_DELETE = 'DELETE';
   static REQUEST_METHOD_PUT = 'PUT';
   static REQUEST_METHOD_GET = 'GET';
 
-  static JS_KEYWORD_FUNCTION = 'function';
-
-  static EMPTY = '';
-  static CONTEXT_PATH = SK.EMPTY;
   static STR_DEFAULT = 'default';
   static STR_ERROR = 'error';
   static STR_LANGUAGE = 'language';
-  static ENV_DEV = 'DEV';
-  static ENV_TEST = 'TEST';
-  static ENV_PROD = 'PROD';
+  static DEFAULT_LANGUAGE = SK.LANGUAGE_en_US;
   static DEFAULT_DOMAIN = '$sk';
   static DEFAULT_ENV = {};
-  static DEFAULT_LANGUAGE = 'en_US';
   static DEFAULT_MOMENT_DATE = 'YYYY-MM-DD';
   static DEFAULT_MOMENT_DATETIME = 'YYYY-MM-DD HH:mm:ss';
   static DEFAULT_MOMENT_TIME = 'HH:mm:ss';
   static DEFAULT_MOMENT_TIMEZONE = 'Z';
+  static LANGUAGE_zh_CN = 'zh_CN';
 
   /**
    * New or get namespace object.
@@ -248,7 +251,7 @@ export default class SK {
       deep = false;
 
     // Handle a deep copy situation
-    if (typeof target === "boolean") {
+    if (typeof target === SK.JS_KEYWORD_BOOLEAN) {
       deep = target;
 
       // Skip the boolean and the target
@@ -257,7 +260,7 @@ export default class SK {
     }
 
     // Handle case when target is a string or something (possible in deep copy)
-    if (typeof target !== "object" && !$.isFunction(target)) {
+    if (typeof target !== SK.JS_KEYWORD_OBJECT && !$.isFunction(target)) {
       target = {};
     }
 
@@ -325,7 +328,7 @@ export default class SK {
     }
 
     // Handle case when target is a string or something (possible in deep copy)
-    if (typeof target !== "object" && !$.isFunction(target)) {
+    if (typeof target !== SK.JS_KEYWORD_OBJECT && !$.isFunction(target)) {
       target = {};
     }
 
@@ -417,7 +420,7 @@ export default class SK {
    */
   static getCurrentPath() {
     let path = window.location.pathname;
-    path = path.substring(SK.CONTEXT_PATH.length, path.length);
+    path = path.substring(SK.DEFAULT_CONTEXT_PATH.length, path.length);
     path = _.endsWith(path, SK.FILE_TYPE_HTML_WITH_POINT) ? path.substring(0, path.length - 5) : path;
     return path;
   }
@@ -455,14 +458,14 @@ export default class SK {
   static getSubPaths(path) {
     const rtn = [SK.CHAR_SLASH];
     path.split(SK.CHAR_SLASH).reduce((sum, item) => {
-      if (SK.s4s(item) === SK.EMPTY) {
+      if (SK.s4s(item) === SK.CHAR_EMPTY) {
         return sum;
       } else {
         const tmpValidPath = SK.getValidPath(sum + item);
         rtn.push(tmpValidPath);
         return tmpValidPath;
       }
-    }, SK.EMPTY);
+    }, SK.CHAR_EMPTY);
     return rtn;
   }
 
@@ -473,7 +476,7 @@ export default class SK {
    * @returns {string}
    */
   static getValidPath(path) {
-    return (_.startsWith(path, SK.CHAR_SLASH) ? SK.EMPTY : SK.CHAR_SLASH) + path + (_.endsWith(path, SK.CHAR_SLASH) ? SK.EMPTY : SK.CHAR_SLASH);
+    return (_.startsWith(path, SK.CHAR_SLASH) ? SK.CHAR_EMPTY : SK.CHAR_SLASH) + path + (_.endsWith(path, SK.CHAR_SLASH) ? SK.CHAR_EMPTY : SK.CHAR_SLASH);
   }
 
   /**
@@ -555,7 +558,7 @@ export default class SK {
    * @param {string} defaultValue
    * @returns {string}
    */
-  static s4s(value, defaultValue = SK.EMPTY) {
+  static s4s(value, defaultValue = SK.CHAR_EMPTY) {
     return (_.isBoolean(value) || _.isFinite(value) || _.isString(value)) ? String(value) : defaultValue;
   }
 
