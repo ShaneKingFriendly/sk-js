@@ -309,7 +309,7 @@ export default class SK {
 
     // Return the modified object
     return target;
-  };
+  }
 
   static extends() {
     let options, name, src, copy, copyIsArray, clone,
@@ -377,7 +377,7 @@ export default class SK {
 
     // Return the modified object
     return target;
-  };
+  }
 
   /**
    * the url of page or sub frame page

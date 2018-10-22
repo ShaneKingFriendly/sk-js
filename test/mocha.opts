@@ -1,5 +1,0 @@
---recursive
---reporter spec
---require babel-polyfill
---require babel-register
---ui bdd

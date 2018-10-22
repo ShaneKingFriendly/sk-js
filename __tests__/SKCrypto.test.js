@@ -1,6 +1,3 @@
-'use strict';
-
-import assert from 'assert';
 import SKCrypto from '../src/SKCrypto.js';
 
 describe('SKCrypto', () => {
@@ -8,11 +5,11 @@ describe('SKCrypto', () => {
   let plainText = 'plainText';
   let cipherText = '2SZ/de9I0rvxO7s9wdCohQ==';
 
-  before(() => {
+  beforeAll(() => {
     // console.log('SK test case start!');
   });
 
-  after(() => {
+  afterAll(() => {
     // console.log('SK test case done!');
   });
 
@@ -25,13 +22,13 @@ describe('SKCrypto', () => {
   });
 
   describe('encrypts', () => {
-    it('aesEncrypt', () => {
-      assert.equal(SKCrypto.aesEncrypt(plainText), cipherText);
+    test('aesEncrypt', () => {
+      expect(SKCrypto.aesEncrypt(plainText)).toBe(cipherText);
     });
   });
   describe('decrypts', () => {
     it('aesDecrypt', () => {
-      assert.equal(SKCrypto.aesDecrypt(cipherText), plainText);
+      expect(SKCrypto.aesDecrypt(cipherText)).toBe(plainText);
     });
   });
 });

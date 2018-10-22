@@ -95,7 +95,7 @@ export default class Codes {
         });
       }
     })
-  };
+  }
 
   static mesg(key, path = SK.getCurrentPath()) {
     const validPath = SK.getValidPath(path);

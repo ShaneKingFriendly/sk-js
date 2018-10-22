@@ -1,4 +1,3 @@
-/*eslint import/export: "off"*/
 export Codes from './Codes';
 export Mesgs from './Mesgs';
 export Model from './Model';

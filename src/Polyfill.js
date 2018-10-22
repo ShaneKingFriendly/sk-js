@@ -1,7 +1,5 @@
 import _ from 'lodash';
 
-/*eslint no-extend-native: "off"*/
-
 /**
  * @param subId 'a' or 'b[2]' of 'a.b[2].c'
  * @returns {*}
@@ -184,7 +182,7 @@ if (!String.prototype.skBlank) {
 if (!String.prototype.skCurrencyFmt) {
   String.prototype.skCurrencyFmt = function (fraction) {
     fraction = fraction >= 0 && fraction <= 20 ? fraction : 2;
-    const arr = (`${parseFloat(this.replace(/[^\d\.-]/g, '')).toFixed(fraction)}`).split('.');
+    const arr = (`${parseFloat(this.replace(/[^\d.-]/g, '')).toFixed(fraction)}`).split('.');
     return arr[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + (fraction === 0 ? '' : (`.${arr[1]}`));
   };
 }
