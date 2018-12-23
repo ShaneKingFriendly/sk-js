@@ -71,21 +71,26 @@ export default class SK {
   static CHAR_VARIES = '∝';
   static CHAR_VERTICAL = '|';
 
-  static CHAR_MALE = "♂";
-  static CHAR_FEMALE = "♀";
-  static DEFAULT_CONTEXT_PATH = SK.CHAR_EMPTY;
+  static CHAR_Y = 'Y';
+  static CHAR_N = 'N';
+  static CHAR_T = 'T';
+  static CHAR_F = 'F';
+  static CHAR_MALE = '♂';
+  static CHAR_FEMALE = '♀';
+
   static ENV_DEV = 'dev';
   static ENV_TEST = 'test';
+  static ENV_PROD = 'prod';
 
   static FILE_TYPE_HTML = 'html';
   static FILE_TYPE_HTML_WITH_POINT = SK.CHAR_DOT + SK.FILE_TYPE_HTML;
   static FILE_TYPE_JSON = 'json';
   static FILE_TYPE_JSON_WITH_POINT = SK.CHAR_DOT + SK.FILE_TYPE_JSON;
-  static ENV_PROD = 'prod';
   static JS_KEYWORD_BOOLEAN = 'boolean';
   static JS_KEYWORD_FUNCTION = 'function';
   static JS_KEYWORD_OBJECT = 'object';
   static LANGUAGE_en_US = 'en_US';
+  static LANGUAGE_zh_CN = 'zh_CN';
 
   static REQUEST_METHOD_POST = 'POST';
   static REQUEST_METHOD_DELETE = 'DELETE';
@@ -95,14 +100,15 @@ export default class SK {
   static STR_DEFAULT = 'default';
   static STR_ERROR = 'error';
   static STR_LANGUAGE = 'language';
-  static DEFAULT_LANGUAGE = SK.LANGUAGE_en_US;
+
+  static DEFAULT_CONTEXT_PATH = SK.CHAR_EMPTY;
   static DEFAULT_DOMAIN = '$sk';
   static DEFAULT_ENV = {};
+  static DEFAULT_LANGUAGE = SK.LANGUAGE_en_US;
   static DEFAULT_MOMENT_DATE = 'YYYY-MM-DD';
   static DEFAULT_MOMENT_DATETIME = 'YYYY-MM-DD HH:mm:ss';
   static DEFAULT_MOMENT_TIME = 'HH:mm:ss';
   static DEFAULT_MOMENT_TIMEZONE = 'Z';
-  static LANGUAGE_zh_CN = 'zh_CN';
 
   /**
    * New or get namespace object.
@@ -170,29 +176,7 @@ export default class SK {
   }
 
   /**
-   * let o1 = {a:[{'b':1},'c',2], d:{e:3}};
-   * let o2 = {a:[{'x':10},'y',20], d:{z:30}};
-   * let o3 = $.extend(true,o1,o2);
-   * JSON.stringify(o3);//{"a":[{"b":1,"x":10},"y",20],"d":{"e":3,"z":30}}
-   * o1 == o3;//true
-   * o1 === o3;//true
-   *
-   * let o1 = {a:[{'b':1},'c',2], d:{e:3}};
-   * let o2 = {a:[{'x':10},'y',20], d:{z:30}};
-   * let o3 = _.assign(o1,o2);
-   * JSON.stringify(o3);//{"a":[{"x":10},"y",20],"d":{"z":30}}
-   * o1 == o3;//true
-   * o1 === o3;//true
-   *
-   * {"a":[{"x":10},"y",20],"d":{"e":3,"z":30}}
-   *
-   * let o1 = {p1:1,f1:function(){console.log('f1');}}
-   * let o2 = {p2:2,f2:function(){console.log('f2');},f1:function(){console.log('f1 in o2')}};
-   * let o3 = {};
-   * let o4 = _.assign(o3,o1,o2);
-   * o4 === o3;//true
-   * o2.f1 === o4.f1;//true
-   * o4.f1();//f1 in o2
+   * overwrite assign of lodash
    *
    * @static
    * @param {Object} object The destination object.
@@ -243,6 +227,7 @@ export default class SK {
 
   }
 
+  //overwrite extend of jquery
   static extend() {
     let options, name, src, copy, copyIsArray, clone,
       target = arguments[0] || {},
@@ -311,6 +296,7 @@ export default class SK {
     return target;
   }
 
+  //overwrite extend of jquery
   static extends() {
     let options, name, src, copy, copyIsArray, clone,
       target = arguments[0] || {},
@@ -319,7 +305,7 @@ export default class SK {
       deep = false;
 
     // Handle a deep copy situation
-    if (typeof target === "boolean") {
+    if (typeof target === 'boolean') {
       deep = target;
 
       // Skip the boolean and the target
