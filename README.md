@@ -1,4 +1,7 @@
 # [ShaneKing for JavaScript][]
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/ShaneKing/sk-js.svg)](https://greenkeeper.io/)
+
 More to see [shaneking.org][].
 
 ## Badge
