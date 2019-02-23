@@ -124,6 +124,14 @@ if (!Object.prototype.skTrans) {
     },
   });
 }
+/**
+ * @example
+ * ({a:1}).skVal() -> undefined
+ * ({a:1}).skVal('a') -> 1
+ * ({a:1}).skVal('a',2) -> ({a:2})
+ * ({a:1}).skVal('a',undefined) -> ({a:undefined})
+ * ({a:1}).skVal(undefined, 2) -> ({a:1})
+ */
 if (!Object.prototype.skVal) {
   Object.defineProperty(Object.prototype, 'skVal', {
     writable: true,
@@ -131,30 +139,36 @@ if (!Object.prototype.skVal) {
     configurable: true,
     value(str, val) {
       let rtn = this;
-      const arr = str.split('.');
-      let idx = 0;
-      if (arguments.length > 1) {
-        for (; idx < arr.length - 1; idx += 1) {
-          const pi = _skParseSubId(arr[idx]);
-          if (rtn[pi.p] === undefined) {
-            rtn[pi.p] = pi.i === undefined ? {} : [];
-          }
-          rtn = pi.i === undefined ? rtn[pi.p] : rtn[pi.p][pi.i];
-        }
-        if (rtn) {
-          const pi = _skParseSubId(arr[idx]);
-          if (pi.i === undefined) {
-            rtn[pi.p] = val;
-          } else {
-            rtn[pi.p][pi.i] = val;
-          }
+      if (_.isNil(str)) {
+        if (arguments.length < 2) {
+          rtn = str;
         }
       } else {
-        for (; idx < arr.length; idx += 1) {
-          const pi = _skParseSubId(arr[idx]);
-          rtn = pi.i === undefined ? rtn[pi.p] : rtn[pi.p][pi.i];
-          if (rtn === undefined) {
-            break;
+        const arr = str.split('.');
+        let idx = 0;
+        if (arguments.length > 1) {
+          for (; idx < arr.length - 1; idx += 1) {
+            const pi = _skParseSubId(arr[idx]);
+            if (rtn[pi.p] === undefined) {
+              rtn[pi.p] = pi.i === undefined ? {} : [];
+            }
+            rtn = pi.i === undefined ? rtn[pi.p] : rtn[pi.p][pi.i];
+          }
+          if (rtn) {
+            const pi = _skParseSubId(arr[idx]);
+            if (pi.i === undefined) {
+              rtn[pi.p] = val;
+            } else {
+              rtn[pi.p][pi.i] = val;
+            }
+          }
+        } else {
+          for (; idx < arr.length; idx += 1) {
+            const pi = _skParseSubId(arr[idx]);
+            rtn = pi.i === undefined ? rtn[pi.p] : rtn[pi.p][pi.i];
+            if (rtn === undefined) {
+              break;
+            }
           }
         }
       }

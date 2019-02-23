@@ -196,7 +196,9 @@ export default class SK {
   static cookies(key, value) {
     if (arguments.length > 1) {
       Cookies.remove(key);
-      return Cookies.set(key, value);
+      if (!_.isNil(value)) {
+        return Cookies.set(key, value);
+      }
     } else {
       return Cookies.get(key);
     }
@@ -473,7 +475,10 @@ export default class SK {
    */
   static local(key, value) {
     if (arguments.length > 1) {
-      return localStorage.setItem(key, value);
+      localStorage.removeItem(key);
+      if (!_.isNil(value)) {
+        return localStorage.setItem(key, value);
+      }
     } else {
       return localStorage.getItem(key);
     }
@@ -556,7 +561,10 @@ export default class SK {
    */
   static session(key, value) {
     if (arguments.length > 1) {
-      return sessionStorage.setItem(key, value);
+      sessionStorage.removeItem(key);
+      if (!_.isNil(value)) {
+        return sessionStorage.setItem(key, value);
+      }
     } else {
       return sessionStorage.getItem(key);
     }
