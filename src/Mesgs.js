@@ -24,6 +24,12 @@ export default class Mesgs {
     return rtn;
   }
 
+  static gets(keys, path = SK.getCurrentPath()) {
+    return keys.split(SK.CHAR_FEMALE).map((key) => {
+      return Mesgs.get(key, path)
+    }).join(SK.LANGUAGE_zh_CN === SK.getCurrentLanguage() ? SK.EMPTY : SK.CHAR_BLANK);
+  }
+
   static getSubPaths(path, justUnExisted) {
     return justUnExisted ? _.difference(SK.getSubPaths(path), Object.keys(Mesgs.mesg)) : SK.getSubPaths(path);
   }
