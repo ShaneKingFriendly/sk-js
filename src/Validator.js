@@ -7,10 +7,10 @@ export default class Validator {
   static PROP_FUNC = 'func';
   static RULES = {
     required: (model, value, settings) => {
-      return SK.s4s(value) === SK.CHAR_EMPTY ? Mesgs.get('$#{field}_is_required').skFmt({field: Mesgs.get(settings.field)}) : true;
+      return SK.s4s(value) === SK.CHAR_EMPTY ? Mesgs.get('$#{field}_is_required').skFmt({field: Mesgs.gets(settings.field)}) : true;
     },
     email: (model, value, settings) => {
-      return /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/.test(value) ? true : Mesgs.get('$#{field}_must_be_an_email').skFmt({field: Mesgs.get(settings.field)});
+      return /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/.test(value) ? true : Mesgs.get('$#{field}_must_be_an_email').skFmt({field: Mesgs.gets(settings.field)});
     },
     lengthRange: (model, value, settings) => {
       let tmpValue = SK.s4s(value);
@@ -18,18 +18,18 @@ export default class Validator {
       let maxExist = settings.max !== undefined;
       if (minExist && maxExist) {
         return tmpValue.length > settings.min && tmpValue.length < settings.max ? true : Mesgs.get('$#{field}_length_must_be_between_$#{min}_$#{max}').skFmt({
-          field: Mesgs.get(settings.field),
+          field: Mesgs.gets(settings.field),
           min: settings.min,
           max: settings.max
         });
       } else if (minExist && !maxExist) {
         return tmpValue.length > settings.min ? true : Mesgs.get('$#{field}_length_must_be_greater_than_$#{min}').skFmt({
-          field: Mesgs.get(settings.field),
+          field: Mesgs.gets(settings.field),
           min: settings.min
         });
       } else if (!minExist && maxExist) {
         return tmpValue.length < settings.max ? true : Mesgs.get('$#{field}_length_must_be_less_than_$#{max}').skFmt({
-          field: Mesgs.get(settings.field),
+          field: Mesgs.gets(settings.field),
           max: settings.max
         });
       } else {
@@ -42,18 +42,18 @@ export default class Validator {
       let maxExist = settings.max !== undefined;
       if (minExist && maxExist) {
         return tmpValue > SK.s4n(settings.min) && tmpValue < SK.s4n(settings.max) ? true : Mesgs.get('$#{field}_value_must_be_between_$#{min}_$#{max}').skFmt({
-          field: Mesgs.get(settings.field),
+          field: Mesgs.gets(settings.field),
           min: settings.min,
           max: settings.max
         });
       } else if (minExist && !maxExist) {
         return tmpValue > SK.s4n(settings.min) ? true : Mesgs.get('$#{field}_value_must_be_greater_than_$#{min}').skFmt({
-          field: Mesgs.get(settings.field),
+          field: Mesgs.gets(settings.field),
           min: settings.min
         });
       } else if (!minExist && maxExist) {
         return tmpValue < SK.s4n(settings.max) ? true : Mesgs.get('$#{field}_value_must_be_less_than_$#{max}').skFmt({
-          field: Mesgs.get(settings.field),
+          field: Mesgs.gets(settings.field),
           max: settings.max
         });
       } else {

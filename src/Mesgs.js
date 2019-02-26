@@ -25,9 +25,11 @@ export default class Mesgs {
   }
 
   static gets(keys, path = SK.getCurrentPath()) {
-    return keys.split(SK.CHAR_FEMALE).map((key) => {
+    const keyArray = _.isArray(keys) ? keys : keys.split(SK.CHAR_FEMALE);
+    const sep = SK.LANGUAGE_zh_CN === SK.getCurrentLanguage() ? SK.EMPTY : SK.CHAR_BLANK;
+    return keyArray.map((key) => {
       return Mesgs.get(key, path)
-    }).join(SK.LANGUAGE_zh_CN === SK.getCurrentLanguage() ? SK.EMPTY : SK.CHAR_BLANK);
+    }).join(sep);
   }
 
   static getSubPaths(path, justUnExisted) {
