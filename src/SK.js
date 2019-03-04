@@ -103,11 +103,11 @@ export default class SK {
   static REQUEST_METHOD_PUT = 'PUT';
   static REQUEST_METHOD_GET = 'GET';
 
-  static SET_BIN = '01';
-  static SET_OCT = '01234567';
-  static SET_DEC = '0123456789';
-  static SET_HEX = '0123456789abcdef';
-  static SET_L62 = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  static SET_ARY_BIN = '01';
+  static SET_ARY_OCT = '01234567';
+  static SET_ARY_DEC = '0123456789';
+  static SET_ARY_HEX = '0123456789abcdef';
+  static SET_ARY_L62 = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
   static STR_DEFAULT = 'default';
   static STR_ERROR = 'error';
@@ -582,7 +582,7 @@ export default class SK {
     }
   }
 
-  static strMapping(str = SK.uuid().toLowerCase().replace(/-/g, SK.CHAR_EMPTY), dstSet = SK.SET_L62, srcSet = SK.SET_HEX) {
+  static strMapping(str = SK.uuid().toLowerCase().replace(/-/g, SK.CHAR_EMPTY), dstSet = SK.SET_ARY_L62, srcSet = SK.SET_ARY_HEX) {
     let i, divide, newlen,
       numberMap = {},
       fromBase = srcSet.length,
@@ -650,7 +650,7 @@ export default class SK {
       uuidByteToHex[rnds[i++]], uuidByteToHex[rnds[i++]]]).join('');
   }
 
-  static uuidShort(uuid = SK.uuid(), dstSet = SK.SET_L62) {
-    return SK.strMapping(uuid.toLowerCase().replace(/-/g, SK.CHAR_EMPTY), dstSet, SK.SET_HEX);
+  static uuidShort(uuid = SK.uuid(), dstSet = SK.SET_ARY_L62) {
+    return SK.strMapping(uuid.toLowerCase().replace(/-/g, SK.CHAR_EMPTY), dstSet, SK.SET_ARY_HEX);
   }
 }
