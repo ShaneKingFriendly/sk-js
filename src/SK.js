@@ -2,6 +2,12 @@ import $ from 'jquery';
 import _ from 'lodash';
 import Cookies from 'js-cookie';
 
+const crypto = require('crypto');
+const uuidByteToHex = [];
+for (let i = 0; i < 256; ++i) {
+  uuidByteToHex[i] = (i + 0x100).toString(16).substr(1);
+}
+
 export default class SK {
   static CHAR_AMPERSAND = '&';
   static CHAR_ANGLE = '∠';
@@ -96,6 +102,12 @@ export default class SK {
   static REQUEST_METHOD_DELETE = 'DELETE';
   static REQUEST_METHOD_PUT = 'PUT';
   static REQUEST_METHOD_GET = 'GET';
+
+  static SET_BIN = '01';
+  static SET_OCT = '01234567';
+  static SET_DEC = '0123456789';
+  static SET_HEX = '0123456789abcdef';
+  static SET_L62 = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
   static STR_DEFAULT = 'default';
   static STR_ERROR = 'error';
@@ -570,6 +582,40 @@ export default class SK {
     }
   }
 
+  static strMapping(str = SK.uuid().toLowerCase().replace(/-/g, SK.CHAR_EMPTY), dstSet = SK.SET_L62, srcSet = SK.SET_HEX) {
+    let i, divide, newlen,
+      numberMap = {},
+      fromBase = srcSet.length,
+      toBase = dstSet.length,
+      length = str.length,
+      result = SK.CHAR_EMPTY;
+
+    if (srcSet === dstSet) {
+      return str;
+    }
+
+    for (i = 0; i < length; i++) {
+      numberMap[i] = srcSet.indexOf(str[i]);
+    }
+    do {
+      divide = 0;
+      newlen = 0;
+      for (i = 0; i < length; i++) {
+        divide = divide * fromBase + numberMap[i];
+        if (divide >= toBase) {
+          numberMap[newlen++] = parseInt(divide / toBase, 10);
+          divide = divide % toBase;
+        } else if (newlen > 0) {
+          numberMap[newlen++] = 0;
+        }
+      }
+      length = newlen;
+      result = dstSet.slice(divide, divide + 1).concat(result);
+    } while (newlen !== 0);
+
+    return result;
+  }
+
   /**
    * upper first char
    *
@@ -585,5 +631,26 @@ export default class SK {
     }).replace(/^[a-z]/, (firstWord) => {
       return firstWord.toUpperCase();
     });
+  }
+
+  //XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+  static uuid() {
+    let rnds = crypto.randomBytes(16);
+    // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
+    rnds[6] = (rnds[6] & 0x0f) | 0x40;
+    rnds[8] = (rnds[8] & 0x3f) | 0x80;
+    let i = 0;
+    return ([uuidByteToHex[rnds[i++]], uuidByteToHex[rnds[i++]],
+      uuidByteToHex[rnds[i++]], uuidByteToHex[rnds[i++]], SK.CHAR_MINUS,
+      uuidByteToHex[rnds[i++]], uuidByteToHex[rnds[i++]], SK.CHAR_MINUS,
+      uuidByteToHex[rnds[i++]], uuidByteToHex[rnds[i++]], SK.CHAR_MINUS,
+      uuidByteToHex[rnds[i++]], uuidByteToHex[rnds[i++]], SK.CHAR_MINUS,
+      uuidByteToHex[rnds[i++]], uuidByteToHex[rnds[i++]],
+      uuidByteToHex[rnds[i++]], uuidByteToHex[rnds[i++]],
+      uuidByteToHex[rnds[i++]], uuidByteToHex[rnds[i++]]]).join('');
+  }
+
+  static uuidShort(uuid = SK.uuid(), dstSet = SK.SET_L62) {
+    return SK.strMapping(uuid.toLowerCase().replace(/-/g, SK.CHAR_EMPTY), dstSet, SK.SET_HEX);
   }
 }

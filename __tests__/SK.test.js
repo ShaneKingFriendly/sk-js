@@ -45,7 +45,7 @@ describe('SK', () => {
 
   let inValidValueArray = [null, undefined, NaN, 'Invalid Date'];
 
-  describe('SK.$', () => {
+  describe('$', () => {
     it('equals self', () => {
       let sk$1 = SK.$(testData);
       let sk$2 = SK.$(testData);
@@ -57,7 +57,7 @@ describe('SK', () => {
       expect(sk$.a).toEqual(1);
     });
   });
-  describe('SK.assign', () => {
+  describe('assign', () => {
     it('array replace by new', () => {
       let a1 = {a: [{'a': 1}, 'b', 2]},
         a2 = {a: [{'x': 3}, 'y', 4]},
@@ -91,7 +91,7 @@ describe('SK', () => {
     //   expect(SK.assign({}, f1, f2), skRst);
     // });
   });
-  describe('SK.appendParameter', () => {
+  describe('appendParameter', () => {
     it('not ?', () => {
       expect(SK.appendParameter('a', 'b', 'c')).toEqual('a?b=c');
     });
@@ -99,7 +99,7 @@ describe('SK', () => {
       expect(SK.appendParameter('a?1=2', 'b', 'c')).toEqual('a?1=2&b=c');
     });
   });
-  describe('SK.descartes', () => {
+  describe('descartes', () => {
     it('array and array to array', () => {
       expect(SK.descartes(['alert', 'btn'], ['success', 'info'])).toEqual(['alert-success', 'alert-info', 'btn-success', 'btn-info']);
     });
@@ -107,7 +107,7 @@ describe('SK', () => {
       expect(SK.descartes('alert', 'link', '-')).toEqual('alert-link');
     });
   });
-  describe('SK.extend', () => {
+  describe('extend', () => {
     it('array replace by new', () => {
       let a1 = {a: [{'a': 1}, 'b', 2]},
         a2 = {a: [{'x': 3}, 'y', 4]},
@@ -126,7 +126,7 @@ describe('SK', () => {
       expect(a).not.toBe(b.b);
     });
   });
-  describe('SK.extends', () => {
+  describe('extends', () => {
     it('array replace by new', () => {
       let a1 = {a: [{'a': 1}, 'b', 2]},
         a2 = {a: undefined};
@@ -134,17 +134,17 @@ describe('SK', () => {
       expect(SK.extends(true, {}, a1, a2)).toEqual(a2);
     });
   });
-  describe('SK.getSubPaths', () => {
+  describe('getSubPaths', () => {
     it('1', () => {
       expect(SK.getSubPaths('a/b')).toEqual(['/', '/a/', '/a/b/']);
     });
   });
-  describe('SK.getValidPath', () => {
+  describe('getValidPath', () => {
     it('1', () => {
       expect(SK.getValidPath('a/b')).toEqual('/a/b/');
     });
   });
-  describe('SK.s4a', () => {
+  describe('s4a', () => {
     it('array return array', () => {
       expect(SK.s4a(['a', 1, 'b', 2])).toEqual(['a', 1, 'b', 2]);
     });
@@ -154,7 +154,7 @@ describe('SK', () => {
       });
     });
   });
-  describe('SK.s4b', () => {
+  describe('s4b', () => {
     it('true return true', () => {
       expect(SK.s4b(true)).toEqual(true);
       expect(SK.s4b(false)).toEqual(false);
@@ -169,7 +169,7 @@ describe('SK', () => {
       });
     });
   });
-  describe('SK.s4d', () => {
+  describe('s4d', () => {
     let date = new Date();
     it('date return date', () => {
       expect(SK.s4d(date)).toEqual(date);
@@ -180,7 +180,7 @@ describe('SK', () => {
       });
     });
   });
-  describe('SK.s4n', () => {
+  describe('s4n', () => {
     it('number return number', () => {
       expect(SK.s4n(1)).toEqual(1);
     });
@@ -191,7 +191,7 @@ describe('SK', () => {
       });
     });
   });
-  describe('SK.s4o', () => {
+  describe('s4o', () => {
     it('object return object', () => {
       expect(SK.s4o({a: 1, b: 2})).toEqual({a: 1, b: 2});
     });
@@ -201,7 +201,7 @@ describe('SK', () => {
       });
     });
   });
-  describe('SK.s4s', () => {
+  describe('s4s', () => {
     it('string return string', () => {
       expect(SK.s4s('s')).toEqual('s');
     });
@@ -211,7 +211,11 @@ describe('SK', () => {
       expect(SK.s4s(NaN)).toEqual('');
     });
   });
-  describe('SK.upperWordsFirstChar', () => {
+  describe('strMapping', () => {
+    let strMapping = SK.strMapping();
+    expect(strMapping.length).toBeLessThanOrEqual(22);
+  });
+  describe('upperWordsFirstChar', () => {
     it('path -> Path', () => {
       expect(SK.upperWordsFirstChar('path')).toEqual('Path');
     });
@@ -221,6 +225,14 @@ describe('SK', () => {
     it('words', () => {
       expect(SK.upperWordsFirstChar('xi nAn shi you xUe yuan china people')).toEqual('Xi NAn Shi You XUe Yuan China People');
     });
+  });
+  describe('uuid', () => {
+    let uuid = SK.uuid();
+    expect(uuid).toEqual(uuid.toLowerCase());
+  });
+  describe('uuidShort', () => {
+    let uuidShort = SK.uuidShort();
+    expect(uuidShort.length).toBeLessThanOrEqual(22);
   });
 });
 
