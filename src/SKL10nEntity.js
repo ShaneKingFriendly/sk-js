@@ -3,6 +3,6 @@ import SKEntity from './SKEntity';
 
 export default SK.extends(true, {}, SKEntity, {
   createTimezone: undefined,
-  lastModifyTimezone: undefined,
   invalidTimezone: undefined,
+  lastModifyTimezone: undefined,
 })

@@ -4,16 +4,16 @@ import Mesgs from './Mesgs';
 
 export default class RespMesg {
   static TYPE = {
-    SUCCESS: 'Success', //Just prompt
+    ERROR: 'Error', //Unknown Exception(done == false), UI will prompt details; Business Stop(done == true), process by component,
     INFO: 'Info', //Just prompt
+    SUCCESS: 'Success', //Just prompt
     WARNING: 'Warning', //Business continue, but must prompt
-    ERROR: 'Error', //Unknown Exception(done == false), UI will prompt details; Business Stop(done == true), process by component
   };
 
   constructor(mesg) {
-    this.type = mesg.type;//Message Type
-    this.code = mesg.code;//Message Code or Message Content
     this.args = mesg.args;//Message Arguments, Array or Object, format by skFmtArr or skFmt
+    this.code = mesg.code;//Message Code or Message Content
+    this.type = mesg.type;//Message Type
   }
 
   getMessage() {
