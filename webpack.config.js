@@ -29,6 +29,12 @@ module.exports = {
       amd: 'Cookies',
       root: 'Cookies'
     },
+    'js-md5': {
+      commonjs: 'md5',
+      commonjs2: 'md5',
+      amd: 'md5',
+      root: 'md5'
+    },
     lodash: {
       commonjs: 'lodash',
       commonjs2: 'lodash',
