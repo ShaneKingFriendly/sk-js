@@ -37,8 +37,8 @@
     "SK"
   ],
   "directories": {
-    "dist": "./dist",
-    "lib": "./lib"
+    "lib": "./lib",
+    "main": "./lib/index.js"
   },
   "scripts": {
     "build": "npm run build:dist && npm run build:lib",
