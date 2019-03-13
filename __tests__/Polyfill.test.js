@@ -1,5 +1,5 @@
-import _ from 'lodash';
 import '../src/Polyfill';
+import Proxy0 from '../src/Proxy0';
 
 let JSDOM = require('jsdom').JSDOM;
 global.document = new JSDOM('<html></html>', {url: "http://shaneking.org/", includeNodeLocations: true});
@@ -51,7 +51,7 @@ describe('Polyfill', () => {
     });
     it('recursive', () => {
       expect(testData.skVal('A.Filter.i1').skFilter(true, function (k, v, c) {
-        return _.isPlainObject(c) && k === 'a' || Array.isArray(c) && v !== 'skB2';
+        return Proxy0._.isPlainObject(c) && k === 'a' || Array.isArray(c) && v !== 'skB2';
       })).toEqual(testData.skVal('A.Filter.o2'));
     });
   });
@@ -72,7 +72,7 @@ describe('Polyfill', () => {
         return 1;
       })).toEqual([1, 1, 1]);
       expect([1, {a: 2, b: 3}].skTrans(false, (k, v, c) => {
-        return (_.isArray(v) || _.isPlainObject(v)) ? v : 4;
+        return (Proxy0._.isArray(v) || Proxy0._.isPlainObject(v)) ? v : 4;
       })).toEqual([4, {a: 2, b: 3}]);
       expect([1, {a: 2, b: [3, 4]}].skTrans(true, () => {
         return 1;
@@ -89,7 +89,7 @@ describe('Polyfill', () => {
   describe('Object.prototype.skFilter', () => {
     it('recursive', () => {
       expect(testData.skVal('O.Filter.i1').skFilter(true, function (k, v, c) {
-        return _.isPlainObject(c) && Array.isArray(v) || Array.isArray(c) && _.isPlainObject(v);
+        return Proxy0._.isPlainObject(c) && Array.isArray(v) || Array.isArray(c) && Proxy0._.isPlainObject(v);
       })).toEqual(testData.skVal('O.Filter.o1'));
     });
   });

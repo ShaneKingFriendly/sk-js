@@ -1,6 +1,4 @@
-import $ from 'jquery';
-import _ from 'lodash';
-import Cookies from 'js-cookie';
+import Proxy0 from './Proxy0';
 
 const crypto = require('crypto');
 const uuidByteToHex = [];
@@ -133,7 +131,7 @@ export default class SK {
   static $($ = SK.DEFAULT_DOMAIN, initVal = {}, env = SK.DEFAULT_ENV) {
     if (!env[$]) {
       env[$] = initVal;
-    } else if (!_.isEmpty(initVal)) {
+    } else if (!Proxy0._.isEmpty(initVal)) {
       env[$] = initVal;
     }
     return env[$];
@@ -144,7 +142,7 @@ export default class SK {
    *
    * @private
    * @returns {*|undefined}
-   * @see _.assignWith
+   * @see Proxy0._.assignWith
    */
   static _skAssignCustomizer(objValue, srcValue, key, object, source) {
     return SK.arePlainObject(objValue, srcValue, object, source) ? SK.assign(objValue, srcValue) : undefined;
@@ -177,12 +175,12 @@ export default class SK {
    * Checks if values are plain object.
    *
    * @returns {boolean}
-   * @see _.isPlainObject
+   * @see Proxy0._.isPlainObject
    */
   static arePlainObject(...values) {
     let rtn = true;
     values.forEach((item) => {
-      rtn = rtn && _.isPlainObject(item);
+      rtn = rtn && Proxy0._.isPlainObject(item);
     });
     return rtn;
   }
@@ -195,7 +193,7 @@ export default class SK {
    * @param {...Object} objects The source objects.
    */
   static assign(object, ...objects) {
-    return _.assignWith(object, ...objects, SK._skAssignCustomizer);
+    return Proxy0._.assignWith(object, ...objects, SK._skAssignCustomizer);
   }
 
   /**
@@ -207,12 +205,12 @@ export default class SK {
    */
   static cookies(key, value) {
     if (arguments.length > 1) {
-      Cookies.remove(key);
-      if (!_.isNil(value)) {
-        return Cookies.set(key, value);
+      Proxy0.Cookies.remove(key);
+      if (!Proxy0._.isNil(value)) {
+        return Proxy0.Cookies.set(key, value);
       }
     } else {
-      return Cookies.get(key);
+      return Proxy0.Cookies.get(key);
     }
   }
 
@@ -259,7 +257,7 @@ export default class SK {
     }
 
     // Handle case when target is a string or something (possible in deep copy)
-    if (typeof target !== SK.JS_KEYWORD_OBJECT && !$.isFunction(target)) {
+    if (typeof target !== SK.JS_KEYWORD_OBJECT && !Proxy0.$.isFunction(target)) {
       target = {};
     }
 
@@ -272,7 +270,7 @@ export default class SK {
     for (; i < length; i++) {
 
       // Only deal with non-null/undefined values
-      if (( options = arguments[i] ) !== null) {
+      if ((options = arguments[i]) !== null) {
 
         // Extend the base object
         for (name in options) {
@@ -285,14 +283,14 @@ export default class SK {
           }
 
           // Recurse if we're merging plain objects or arrays
-          if (deep && copy && ( _.isPlainObject(copy) || ( copyIsArray = Array.isArray(copy) ) )) {
+          if (deep && copy && (Proxy0._.isPlainObject(copy) || (copyIsArray = Array.isArray(copy)))) {
 
             if (copyIsArray) {
               copyIsArray = false;
               clone = [];//src && Array.isArray(src) ? src : [];//SK modify jquery behaviour
 
             } else {
-              clone = src && _.isPlainObject(src) ? src : {};
+              clone = src && Proxy0._.isPlainObject(src) ? src : {};
             }
 
             // Never move original objects, clone them
@@ -328,7 +326,7 @@ export default class SK {
     }
 
     // Handle case when target is a string or something (possible in deep copy)
-    if (typeof target !== SK.JS_KEYWORD_OBJECT && !$.isFunction(target)) {
+    if (typeof target !== SK.JS_KEYWORD_OBJECT && !Proxy0.$.isFunction(target)) {
       target = {};
     }
 
@@ -341,7 +339,7 @@ export default class SK {
     for (; i < length; i++) {
 
       // Only deal with non-null/undefined values
-      if (( options = arguments[i] ) !== null) {
+      if ((options = arguments[i]) !== null) {
 
         // Extend the base object
         for (name in options) {
@@ -354,14 +352,14 @@ export default class SK {
           }
 
           // Recurse if we're merging plain objects or arrays
-          if (deep && copy && ( _.isPlainObject(copy) || ( copyIsArray = Array.isArray(copy) ) )) {
+          if (deep && copy && (Proxy0._.isPlainObject(copy) || (copyIsArray = Array.isArray(copy)))) {
 
             if (copyIsArray) {
               copyIsArray = false;
               clone = [];//src && Array.isArray(src) ? src : [];//SK modify jquery behaviour
 
             } else {
-              clone = src && _.isPlainObject(src) ? src : {};
+              clone = src && Proxy0._.isPlainObject(src) ? src : {};
             }
 
             // Never move original objects, clone them
@@ -421,7 +419,7 @@ export default class SK {
   static getCurrentPath() {
     let path = window.location.pathname;
     path = path.substring(SK.DEFAULT_CONTEXT_PATH.length, path.length);
-    path = _.endsWith(path, SK.FILE_TYPE_HTML_WITH_POINT) ? path.substring(0, path.length - 5) : path;
+    path = Proxy0._.endsWith(path, SK.FILE_TYPE_HTML_WITH_POINT) ? path.substring(0, path.length - 5) : path;
     return path;
   }
 
@@ -443,7 +441,7 @@ export default class SK {
    */
   static getRequestParameter(param, search) {
     search = search || SK.getCurrentSearch();
-    search = _.startsWith(search, SK.CHAR_QUESTION) ? search.slice(1) : search;
+    search = Proxy0._.startsWith(search, SK.CHAR_QUESTION) ? search.slice(1) : search;
     const reg = new RegExp(`(^|&)${param}=([^&]*)(&|$)`);
     const r = search.match(reg);
     return r ? decodeURIComponent(r[2]) : undefined;
@@ -476,7 +474,7 @@ export default class SK {
    * @returns {string}
    */
   static getValidPath(path) {
-    return (_.startsWith(path, SK.CHAR_SLASH) ? SK.CHAR_EMPTY : SK.CHAR_SLASH) + path + (_.endsWith(path, SK.CHAR_SLASH) ? SK.CHAR_EMPTY : SK.CHAR_SLASH);
+    return (Proxy0._.startsWith(path, SK.CHAR_SLASH) ? SK.CHAR_EMPTY : SK.CHAR_SLASH) + path + (Proxy0._.endsWith(path, SK.CHAR_SLASH) ? SK.CHAR_EMPTY : SK.CHAR_SLASH);
   }
 
   /**
@@ -488,7 +486,7 @@ export default class SK {
   static local(key, value) {
     if (arguments.length > 1) {
       localStorage.removeItem(key);
-      if (!_.isNil(value)) {
+      if (!Proxy0._.isNil(value)) {
         return localStorage.setItem(key, value);
       }
     } else {
@@ -512,7 +510,7 @@ export default class SK {
    * @returns {Array}
    */
   static s4a(value, defaultValue = []) {
-    return _.isArray(value) ? value : defaultValue;
+    return Proxy0._.isArray(value) ? value : defaultValue;
   }
 
   /**
@@ -522,7 +520,7 @@ export default class SK {
    * @returns {boolean}
    */
   static s4b(value, defaultValue = false) {
-    return _.isBoolean(value) ? value : defaultValue;
+    return Proxy0._.isBoolean(value) ? value : defaultValue;
   }
 
   /**
@@ -532,7 +530,7 @@ export default class SK {
    * @returns {Date}
    */
   static s4d(value, defaultValue = new Date()) {
-    return _.isDate(value) ? value : defaultValue;
+    return Proxy0._.isDate(value) ? value : defaultValue;
   }
 
   /**
@@ -542,7 +540,7 @@ export default class SK {
    * @returns {number}
    */
   static s4n(value, defaultValue = 0) {
-    return _.isFinite(_.toNumber(value)) ? _.toNumber(value) : defaultValue;
+    return Proxy0._.isFinite(Proxy0._.toNumber(value)) ? Proxy0._.toNumber(value) : defaultValue;
   }
 
   /**
@@ -552,7 +550,7 @@ export default class SK {
    * @returns {{}}
    */
   static s4o(value, defaultValue = {}) {
-    return _.isPlainObject(value) ? value : defaultValue;
+    return Proxy0._.isPlainObject(value) ? value : defaultValue;
   }
 
   /**
@@ -562,7 +560,7 @@ export default class SK {
    * @returns {string}
    */
   static s4s(value, defaultValue = SK.CHAR_EMPTY) {
-    return (_.isBoolean(value) || _.isFinite(value) || _.isString(value)) ? String(value) : defaultValue;
+    return (Proxy0._.isBoolean(value) || Proxy0._.isFinite(value) || Proxy0._.isString(value)) ? String(value) : defaultValue;
   }
 
   /**
@@ -574,7 +572,7 @@ export default class SK {
   static session(key, value) {
     if (arguments.length > 1) {
       sessionStorage.removeItem(key);
-      if (!_.isNil(value)) {
+      if (!Proxy0._.isNil(value)) {
         return sessionStorage.setItem(key, value);
       }
     } else {
@@ -626,7 +624,7 @@ export default class SK {
    * upperWordsFirstChar('xi nAn shi you xUe yuan china people');//Xi NAn Shi You XUe Yuan China People
    */
   static upperWordsFirstChar(words) {
-    return _.toString(words).replace(/\s[a-z]/g, (nonFirstWord) => {
+    return Proxy0._.toString(words).replace(/\s[a-z]/g, (nonFirstWord) => {
       return nonFirstWord.toUpperCase();
     }).replace(/^[a-z]/, (firstWord) => {
       return firstWord.toUpperCase();

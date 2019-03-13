@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import Proxy0 from './Proxy0';
 import SK from './SK';
 import Validator from './Validator';
 
@@ -42,7 +42,7 @@ export default class Model {
     Object.keys(object).forEach((key) => {
       const tmpKey = prefix + (String(prefix).skBlank() ? SK.CHAR_EMPTY : SK.CHAR_DOT) + key;
       const tmpVal = object[key];
-      if (_.isPlainObject(tmpVal)) {
+      if (Proxy0._.isPlainObject(tmpVal)) {
         Model.object2ModelIds(tmpKey, modelIds, tmpVal);
       } else if (SK.s4b(tmpVal) && tmpVal) {
         modelIds.push(tmpKey);
@@ -57,11 +57,11 @@ export default class Model {
   static parseSao(sao) {
     let rtn = [];
     if (sao) {
-      if (_.isPlainObject(sao)) {
+      if (Proxy0._.isPlainObject(sao)) {
         Model.object2ModelIds(SK.CHAR_EMPTY, rtn, sao);
-      } else if (_.isArray(sao)) {
+      } else if (Proxy0._.isArray(sao)) {
         rtn = rtn.concat(sao);
-      } else if (_.isString(sao)) {
+      } else if (Proxy0._.isString(sao)) {
         rtn.push(sao);
       }
     }
@@ -196,7 +196,7 @@ export default class Model {
   hasErrors() {
     let rtn = false;
     Object.keys(this.errors).forEach((modelId) => {
-      rtn = rtn || !_.isEmpty(this.errors[modelId]);
+      rtn = rtn || !Proxy0._.isEmpty(this.errors[modelId]);
     });
     return rtn;
   }
@@ -274,7 +274,7 @@ export default class Model {
     }
     Object.keys(config).filter((key) => key === Validator.PROP_DEPS).forEach((key1) => {
       Model.parseSao(config[key1]).forEach((key2) => {
-        if (_.isRegExp(key2)) {
+        if (Proxy0._.isRegExp(key2)) {
           this.addRegChangedListener(key2, this.monitors[modelId]);
         } else {
           this.addIdChangedListener(key2, this.monitors[modelId]);
@@ -288,7 +288,7 @@ export default class Model {
     if (!this.errors[modelId]) {
       this.errors[modelId] = {};
     }
-    if (!_.isBoolean(tmpRtn)) { //true or message
+    if (!Proxy0._.isBoolean(tmpRtn)) { //true or message
       this.errors[modelId][ruleKey] = tmpRtn;
     } else {
       delete this.errors[modelId][ruleKey];
@@ -299,7 +299,7 @@ export default class Model {
   rmvValidatorMonitor(modelId, config) {
     Object.keys(config).filter((key) => key === Validator.PROP_DEPS).forEach((key1) => {
       Model.parseSao(config[key1]).forEach((key2) => {
-        if (_.isRegExp(key2)) {
+        if (Proxy0._.isRegExp(key2)) {
           this.rmvRegChangedListener(key2, this.monitors[modelId]);
         } else {
           this.rmvIdChangedListener(key2, this.monitors[modelId]);
@@ -312,13 +312,13 @@ export default class Model {
     const tmpModelId = this;
     const tmpModel = evt.model;
     const tmpConfig = evt.model.getValidator().getModelIds()[tmpModelId];
-    if (tmpConfig && _.isObject(tmpConfig)) {
+    if (tmpConfig && Proxy0._.isObject(tmpConfig)) {
       Object.keys(tmpConfig).filter((key) => key !== Validator.PROP_DEPS).forEach((key) => {
         if (key === Validator.PROP_FUNC) {
           tmpModel.execValidate(key, tmpModelId, tmpConfig[key], tmpModel, tmpConfig[key]);
-        } else if (!_.isFunction(tmpConfig[key].exec) || tmpConfig[key].exec(tmpModel, tmpModelId, key)) {//rule.exec
+        } else if (!Proxy0._.isFunction(tmpConfig[key].exec) || tmpConfig[key].exec(tmpModel, tmpModelId, key)) {//rule.exec
           const tmpRule = tmpModel.getValidator().getRules()[key];
-          if (_.isFunction(tmpRule)) {
+          if (Proxy0._.isFunction(tmpRule)) {
             tmpModel.execValidate(key, tmpModelId, tmpRule, tmpModel, tmpConfig[key]);
           }
         }

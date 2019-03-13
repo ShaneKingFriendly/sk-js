@@ -1,7 +1,6 @@
 import '../src/Polyfill';
+import Proxy0 from '../src/Proxy0';
 import SK from '../src/SK';
-import $ from 'jquery';
-import _ from 'lodash';
 
 let JSDOM = require('jsdom').JSDOM;
 global.document = new JSDOM('<html></html>', {url: "http://shaneking.org/", includeNodeLocations: true});
@@ -69,7 +68,7 @@ describe('SK', () => {
 
   //for object: Equal like ==, Be like ===
   it('_assign', () => {
-    testAEE3 = _.assign(testAEE3, testAEE1, testAEE2);
+    testAEE3 = Proxy0._.assign(testAEE3, testAEE1, testAEE2);
     expect(testAEE3.o2).toBe(testAEE2.o2);//toBe, shallow
     expect(testAEE3.o1).toBe(testAEE2.o1);//toBe, shallow
     expect(testAEE3.o1.a2 === testAEE2.o1.a2).toBe(true);//true, shallow
@@ -83,7 +82,7 @@ describe('SK', () => {
     expect(testAEE3.o1.u1 === undefined).toBe(true);//true, shallow support undefined
   });
   it('$extend', () => {
-    testAEE3 = $.extend(true, testAEE3, testAEE1, testAEE2);
+    testAEE3 = Proxy0.$.extend(true, testAEE3, testAEE1, testAEE2);
     expect(testAEE3.o2).not.toBe(testAEE2.o2);//not.toBe, deep
     expect(testAEE3.o1.o2).not.toEqual(testAEE2.o1.o2);//not.toEqual, merge
     expect(testAEE3.o1.a2 === testAEE2.o1.a2).toBe(false);//false, merge

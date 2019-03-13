@@ -1,6 +1,6 @@
-import _ from 'lodash';
 import Codes from './Codes';
 import Mesgs from './Mesgs';
+import Proxy0 from './Proxy0';
 
 export default class RespMesg {
   static TYPE = {
@@ -22,7 +22,7 @@ export default class RespMesg {
     if (Array.isArray(this.args)) {
       rtn = msg.skFmtArr(this.args.map(arg => {
         let tmpRtn = null;
-        if (_.isPlainObject(arg) && arg.code && arg.id) {
+        if (Proxy0._.isPlainObject(arg) && arg.code && arg.id) {
           tmpRtn = Codes.get(arg.code).find(item => {
             return item.id === arg.id;
           });
@@ -32,7 +32,7 @@ export default class RespMesg {
         }
         return tmpRtn;
       }));
-    } else if (_.isPlainObject(this.args) && !_.isEmpty(this.args)) {
+    } else if (Proxy0._.isPlainObject(this.args) && !Proxy0._.isEmpty(this.args)) {
       rtn = msg.skFmt(this.args);
     } else if (msg !== this.code) {
       rtn = msg;

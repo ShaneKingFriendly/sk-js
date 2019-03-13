@@ -1,7 +1,6 @@
-import $ from 'jquery';
-import _ from 'lodash';
-import SK from './SK';
 import Mesgs from './Mesgs';
+import Proxy0 from './Proxy0';
+import SK from './SK';
 
 export default class Codes {
   static code = {};
@@ -26,22 +25,22 @@ export default class Codes {
   }
 
   static getSubPaths(path, justUnExisted) {
-    return justUnExisted ? _.difference(SK.getSubPaths(path), Object.keys(Codes.code)) : SK.getSubPaths(path);
+    return justUnExisted ? Proxy0._.difference(SK.getSubPaths(path), Object.keys(Codes.code)) : SK.getSubPaths(path);
   }
 
   static load(path = SK.getCurrentPath(), async = true) {
     path = SK.getValidPath(path);
     if (Codes.code[path]) {
-      return $.when(Codes.code[path]);
-    } else if ($.isEmptyObject(Codes.hash)) {
-      const deferred = $.Deferred();
+      return Proxy0.$.when(Codes.code[path]);
+    } else if (Proxy0.$.isEmptyObject(Codes.hash)) {
+      const deferred = Proxy0.$.Deferred();
       Codes.loadHash(async).done(() => {
         Codes.load(path, async).always(() => {
           deferred.resolve();
         });
       }).fail(() => {
         Codes.hash.env = SK.ENV_DEV;
-        $.ajax({
+        Proxy0.$.ajax({
           async,
           cache: false,
           dataType: SK.FILE_TYPE_JSON,
@@ -58,10 +57,10 @@ export default class Codes {
       });
       return deferred;
     } else {
-      return $.when(...Codes.getSubPaths(path, true).filter(validPath => {
+      return Proxy0.$.when(...Codes.getSubPaths(path, true).filter(validPath => {
         return Codes.hash[validPath];
       }).map(validPath => {
-        return $.ajax({
+        return Proxy0.$.ajax({
           async,
           cache: true,
           dataType: SK.FILE_TYPE_JSON,
@@ -76,7 +75,7 @@ export default class Codes {
   }
 
   static loadHash(async = true) {
-    return $.ajax({
+    return Proxy0.$.ajax({
       async,
       cache: false,
       dataType: SK.FILE_TYPE_JSON,
@@ -89,7 +88,7 @@ export default class Codes {
 
   static loadMesg(pathObject) {
     Object.keys(pathObject).forEach((key) => {
-      if (_.isArray(pathObject[key])) {
+      if (Proxy0._.isArray(pathObject[key])) {
         pathObject[key].forEach((item) => {
           pathObject[key + SK.CHAR_UNDERLINE_DOUBLE + item.id] = item.text ? item.text : item.label;
         });
@@ -103,7 +102,7 @@ export default class Codes {
     let rtn = SK.s4s(key);
     for (let i = 0; i < validPaths.length; i += 1) {
       const tmpRtn = SK.s4o(Codes.code[validPaths[i]]).skVal(key);
-      if (!_.isNil(tmpRtn)) {
+      if (!Proxy0._.isNil(tmpRtn)) {
         rtn = tmpRtn;
         break;
       }
@@ -113,7 +112,7 @@ export default class Codes {
 
   static unload(path) {
     Object.keys(Codes.code).filter(existPath => {
-      return _.startsWith(existPath, path);
+      return Proxy0._.startsWith(existPath, path);
     }).forEach(existPath => {
       delete Codes.code[existPath];
     });

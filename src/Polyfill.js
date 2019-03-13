@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import Proxy0 from './Proxy0';
 
 /**
  * @param subId 'a' or 'b[2]' of 'a.b[2].c'
@@ -18,8 +18,8 @@ if (!Array.prototype.skFilter) {
     value(recursive, filterFunc) {
       const rtn = [];
       this.forEach((item, index) => {
-        if (_.isFunction(filterFunc) && filterFunc(index, item, this)) {
-          rtn.push((recursive && (_.isArray(item) || _.isPlainObject(item))) ? item.skFilter(recursive, filterFunc) : item);
+        if (Proxy0._.isFunction(filterFunc) && filterFunc(index, item, this)) {
+          rtn.push((recursive && (Proxy0._.isArray(item) || Proxy0._.isPlainObject(item))) ? item.skFilter(recursive, filterFunc) : item);
         }
       });
       return rtn;
@@ -73,8 +73,8 @@ if (!Array.prototype.skTrans) {
     value(recursive, transFunc) {
       const rtn = [];
       this.forEach((item, index) => {
-        if (_.isFunction(transFunc)) {
-          rtn.push((recursive && (_.isArray(item) || _.isPlainObject(item))) ? item.skTrans(recursive, transFunc) : transFunc(index, item, this));
+        if (Proxy0._.isFunction(transFunc)) {
+          rtn.push((recursive && (Proxy0._.isArray(item) || Proxy0._.isPlainObject(item))) ? item.skTrans(recursive, transFunc) : transFunc(index, item, this));
         }
       });
       return rtn;
@@ -99,8 +99,8 @@ if (!Object.prototype.skFilter) {
       const rtn = {};
       Object.keys(this).forEach((key) => {
         const tmpVal = this[key];
-        if (_.isFunction(filterFunc) && filterFunc(key, tmpVal, this)) {
-          rtn[key] = (recursive && (_.isArray(tmpVal) || _.isPlainObject(tmpVal))) ? tmpVal.skFilter(recursive, filterFunc) : tmpVal;
+        if (Proxy0._.isFunction(filterFunc) && filterFunc(key, tmpVal, this)) {
+          rtn[key] = (recursive && (Proxy0._.isArray(tmpVal) || Proxy0._.isPlainObject(tmpVal))) ? tmpVal.skFilter(recursive, filterFunc) : tmpVal;
         }
       });
       return rtn;
@@ -116,8 +116,8 @@ if (!Object.prototype.skTrans) {
       const rtn = {};
       Object.keys(this).forEach((key) => {
         const tmpVal = this[key];
-        if (_.isFunction(transFunc)) {
-          rtn[key] = (recursive && (_.isArray(tmpVal) || _.isPlainObject(tmpVal))) ? tmpVal.skTrans(recursive, transFunc) : transFunc(key, tmpVal, this);
+        if (Proxy0._.isFunction(transFunc)) {
+          rtn[key] = (recursive && (Proxy0._.isArray(tmpVal) || Proxy0._.isPlainObject(tmpVal))) ? tmpVal.skTrans(recursive, transFunc) : transFunc(key, tmpVal, this);
         }
       });
       return rtn;
@@ -139,7 +139,7 @@ if (!Object.prototype.skVal) {
     configurable: true,
     value(str, val) {
       let rtn = this;
-      if (_.isNil(str)) {
+      if (Proxy0._.isNil(str)) {
         if (arguments.length < 2) {
           rtn = str;
         }

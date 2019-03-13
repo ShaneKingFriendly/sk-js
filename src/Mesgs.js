@@ -1,5 +1,4 @@
-import $ from 'jquery';
-import _ from 'lodash';
+import Proxy0 from './Proxy0';
 import SK from './SK';
 
 export default class Mesgs {
@@ -16,7 +15,7 @@ export default class Mesgs {
     let rtn = SK.s4s(key);
     for (let i = 0; i < validPaths.length; i += 1) {
       const tmpRtn = SK.s4o(Mesgs.mesg[validPaths[i]]).skVal(key);
-      if (!_.isNil(tmpRtn)) {
+      if (!Proxy0._.isNil(tmpRtn)) {
         rtn = tmpRtn;
         break;
       }
@@ -25,7 +24,7 @@ export default class Mesgs {
   }
 
   static gets(keys, path = SK.getCurrentPath()) {
-    const keyArray = _.isArray(keys) ? keys : keys.split(SK.CHAR_FEMALE);
+    const keyArray = Proxy0._.isArray(keys) ? keys : keys.split(SK.CHAR_FEMALE);
     const sep = SK.LANGUAGE_zh_CN === SK.getCurrentLanguage() ? SK.CHAR_EMPTY : SK.CHAR_BLANK;
     return keyArray.map((key) => {
       return Mesgs.get(key, path)
@@ -33,7 +32,7 @@ export default class Mesgs {
   }
 
   static getSubPaths(path, justUnExisted) {
-    return justUnExisted ? _.difference(SK.getSubPaths(path), Object.keys(Mesgs.mesg)) : SK.getSubPaths(path);
+    return justUnExisted ? Proxy0._.difference(SK.getSubPaths(path), Object.keys(Mesgs.mesg)) : SK.getSubPaths(path);
   }
 
   /**
@@ -50,9 +49,9 @@ export default class Mesgs {
         Object.keys(rootObject).forEach(key => {
           pathObject[key] = rootObject[key];
         });
-      } else if (_.endsWith(path, SK.CHAR_SLASH)) {
-        pathObjects[existPath + (_.startsWith(path, SK.CHAR_SLASH) ? path : (SK.CHAR_SLASH + path))] = jsonObject[path];
-      } else if (_.startsWith(path, SK.CHAR_SLASH)) {
+      } else if (Proxy0._.endsWith(path, SK.CHAR_SLASH)) {
+        pathObjects[existPath + (Proxy0._.startsWith(path, SK.CHAR_SLASH) ? path : (SK.CHAR_SLASH + path))] = jsonObject[path];
+      } else if (Proxy0._.startsWith(path, SK.CHAR_SLASH)) {
         Mesgs.jsonNodeParser(jsonObject[path], existPath + path, pathObjects);
       } else {
         pathObject[path] = jsonObject[path];
@@ -74,16 +73,16 @@ export default class Mesgs {
   static load(path = SK.getCurrentPath(), async = true) {
     path = SK.getValidPath(path);
     if (Mesgs.mesg[path]) {
-      return $.when(Mesgs.mesg[path]);
-    } else if ($.isEmptyObject(Mesgs.hash)) {
-      const $Deferred = $.Deferred();
+      return Proxy0.$.when(Mesgs.mesg[path]);
+    } else if (Proxy0.$.isEmptyObject(Mesgs.hash)) {
+      const $Deferred = Proxy0.$.Deferred();
       Mesgs.loadHash(async).done(() => {
         Mesgs.load(path, async).always(() => {
           $Deferred.resolve();
         });
       }).fail(() => {
         Mesgs.hash.env = SK.ENV_DEV;
-        $.ajax({
+        Proxy0.$.ajax({
           async,
           cache: false,
           dataType: SK.FILE_TYPE_JSON,
@@ -97,10 +96,10 @@ export default class Mesgs {
       });
       return $Deferred;
     } else {
-      return $.when(...Mesgs.getSubPaths(path, true).filter(validPath => {
+      return Proxy0.$.when(...Mesgs.getSubPaths(path, true).filter(validPath => {
         return Mesgs.hash[validPath];
       }).map(validPath => {
-        return $.ajax({
+        return Proxy0.$.ajax({
           async,
           cache: true,
           dataType: SK.FILE_TYPE_JSON,
@@ -114,7 +113,7 @@ export default class Mesgs {
   }
 
   static loadHash(async = true) {
-    return $.ajax({
+    return Proxy0.$.ajax({
       async,
       cache: false,
       dataType: SK.FILE_TYPE_JSON,
@@ -127,7 +126,7 @@ export default class Mesgs {
 
   static unload(path) {
     Object.keys(Mesgs.mesg).filter(existPath => {
-      return _.startsWith(existPath, path);
+      return Proxy0._.startsWith(existPath, path);
     }).forEach(existPath => {
       delete Mesgs.mesg[existPath];
     });
