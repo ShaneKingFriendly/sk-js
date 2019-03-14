@@ -81,7 +81,7 @@ export default class Mesgs {
           $Deferred.resolve();
         });
       }).fail(() => {
-        Mesgs.hash.env = SK.ENV_DEV;
+        Mesgs.hash.env = SK.ENV_LOCAL;
         Proxy0.$.ajax({
           async,
           cache: false,

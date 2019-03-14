@@ -1,5 +1,5 @@
-# [ShaneKing for JavaScript][]
-More to see [shaneking.org][].
+# [sk-js][]
+JavaScript library by ES6 for ShaneKing, More to see [shaneking.org][].
 
 ## Badge
 ### Dependencies
@@ -31,12 +31,13 @@ More to see [shaneking.org][].
 ShaneKing is released under [Apache-2.0][].
 
 
-## Directory conventions
+## API
 ### Codes
+
 ```json
 {
   "/":{
-    "supported_languages": [
+    "supportedLanguages": [
       {
         "id": "en_US",
         "text": "English"
@@ -49,17 +50,26 @@ ShaneKing is released under [Apache-2.0][].
   }
 }
 ```
-- **get(code, path)**: 'supported_languages' -> [{"id": "en_US","text": "English"},{"id": "zh_CN","text": "Chinese"}]
-- **load(path)**: '/' -> {"supported_languages":👆}
-- **loadHash()**: gulp-sk-i18n plugin can split by path, like codes_Hash_en_US.json contain {"/":"22abc1fb"} -> 22abc1fb_en_US.json
-- **unload(path)**: '/a' -> will delete /a**/*
+| Method | Example | Remark |
+| -- | -- | -- |
+| `static get(code, path = SK.getCurrentPath())` | `'supportedLanguages'` -> `[{"id": "en_US","text": "English"},{"id": "zh_CN","text": "Chinese"}]` | |
+| `static load(path = SK.getCurrentPath(), async = true)` | `'/'` -> `{"supportedLanguages":👆}` | the remote json file like : `Codes.SERVER_URL` + `Codes.PATH_PREFIX` + `Mesgs.PART_OF_HASH_PATH` + `SK.getCurrentLanguage()` + `SK.FILE_TYPE_JSON_WITH_POINT`, default `/json/codes_Hash_en_US.json`, if not exist, then load `/json/codes_en_US.json` |
+| `static mesg(key, path = SK.getCurrentPath())` | `supportedLanguages__en_US` -> `English` | |
+| `static unload(path)` | | `'/a'` -> will delete /a**/* |
 
-### Crypto
+### Color0
+| Method | Example | Remark |
+| -- | -- | -- |
+| `static hexColor(str)` | `ShaneKing` -> `#f27d79` | |
+
+### Crypto0
 ```java
 REF：https://github.com/ShaneKing/org.shaneking.skava/blob/mirror/src/main/java/org/shaneking/skava/crypto/AES.java
 ```
-- **aesDecrypt(cipherText, salt, iv, passPhrase, iterations, keySize)**: 'plainText' -> '2SZ/de9I0rvxO7s9wdCohQ=='
-- **aesEncrypt(plainText, salt, iv, passPhrase, iterations, keySize)**: '2SZ/de9I0rvxO7s9wdCohQ==' -> 'plainText'
+| Method | Example | Remark |
+| -- | -- | -- |
+| `static aesDecrypt(cipherText, salt = Crypto0.DEFAULT_SALT, iv = salt.substr(0, salt.length / 2), passPhrase = salt, iterations = salt.length, keySize = (salt.length * 2) / 32)` | `'plainText'` -> `'2SZ/de9I0rvxO7s9wdCohQ=='` | |
+| `static aesEncrypt(plainText, salt = Crypto0.DEFAULT_SALT, iv = salt.substr(0, salt.length / 2), passPhrase = salt, iterations = salt.length, keySize = (salt.length * 2) / 32)` | `'2SZ/de9I0rvxO7s9wdCohQ=='` -> `'plainText'` | |
 
 ### Mesgs
 ```json
@@ -76,70 +86,106 @@ REF：https://github.com/ShaneKing/org.shaneking.skava/blob/mirror/src/main/java
   }
 }
 ```
-- **get(key, path)**: 'Account_No' -> 'Account No.'
-- **load(path)**: '/auth' -> {"Log_in":"Log in","register_now_":"register now!"}
-- **loadHash()**: gulp-sk-i18n plugin can split by path, like mesgs_Hash_en_US.json contain {"/auth/":"34d85247"} -> /auth/34d85247_en_US.json
-- **unload(path)**: '/a' -> will delete /a**/*
+| Method | Example | Remark |
+| -- | -- | -- |
+| `static get(key, path = SK.getCurrentPath())` | `'Account_No'` -> `'Account No.'` | |
+| `static gets(keys, path = SK.getCurrentPath())` | `['Remember_me','Password']` or `'Remember_me♀Password'` -> `'Remember me Password'` | |
+| `static load(path = SK.getCurrentPath(), async = true)` | `'/auth'` -> `{"Log_in":"Log in","register_now_":"register now!"}` | |
+| `static unload(path)` | | `'/a'` -> will delete /a**/* |
 
 ### Model
 ```java
-MVC'M
+MVC' Model, but like Controller
 ```
-- **constructor(freeObject, validator)**: PlainObject & Validator
-- **XXXListener**: listener on model
-- **fireXXXEvent**: fire event
-- **XXXError**: operation error message
-- **skVal(id, value)**: get/set values will fireEvent
-- **XXXValidatorXXXMonitor**: monitor on model for validate
-- **validateXXX**: exec validates
+| Method | Example | Remark |
+| -- | -- | -- |
+| `constructor(freeObject = {}, validator = new Validator())` | | |
+| `static object2ModelIds(prefix, modelIds = [], object = {})` | | `('x',[],{a:{b:true,c:false,d:true}})`, modelIds will `['x.a.b','x.a.d']` |
+| `static parseSao(sao)` | `('x',[],{a:{b:true,c:false,d:true}})` -> `['x.a.b','x.a.d']` | sao is string[reg], array[string] or object |
+| `zzzXX[YYY]Listener(id,[ type,] listener)` | | `XX` is id or reg, `YYY` is Changed or Errored, `zzz` is add or rmv |
+| `fireYYYEvent(id, old, current)` | | |
+| `fireEvent(evt)` | | |
+| `getAllErrors()` | | |
+| `getErrors(id)` | | |
+| `setErrors(errors = {})` | | |
+| `getFreeObject()` | | |
+| `setFreeObject(freeObject = {})` | | |
+| `getValidator()` | | |
+| `hasErrors()` | | |
+| ... | ... | ... |
+| `skVal(id, value)` | | |
+| `addAllValidatorMonitor()` | | |
+| `zzzValidatorMonitor(modelId, config)` | | `zzz` is add or rmv |
+| `execValidate(ruleKey, modelId, ruleFunc, model, setting)` | | |
+| `validate(evt)` | | |
+| `validateAll()` | | |
 
 ### Polyfill
-- **Array.prototype.skFilter(recursive, filterFunc)**: filter recursive
-- **Array.prototype.skRmv(item)**: [1,2,3].skRmv(2) -> [1,3]
-- **Array.prototype.skToggle(item)**: [1,2,3].skToggle(2) -> [1,3], [1,3].skToggle(2) -> [1,2,3]
-- **Number.prototype.skCurrencyFmt(fraction)**: (-123456.789).skCurrencyFmt(2) -> '-123,456.79'
-- **Object.prototype.skFilter(recursive, filterFunc)**: filter recursive
-- **Object.prototype.skVal(str, val)**: like $.val()
-- **Object.prototype.skVals()**: {a: {x: 1}, b: {y: 2}} -> [{x: 1}, {y: 2}]
-- **String.prototype.skBlank()**: ' '.skBlank() -> true, ''.skBlank() -> true
-- **String.prototype.skCurrencyFmt(fraction)**: '987654.321'.skCurrencyFmt(2) -> '987,654.32'
-- **String.prototype.skEmpty()**: ' '.skEmpty() -> false, ''.skEmpty() -> true
-- **String.prototype.skFmt(o)**: 'My $name {is} $#{name}, i {am from $#{city}'.skFmt({name: 'ShaneKing', city: 'China'}) -> 'My $name {is} ShaneKing, i {am from China'
-- **String.prototype.skFmtArr(a)**: 'My $name $#{is} $1, i am$ from $2'.skFmtArr(['ShaneKing', 'China']) -> 'My $name $#{is} ShaneKing, i am$ from China'
+| Method | Example | Remark |
+| -- | -- | -- |
+| `Array.prototype.skFilter(recursive, filterFunc)` | | |
+| `Array.prototype.skRmv(item)` | `[1,2,3].skRmv(2)` -> `[1,3]` | |
+| `Array.prototype.skToggle(item)` | `[1,2,3].skToggle(2)` -> `[1,3]`, `[1,3].skToggle(2)` -> `[1,2,3]` | |
+| `Array.prototype.skTrans(recursive, transFunc)` | | |
+| `Number.prototype.skCurrencyFmt(fraction)` | `(-123456.789).skCurrencyFmt(2)` -> `'-123,456.79'` | |
+| `Object.prototype.skFilter(recursive, filterFunc)` | | |
+| `Object.prototype.skTrans(recursive, transFunc)` | | |
+| `Object.prototype.skVal(str, val)` | | like `$.val()` |
+| `Object.prototype.skVals()` | `{a: {x: 1}, b: {y: 2}}.skVals()` -> `[{x: 1}, {y: 2}]` | |
+| `String.prototype.skBlank()` | `' '.skBlank()` -> `true`, `''.skBlank()` -> `true` | |
+| `String.prototype.skCurrencyFmt(fraction)` | `'987654.321'.skCurrencyFmt(2)` -> `'987,654.32'` | |
+| `String.prototype.skEmpty()` | `' '.skEmpty()` -> `false`, `''.skEmpty()` -> `true` | |
+| `String.prototype.skFmt(o)` | `'My $name {is} $#{name}, i {am from $#{city}'.skFmt({name: 'ShaneKing', city: 'China'})` -> `'My $name {is} ShaneKing, i {am from China'` | |
+| `String.prototype.skFmtArr(array)` | `'My $name $#{is} $1, i am$ from $2'.skFmtArr(['ShaneKing', 'China'])` -> `'My $name $#{is} ShaneKing, i am$ from China'` | |
+
+### Proxy0
+
 
 ### Resp
-- **constructor(respJsonData)**: build Resp by response json data
+| Method | Example | Remark |
+| -- | -- | -- |
+| `constructor(respJsonData)` | | build Resp by response json data |
 
 ### RespMesg
-- **constructor(mesg)**: build message by response json data
-- **getMessage()**: get message
-- **getType()**: get Message Type
+| Method | Example | Remark |
+| -- | -- | -- |
+| `constructor(mesg)` | | build message by response json data |
+| `getMessage()` | | get message |
+| `getType()` | | get message type |
 
 ### SK
-- **$($, initVal, env)**: New or get namespace object. eg. `var $sk = SK.$('$sk', {}, window)`
-- **appendParameter(url, param, value)**: ('/a','b','c') -> /a?b=c
-- **arePlainObject(...values)**: 
-- **assign(object, ...objects)**: Like lodash assign, but deep while object node.
-- **cookies(key, value)**: need send to server every times
-- **descartes(array, anotherArray, concat)**: (['alert','btn'],['success','info']) -> ['alert-success','alert-info','btn-success','btn-info']
-- **getCurrentHref()**: window.location.href
-- **getCurrentLanguage()**: get/set from cookies
-- **getCurrentOrigin()**: window.location.origin
-- **getCurrentPath()**: /a/b/c.html -> /a/b/c
-- **getCurrentSearch()**: ?a=1&b=2
-- **getRequestParameter(param, search)**: (a,?a=1&b=2) -> 1
-- **getSubPaths(path)**: /a/b -> ['/','/a/','/a/b/']
-- **getValidPath(path)**: a/b/c -> /a/b/c/
-- **local(key, value)**: for the moment, no use scenario
-- **redirect(url)**: window.location.href = url
-- **s4a(value, defaultValue = [])**: Safe array for value.
-- **s4b(value, defaultValue = false)**: Safe boolean for value.
-- **s4d(value, defaultValue = new Date())**: Safe date for value.
-- **s4n(value, defaultValue = 0)**: Safe finite number for value.
-- **s4o(value, defaultValue = {})**: Safe plain object for value.
-- **s4s(value, defaultValue = '')**: Safe string for value.
-- **session(key, value)**: need reload every new use
-- **upperWordsFirstChar(words)**: 'xi nAn shi you xUe yuan china people' -> 'Xi NAn Shi You XUe Yuan China People'
+| Method | Example | Remark |
+| -- | -- | -- |
+| `static $($ = SK.DEFAULT_DOMAIN, initVal = {}, env = SK.DEFAULT_ENV)` | | New or get namespace object. eg. `var $sk = SK.$('$sk', {}, window)` |
+| `static appendParameter(url, param, value)` | `('/a','b','c')` -> `'/a?b=c'` | |
+| `static arePlainObject(...values)` | | |
+| `static assign(object, ...objects)` | | Like lodash assign, but deep while object node. |
+| `static cookies(key, value)` | | set/get cookie, delete key when value is null or undefined |
+| `static descartes(array = [], anotherArray = [], concat = SK.CHAR_DASH)` | `(['alert','btn'],['success','info'])` -> `['alert-success','alert-info','btn-success','btn-info']` | |
+| `static emptyFunc()` | | |
+| `static extend()` | | |
+| `static getCurrentHref()` | | |
+| `static getCurrentLanguage()` | | |
+| `static getCurrentOrigin()` | | |
+| `static getCurrentPath()` | `/a/b -> /a/b`, `/a/b/c.html -> /a/b/c`, `/context/a -> /a` | |
+| `static getCurrentSearch()` | | like `?a=1&b=2` |
+| `static getRequestParameter(param, search)` | `(a,?a=1&b=2)` -> `1` | |
+| `static getSubPaths(path)` | `/a/b` -> `['/','/a/','/a/b/']` | |
+| `static getValidPath(path)` | `a/b/c` -> `/a/b/c/` | |
+| `static local(key, value)` | | set/get localStorage, delete key when value is null or undefined |
+| `static redirect(url)` | | |
+| `static s4a(value, defaultValue = [])` | | Safe array for value |
+| `static s4b(value, defaultValue = false)` | | Safe boolean for value |
+| `static s4d(value, defaultValue = new Date())` | | Safe date for value |
+| `static s4n(value, defaultValue = 0)` | | Safe finite number for value |
+| `static s4o(value, defaultValue = {})` | | Safe plain object for value |
+| `static s4s(value, defaultValue = SK.CHAR_EMPTY)` | | Safe string for value |
+| `static session(key, value)` | | set/get sessionStorage, delete key when value is null or undefined |
+| `static strMapping(str = SK.uuid().toLowerCase().replace(/-/g, SK.CHAR_EMPTY), dstSet = SK.SET_ARY_L62, srcSet = SK.SET_ARY_HEX)` | | |
+| `static upperWordsFirstChar(words)` | `'xi nAn shi you xUe yuan china people'` -> `'Xi NAn Shi You XUe Yuan China People'` | |
+| `static uuid()` | `XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX` | |
+| `static uuidShort(uuid = SK.uuid(), dstSet = SK.SET_ARY_L62)` | | max length 22 |
+
 
 ### Validator
 ```javascript
@@ -162,12 +208,14 @@ MVC'M
    * @param rules
    */
 ```
-- **constructor(modelIds = {}, rules = {})**: 
-- **getModelIds()**: √
-- **getRules()**: 
+| Method | Example | Remark |
+| -- | -- | -- |
+| `constructor(modelIds = {}, rules = {})` | | |
+| `getModelIds()` | | |
+| `getRules()` | | |
 
 
-[ShaneKing for JavaScript]: http://shaneking.org/c/sk-js
+[sk-js]: https://github.com/ShaneKing/sk-js
 [shaneking.org]: http://shaneking.org/
 
 [versioneye]:https://www.versioneye.com/user/projects/56fa049335630e003e0a8ab9

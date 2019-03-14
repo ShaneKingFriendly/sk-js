@@ -82,6 +82,7 @@ export default class SK {
   static CHAR_MALE = '♂';
   static CHAR_FEMALE = '♀';
 
+  static ENV_LOCAL = 'local';
   static ENV_DEV = 'dev';
   static ENV_TEST = 'test';
   static ENV_PROD = 'prod';
@@ -439,8 +440,7 @@ export default class SK {
    * @param search
    * @returns {*}
    */
-  static getRequestParameter(param, search) {
-    search = search || SK.getCurrentSearch();
+  static getRequestParameter(param, search = SK.getCurrentSearch()) {
     search = Proxy0._.startsWith(search, SK.CHAR_QUESTION) ? search.slice(1) : search;
     const reg = new RegExp(`(^|&)${param}=([^&]*)(&|$)`);
     const r = search.match(reg);

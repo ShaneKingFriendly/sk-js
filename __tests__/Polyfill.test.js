@@ -51,7 +51,7 @@ describe('Polyfill', () => {
     });
     it('recursive', () => {
       expect(testData.skVal('A.Filter.i1').skFilter(true, function (k, v, c) {
-        return Proxy0._.isPlainObject(c) && k === 'a' || Array.isArray(c) && v !== 'skB2';
+        return (Proxy0._.isPlainObject(c) && k === 'a') || (Array.isArray(c) && v !== 'skB2');
       })).toEqual(testData.skVal('A.Filter.o2'));
     });
   });
@@ -89,7 +89,7 @@ describe('Polyfill', () => {
   describe('Object.prototype.skFilter', () => {
     it('recursive', () => {
       expect(testData.skVal('O.Filter.i1').skFilter(true, function (k, v, c) {
-        return Proxy0._.isPlainObject(c) && Array.isArray(v) || Array.isArray(c) && Proxy0._.isPlainObject(v);
+        return (Proxy0._.isPlainObject(c) && Array.isArray(v)) || (Array.isArray(c) && Proxy0._.isPlainObject(v));
       })).toEqual(testData.skVal('O.Filter.o1'));
     });
   });

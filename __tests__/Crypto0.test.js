@@ -1,6 +1,6 @@
-import SKCrypto from '../src/SKCrypto.js';
+import Crypto0 from '../src/Crypto0.js';
 
-describe('SKCrypto', () => {
+describe('Crypto0', () => {
 
   let plainText = 'plainText';
   let cipherText = '2SZ/de9I0rvxO7s9wdCohQ==';
@@ -23,12 +23,12 @@ describe('SKCrypto', () => {
 
   describe('encrypts', () => {
     test('aesEncrypt', () => {
-      expect(SKCrypto.aesEncrypt(plainText)).toBe(cipherText);
+      expect(Crypto0.aesEncrypt(plainText)).toBe(cipherText);
     });
   });
   describe('decrypts', () => {
     it('aesDecrypt', () => {
-      expect(SKCrypto.aesDecrypt(cipherText)).toBe(plainText);
+      expect(Crypto0.aesDecrypt(cipherText)).toBe(plainText);
     });
   });
 });
