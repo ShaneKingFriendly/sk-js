@@ -1,7 +1,7 @@
 export default {
   createDatetime: undefined,
   createUserId: undefined,
-  extJson: {},
+  extJson: undefined,
   extJsonStr: undefined,
   id: undefined,
   invalid: undefined,

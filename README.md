@@ -120,6 +120,52 @@ MVC' Model, but like Controller
 | `validate(evt)` | | |
 | `validateAll()` | | |
 
+#### freeObject recommend
+```json
+{
+  "req": {
+    "enc": "string, encode string, if need, else undefined",
+    "pri": {
+      "desc1": "pri0, pri1 or pri2 etc",
+      "desc2": "search by select component for lst service",
+      "desc3": "id for one service"
+    },
+    "pub": {
+      "desc1": "will send to server every request, you can take token ...",
+      "desc2": "priEncode: if true, will send enc, for rpc or open api request",
+      "desc3": "appName",
+      "desc4": "sysName"
+    }
+  },
+  "resp": {
+    "pris": {
+      "pri0": {
+        "ext": {
+          "desc1": "will send to server",
+          "desc2": "take table pagination, sorter etc",
+          "desc3": "createDatetime range"
+        },
+        "obj": {
+          "desc": "this is entity mapping db"
+        },
+        "rtn": {
+          "desc1": "will not send to server",
+          "desc2": "received table data, select data"
+        }
+      },
+      "pri1": {}
+    },
+    "pubs": {
+      "codes": {},
+      "pub0": {
+        "desc": "mapping pris.pri0, use by component auto generate"
+      },
+      "pub1": {}
+    }
+  }
+}
+```
+
 ### Polyfill
 | Method | Example | Remark |
 | -- | -- | -- |
@@ -146,12 +192,30 @@ MVC' Model, but like Controller
 | -- | -- | -- |
 | `constructor(respJsonData)` | | build Resp by response json data |
 
+#### recommend
+```json
+{
+  "data":"business object, like Model.freeObject",
+  "done":"true: No Unknown Exception; false: has Unknown Exception",
+  "mesg":"type of RespMesg"
+}
+```
+
 ### RespMesg
 | Method | Example | Remark |
 | -- | -- | -- |
 | `constructor(mesg)` | | build message by response json data |
 | `getMessage()` | | get message |
 | `getType()` | | get message type |
+
+#### recommend
+```json
+{
+  "args":"Array: Mesgs.get(this.code).skFmtArr(this.args); PlainObject: Mesgs.get(this.code).skFmt(this.args); undefined: code is message",
+  "code":"code or message",
+  "type":"Success: just prompt; Info: just prompt; Warning: business continue, but must prompt; Error: Unknown Exception(done == false), UI will prompt details; Business Stop(done == true), process by component"
+}
+```
 
 ### SK
 | Method | Example | Remark |
@@ -186,6 +250,14 @@ MVC' Model, but like Controller
 | `static uuid()` | `XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX` | |
 | `static uuidShort(uuid = SK.uuid(), dstSet = SK.SET_ARY_L62)` | | max length 22 |
 
+### SKEntity
+base entity for every entity, contain useful id, ext and audit columns, createUserId, createDatetime, lastModifyUserId, lastModifyDatetime, invalid, invalidUserId, invalidDatetime
+
+### SKL10nEntity
+for internationalization system, contain time zone info, createTimezone, lastModifyTimezone, invalidTimezone
+
+### SKRefEntity
+friendly common resource, like attachment, contain refId, refType
 
 ### Validator
 ```javascript

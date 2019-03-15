@@ -236,6 +236,11 @@ export default class SK {
     return rtn.length === 1 ? rtn[0] : rtn;
   }
 
+  static ellipsis(str, len = 8) {
+    let safeStr = SK.s4s(str);
+    return safeStr.length > len ? `${safeStr.substring(0, len)}...` : str;
+  }
+
   static emptyFunc() {
 
   }

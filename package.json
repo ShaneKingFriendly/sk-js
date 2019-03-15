@@ -1,7 +1,7 @@
 {
   "name": "sk-js",
   "description": "ShaneKing for JavaScript",
-  "version": "0.3.12",
+  "version": "0.3.13",
   "homepage": "https://github.com/ShaneKing/sk-js",
   "license": "Apache-2.0",
   "author": {
@@ -45,6 +45,7 @@
     "build:dist": "webpack",
     "build:lib": "rm -rf lib && babel src -d lib",
     "lint": "eslint --fix --ext .js src",
+    "publish": "npm run build && npm publish",
     "test": "jest && codecov"
   },
   "jest": {
