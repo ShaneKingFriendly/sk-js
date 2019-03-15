@@ -31,6 +31,8 @@ export default class SK {
   static CHAR_EQUAL = '=';
   static CHAR_EQUAL_APPROXIMATELY = '≌';
   static CHAR_EQUIVALENT = '≡';
+  static CHAR_ESCAPE_N = '\n';
+  static CHAR_ESCAPE_T = '\t';
   static CHAR_EXCLAMATION = '!';
   static CHAR_HENCE = '∴';
   static CHAR_INFINITY = '∞';
@@ -238,7 +240,7 @@ export default class SK {
 
   static ellipsis(str, len = 8) {
     let safeStr = SK.s4s(str);
-    return safeStr.length > len ? `${safeStr.substring(0, len)}...` : str;
+    return safeStr.length > len ? `${safeStr.split(SK.CHAR_ESCAPE_N)[0].split(SK.CHAR_LESS)[0].substring(0, len)}...` : str;
   }
 
   static emptyFunc() {
