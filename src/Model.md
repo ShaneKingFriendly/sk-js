@@ -1,0 +1,73 @@
+### Model
+
+#### Prepare
+```json
+{
+  "req": {
+    "enc": "string, encode string, if need, else undefined",
+    "pri": {
+      "desc1": "pri0, pri1 or pri2 etc",
+      "desc2": "search by select component for lst service",
+      "desc3": "id for one service"
+    },
+    "pub": {
+      "desc1": "will send to server every request, you can take token ...",
+      "desc2": "priEncode: if true, will send enc, for rpc or open api request",
+      "desc3": "appName",
+      "desc4": "sysName"
+    }
+  },
+  "resp": {
+    "pris": {
+      "pri0": {
+        "ext": {
+          "desc1": "will send to server",
+          "desc2": "take table pagination, sorter etc",
+          "desc3": "createDatetime range"
+        },
+        "obj": {
+          "desc": "this is entity mapping db"
+        },
+        "rtn": {
+          "desc1": "[different with pubs.pub0, this response area]",
+          "desc2": "will not send to server",
+          "desc3": "received table data, select data"
+        }
+      },
+      "pri1": {}
+    },
+    "pubs": {
+      "codes": {},
+      "pub0": {
+        "desc1": "[different with rtn, this ui area]",
+        "desc2": "mapping pris.pri0, use by component auto generate"
+      },
+      "pub1": {}
+    }
+  }
+}
+```
+
+#### API
+| Method | Example | Remark |
+| -- | -- | -- |
+| `constructor(freeObject = {}, validator = new Validator())` | | |
+| `static object2ModelIds(prefix, modelIds = [], object = {})` | | `('x',[],{a:{b:true,c:false,d:true}})`, modelIds will `['x.a.b','x.a.d']` |
+| `static parseSao(sao)` | `('x',[],{a:{b:true,c:false,d:true}})` -> `['x.a.b','x.a.d']` | sao is string[reg], array[string] or object |
+| `zzzXX[YYY]Listener(id,[ type,] listener)` | | `XX` is id or reg, `YYY` is Changed or Errored, `zzz` is add or rmv |
+| `fireYYYEvent(id, old, current)` | | |
+| `fireEvent(evt)` | | |
+| `getAllErrors()` | | |
+| `getErrors(id)` | | |
+| `setErrors(errors = {})` | | |
+| `getFreeObject()` | | |
+| `setFreeObject(freeObject = {})` | | |
+| `getValidator()` | | |
+| `hasErrors()` | | |
+| ... | ... | ... |
+| `skVal(id, value)` | | |
+| `addAllValidatorMonitor()` | | |
+| `zzzValidatorMonitor(modelId, config)` | | `zzz` is add or rmv |
+| `execValidate(ruleKey, modelId, ruleFunc, model, setting)` | | |
+| `validate(evt)` | | |
+| `validateAll()` | | |

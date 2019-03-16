@@ -1,0 +1,24 @@
+### Validator
+
+#### Prepare
+```json
+{
+  "id1": {
+    "deps": "dependencies: option, can be string[reg], string array or object",
+    "func": "custom rule by function",
+    "rule1": {
+      "field": "x.xx.xxx, this is i18n mesg for required rule"
+    },
+    "rule2": {
+      "exec": "enable function"
+    }
+  }
+}
+```
+
+#### API
+| Method | Example | Remark |
+| -- | -- | -- |
+| `constructor(modelIds = {}, rules = {})` | | |
+| `getModelIds()` | | |
+| `getRules()` | | |
