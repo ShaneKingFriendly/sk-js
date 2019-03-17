@@ -14,7 +14,10 @@
       "desc1": "will send to server every request, you can take token ...",
       "desc2": "priEncode: if true, will send enc, for rpc or open api request",
       "desc3": "appName",
-      "desc4": "sysName"
+      "desc4": "sysName",
+      "desc5": "localStore",
+      "desc6": "sessionStore",
+      "desc7": "cookieStore, if cookies not exist, get from this"
     }
   },
   "resp": {
