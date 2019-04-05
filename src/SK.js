@@ -265,7 +265,7 @@ export default class SK {
     }
 
     // Handle case when target is a string or something (possible in deep copy)
-    if (typeof target !== SK.JS_KEYWORD_OBJECT && !Proxy0.$.isFunction(target)) {
+    if (typeof target !== SK.JS_KEYWORD_OBJECT && !Proxy0._.isFunction(target)) {
       target = {};
     }
 
@@ -334,7 +334,7 @@ export default class SK {
     }
 
     // Handle case when target is a string or something (possible in deep copy)
-    if (typeof target !== SK.JS_KEYWORD_OBJECT && !Proxy0.$.isFunction(target)) {
+    if (typeof target !== SK.JS_KEYWORD_OBJECT && !Proxy0._.isFunction(target)) {
       target = {};
     }
 

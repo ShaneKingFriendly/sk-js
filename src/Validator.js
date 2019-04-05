@@ -1,5 +1,4 @@
 import Mesgs from './Mesgs';
-import Proxy0 from './Proxy0';
 import SK from './SK';
 
 export default class Validator {
@@ -81,7 +80,7 @@ export default class Validator {
    */
   constructor(modelIds = {}, rules = {}) {
     this.modelIds = modelIds;
-    this.rules = Proxy0.$.extend(true, {}, Validator.RULES, rules);
+    this.rules = SK.extends(true, {}, Validator.RULES, rules);
   }
 
   getModelIds() {
