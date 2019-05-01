@@ -1,4 +1,5 @@
 import Proxy0 from '../src/Proxy0';
+import SK from '../src/SK';
 
 describe('Proxy0', () => {
 
@@ -38,7 +39,7 @@ describe('Proxy0', () => {
 
   describe('momentAny', () => {
     test('not nil', () => {
-      expect(Proxy0.momentAny('1949-10-01').format()).toEqual('1949-10-01T00:00:00+08:00');
+      expect(Proxy0.momentAny('1949-10-01').format(SK.DEFAULT_MOMENT_DATETIME)).toEqual('1949-10-01 00:00:00');
     });
   });
 
