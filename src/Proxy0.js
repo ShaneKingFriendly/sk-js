@@ -13,9 +13,7 @@ export default class Proxy0 {
   static md5 = md5;
   static md5Any = any => md5(any);
   static _ = _;
-  static moment = moment;
-
   static _Any = any => _(any);
-
+  static moment = moment;
   static momentAny = any => moment(any);
 }

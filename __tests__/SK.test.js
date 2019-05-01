@@ -56,6 +56,11 @@ describe('SK', () => {
       sk$.a = 1;
       expect(sk$.a).toEqual(1);
     });
+    it('initVal', () => {
+      SK.$(testData);
+      let sk$ = SK.$(testData, {b: 1});
+      expect(sk$.b).toEqual(1);
+    });
   });
   describe('assign', () => {
     it('array replace by new', () => {
@@ -96,7 +101,16 @@ describe('SK', () => {
       expect(SK.appendParameter('a', 'b', 'c')).toEqual('a?b=c');
     });
     it('has ?', () => {
-      expect(SK.appendParameter('a?1=2', 'b', 'c')).toEqual('a?1=2&b=c');
+      expect(SK.appendParameter('a?b=2', 'c', '3')).toEqual('a?b=2&c=3');
+    });
+    it('replace exist', () => {
+      expect(SK.appendParameter('a?b=2', 'b', '4')).toEqual('a?b=4');
+    });
+  });
+  describe('cookies', () => {
+    it('setter getter', () => {
+      SK.cookies('a', 1);
+      expect(SK.cookies('a')).toEqual('1');
     });
   });
   describe('descartes', () => {
@@ -105,6 +119,19 @@ describe('SK', () => {
     });
     it('string and string to string', () => {
       expect(SK.descartes('alert', 'link', '-')).toEqual('alert-link');
+    });
+  });
+  describe('ellipsis', () => {
+    it('<8', () => {
+      expect(SK.ellipsis('abc')).toEqual('abc');
+    });
+    it('>8', () => {
+      expect(SK.ellipsis('abcdefghijklmn')).toEqual('abcdefgh...');
+    });
+  });
+  describe('emptyFunc', () => {
+    it('emptyFunc', () => {
+      expect(SK.emptyFunc()).toEqual(undefined);
     });
   });
   describe('extend', () => {
@@ -125,6 +152,21 @@ describe('SK', () => {
       let b = SK.extend(true, {}, {b: a});
       expect(a).not.toBe(b.b);
     });
+    it('target is array', () => {
+      let a = {a: 1};
+      let b = SK.extend(true, 'haha', {b: a});
+      expect(a).not.toBe(b.b);
+    });
+    it('just target', () => {
+      let b = SK.extend(true, []);
+      expect(b).not.toEqual({});
+    });
+    it('target === copy', () => {
+      let target = {};
+      let recursive = {foo: target, bar: 5};
+      target = SK.extend(true, target, recursive);
+      expect(target.bar).toEqual(5);
+    });
   });
   describe('extends', () => {
     it('array replace by new', () => {
@@ -133,15 +175,69 @@ describe('SK', () => {
       expect(SK.extend(true, {}, a1, a2)).toEqual(a1);
       expect(SK.extends(true, {}, a1, a2)).toEqual(a2);
     });
+    it('target is array', () => {
+      let a = {a: 1};
+      let b = SK.extends(true, 'haha', {b: a});
+      expect(a).not.toBe(b.b);
+    });
+    it('just target', () => {
+      let b = SK.extends(true, []);
+      expect(b).not.toEqual({});
+    });
+    it('target === copy', () => {
+      let target = {};
+      let recursive = {foo: target, bar: 5};
+      target = SK.extends(true, target, recursive);
+      expect(target.bar).toEqual(5);
+    });
+  });
+  describe('getCurrentHref', () => {
+    it('getCurrentHref', () => {
+      expect(SK.getCurrentHref()).toEqual('http://localhost/');
+    });
+  });
+  describe('getCurrentLanguage', () => {
+    it('getCurrentLanguage', () => {
+      expect(SK.getCurrentLanguage()).toEqual('en_US');
+    });
+  });
+  describe('getCurrentOrigin', () => {
+    it('getCurrentOrigin', () => {
+      expect(SK.getCurrentOrigin()).toEqual('http://localhost');
+    });
+  });
+  describe('getCurrentPath', () => {
+    it('getCurrentPath', () => {
+      expect(SK.getCurrentPath()).toEqual('/');
+    });
+  });
+  describe('getCurrentSearch', () => {
+    it('getCurrentSearch', () => {
+      expect(SK.getCurrentSearch()).toEqual('');
+    });
   });
   describe('getSubPaths', () => {
-    it('1', () => {
+    it('getSubPaths', () => {
       expect(SK.getSubPaths('a/b')).toEqual(['/', '/a/', '/a/b/']);
+    });
+    it('empty', () => {
+      expect(SK.getSubPaths('a/b/')).toEqual(['/', '/a/', '/a/b/']);
     });
   });
   describe('getValidPath', () => {
-    it('1', () => {
+    it('getValidPath', () => {
       expect(SK.getValidPath('a/b')).toEqual('/a/b/');
+    });
+  });
+  describe('local', () => {
+    it('setter getter', () => {
+      SK.local('a', 1);
+      expect(SK.local('a')).toEqual('1');
+    });
+  });
+  describe('redirect', () => {
+    it('redirect', () => {
+      expect(SK.redirect('/a')).toEqual(undefined);
     });
   });
   describe('s4a', () => {
@@ -211,9 +307,19 @@ describe('SK', () => {
       expect(SK.s4s(NaN)).toEqual('');
     });
   });
+  describe('session', () => {
+    it('setter getter', () => {
+      SK.session('a', 1);
+      expect(SK.session('a')).toEqual('1');
+    });
+  });
   describe('strMapping', () => {
-    let strMapping = SK.strMapping();
-    expect(strMapping.length).toBeLessThanOrEqual(22);
+    it('strMapping', () => {
+      expect(SK.strMapping().length).toBeLessThanOrEqual(22);
+    });
+    it('srcSet === dstSet', () => {
+      expect(SK.strMapping('a', 1, 1)).toEqual('a');
+    });
   });
   describe('upperWordsFirstChar', () => {
     it('path -> Path', () => {

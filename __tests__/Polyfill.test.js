@@ -112,6 +112,12 @@ describe('Polyfill', () => {
     it('array get', () => {
       expect({a: 1, b: [1, 2, 3]}.skVal('b[2]', 4)).toEqual({a: 1, b: [1, 2, 4]});
     });
+    it('one nil argumnet', () => {
+      expect({a: 1}.skVal(undefined)).toEqual(undefined);
+    });
+    it('not exist path', () => {
+      expect({a: 1}.skVal('a.b')).toEqual(undefined);
+    });
   });
   describe('Object.prototype.skVals', () => {
     let o = {a: {x: 1}, b: {y: 2}};
