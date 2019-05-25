@@ -6,7 +6,6 @@ export Model from './Model';
 export * from './Polyfill';
 export Proxy0 from './Proxy0';
 export Resp from './Resp';
-export RespMesg from './RespMesg';
 export SK from './SK';
 export Crypto0 from './Crypto0';
 export SKEntity from './SKEntity';
