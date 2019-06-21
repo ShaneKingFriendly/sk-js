@@ -3,7 +3,7 @@ import Crypto0 from '../src/Crypto0.js';
 describe('Crypto0', () => {
 
   let plainText = 'plainText';
-  let cipherText = '2SZ/de9I0rvxO7s9wdCohQ==';
+  let cipherText = 'urvlk7OI3tp6JUMD13lWTw==';
 
   beforeAll(() => {
     // console.log('SK test case start!');
