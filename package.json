@@ -45,7 +45,9 @@
     "build:dist": "webpack",
     "build:lib": "rm -rf lib && babel src -d lib",
     "lint": "eslint --fix --ext .js src",
-    "test": "jest && codecov"
+    "test": "jest && codecov",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "jest": {
     "collectCoverage": true
@@ -56,7 +58,8 @@
     "js-cookie": "2.2.0",
     "js-md5": "0.7.3",
     "lodash": "4.17.11",
-    "moment": "2.24.0"
+    "moment": "2.24.0",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "@babel/cli": "7.4.3",
@@ -76,5 +79,6 @@
     "jsdom": "14.0.0",
     "webpack": "4.29.6",
     "webpack-cli": "3.3.0"
-  }
+  },
+  "snyk": true
 }
