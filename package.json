@@ -1,7 +1,7 @@
 {
   "name": "sk-js",
   "description": "ShaneKing for JavaScript",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "homepage": "https://github.com/ShaneKing/sk-js",
   "license": "Apache-2.0",
   "author": {
@@ -52,29 +52,29 @@
   },
   "dependencies": {
     "crypto-js": "3.1.9-1",
-    "jquery": "3.3.1",
+    "jquery": "3.4.1",
     "js-cookie": "2.2.0",
     "js-md5": "0.7.3",
     "lodash": "4.17.11",
     "moment": "2.24.0"
   },
   "devDependencies": {
-    "@babel/cli": "7.4.3",
-    "@babel/core": "7.4.3",
-    "@babel/plugin-proposal-class-properties": "7.4.0",
+    "@babel/cli": "7.5.0",
+    "@babel/core": "7.5.0",
+    "@babel/plugin-proposal-class-properties": "7.5.0",
     "@babel/plugin-proposal-export-default-from": "7.2.0",
-    "@babel/preset-env": "7.4.3",
+    "@babel/preset-env": "7.5.0",
     "babel-core": "7.0.0-bridge.0",
-    "babel-jest": "24.7.1",
-    "babel-eslint": "10.0.1",
-    "babel-loader": "8.0.5",
-    "babel-plugin-add-module-exports": "1.0.0",
-    "codecov": "3.3.0",
-    "eslint": "5.16.0",
-    "jest": "24.7.1",
-    "jest-cli": "24.7.1",
-    "jsdom": "14.0.0",
-    "webpack": "4.29.6",
-    "webpack-cli": "3.3.0"
+    "babel-jest": "24.8.0",
+    "babel-eslint": "10.0.2",
+    "babel-loader": "8.0.6",
+    "babel-plugin-add-module-exports": "1.0.2",
+    "codecov": "3.5.0",
+    "eslint": "6.0.1",
+    "jest": "24.8.0",
+    "jest-cli": "24.8.0",
+    "jsdom": "15.1.1",
+    "webpack": "4.35.2",
+    "webpack-cli": "3.3.5"
   }
 }
