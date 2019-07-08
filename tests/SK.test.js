@@ -174,6 +174,11 @@ describe('SK', () => {
       expect(target.bar).toEqual(5);
     });
   });
+  describe('getCurrentLanguage', () => {
+    it('getCurrentLanguage', () => {
+      expect(SK.getCurrentLanguage()).toEqual('en_US');
+    });
+  });
   describe('getSubPaths', () => {
     it('getSubPaths', () => {
       expect(SK.getSubPaths('a/b')).toEqual(['/', '/a/', '/a/b/']);

@@ -1,5 +1,5 @@
 # [sk-js][]
-JavaScript library by ES6 for ShaneKing, More to see [shaneking.org][].
+JavaScript library by ES6 for ShaneKing, More to see [shaneking.org/sk-js][].
 
 ## Badge
 ### Dependencies
@@ -32,7 +32,7 @@ ShaneKing is released under [Apache-2.0][].
 
 
 [sk-js]: https://github.com/ShaneKing/sk-js
-[shaneking.org]: http://shaneking.org/
+[shaneking.org/sk-js]: http://shaneking.org/
 
 [versioneye]:https://www.versioneye.com/user/projects/56fa049335630e003e0a8ab9
 [versioneye img]:https://www.versioneye.com/user/projects/56fa049335630e003e0a8ab9/badge.svg
