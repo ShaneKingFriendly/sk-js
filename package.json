@@ -1,27 +1,27 @@
 {
   "name": "sk-js",
-  "description": "ShaneKing for JavaScript",
   "version": "0.4.2",
+  "description": "ShaneKing for JavaScript",
   "homepage": "https://github.com/ShaneKing/sk-js",
-  "license": "Apache-2.0",
   "author": {
     "name": "ShaneKing",
     "email": "github@azolla.org",
     "url": "http://shaneking.org"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:ShaneKing/sk-js.git"
-  },
   "bugs": {
     "url": "https://github.com/ShaneKing/sk-js/issues"
   },
+  "license": "Apache-2.0",
   "licenses": [
     {
       "type": "Apache-2.0",
       "url": "https://opensource.org/licenses/Apache-2.0"
     }
   ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ShaneKing/sk-js.git"
+  },
   "files": [
     "dist",
     "lib",
@@ -31,24 +31,23 @@
     "README.md",
     "SK_for_WebStorm_Code_Style.xml"
   ],
-  "main": "lib/index.js",
   "keywords": [
     "ShaneKing",
     "SK"
   ],
-  "directories": {
-    "lib": "./lib",
-    "main": "./lib/index.js"
+  "main": "lib/index.js",
+  "module": "dist/index.esm.js",
+  "jest": {
+    "collectCoverage": true
   },
   "scripts": {
     "build": "npm run build:dist && npm run build:lib",
-    "build:dist": "webpack",
-    "build:lib": "rm -rf lib && babel src -d lib",
-    "lint": "eslint --fix --ext .js src",
-    "test": "jest && codecov"
-  },
-  "jest": {
-    "collectCoverage": true
+    "build:dist": "umi-lib build",
+    "build:lib": "umi-tools build",
+    "doc:build": "umi-lib doc build",
+    "doc:deploy": "umi-lib doc deploy",
+    "doc:dev": "umi-lib doc dev",
+    "test": "umi test && codecov"
   },
   "dependencies": {
     "crypto-js": "3.1.9-1",
@@ -59,22 +58,10 @@
     "moment": "2.24.0"
   },
   "devDependencies": {
-    "@babel/cli": "7.5.0",
-    "@babel/core": "7.5.0",
-    "@babel/plugin-proposal-class-properties": "7.5.0",
-    "@babel/plugin-proposal-export-default-from": "7.2.0",
-    "@babel/preset-env": "7.5.0",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-jest": "24.8.0",
-    "babel-eslint": "10.0.2",
-    "babel-loader": "8.0.6",
-    "babel-plugin-add-module-exports": "1.0.2",
     "codecov": "3.5.0",
-    "eslint": "6.0.1",
-    "jest": "24.8.0",
-    "jest-cli": "24.8.0",
     "jsdom": "15.1.1",
-    "webpack": "4.35.2",
-    "webpack-cli": "3.3.5"
+    "umi": "2.8.9",
+    "umi-library": "1.6.0",
+    "umi-tools": "0.4.0"
   }
 }

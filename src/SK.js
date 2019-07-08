@@ -84,11 +84,6 @@ export default class SK {
   static CHAR_MALE = '♂';
   static CHAR_FEMALE = '♀';
 
-  static ENV_LOCAL = 'local';
-  static ENV_DEV = 'dev';
-  static ENV_TEST = 'test';
-  static ENV_PROD = 'prod';
-
   static FILE_TYPE_HTML = 'html';
   static FILE_TYPE_HTML_WITH_POINT = SK.CHAR_DOT + SK.FILE_TYPE_HTML;
   static FILE_TYPE_JSON = 'json';

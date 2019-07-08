@@ -19,9 +19,9 @@ describe('Proxy0', () => {
     //console.log('some test case done!');
   });
 
-  describe('$any', () => {
+  describe('$Any', () => {
     test('not nil', () => {
-      expect(Proxy0.$any(1)).toEqual({"0": 1, "length": 1});
+      expect(Proxy0.$Any(1)).toEqual({"0": 1, "length": 1});
     });
   });
 

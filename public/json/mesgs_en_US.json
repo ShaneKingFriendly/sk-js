@@ -1,10 +1,10 @@
 {
   "$#{field}_is_required": "[$#{field}] is required.",
   "$#{field}_must_be_an_email": "[$#{field}] must be an email.",
-  "$#{field}_length_must_be_between_$#{min}_$#{max}": "$#{field} length must be between [$#{min},$#{max}].",
-  "$#{field}_length_must_be_greater_than_$#{min}": "$#{field} length must be greater than $#{min}.",
-  "$#{field}_length_must_be_less_than_$#{max}": "$#{field} length must be less than $#{max}.",
-  "$#{field}_value_must_be_between_$#{min}_$#{max}": "$#{field} value must be between [$#{min},$#{max}].",
-  "$#{field}_value_must_be_greater_than_$#{min}": "$#{field} value must be greater than $#{min}.",
-  "$#{field}_value_must_be_less_than_$#{max}": "$#{field} value must be less than $#{max}."
+  "$#{field}_length_must_be_between_$#{min}_$#{max}": "[$#{field}] length must be between [$#{min},$#{max}].",
+  "$#{field}_length_must_be_greater_than_$#{min}": "[$#{field}] length must be greater than [$#{min}].",
+  "$#{field}_length_must_be_less_than_$#{max}": "[$#{field}] length must be less than [$#{max}].",
+  "$#{field}_value_must_be_between_$#{min}_$#{max}": "[$#{field}] value must be between [$#{min},$#{max}].",
+  "$#{field}_value_must_be_greater_than_$#{min}": "[$#{field}] value must be greater than [$#{min}].",
+  "$#{field}_value_must_be_less_than_$#{max}": "[$#{field}] value must be less than [$#{max}]."
 }

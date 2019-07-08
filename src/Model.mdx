@@ -1,6 +1,35 @@
-### Model
+---
+name: Model
+route: /Model
+sidebar: true
+---
 
-#### Prepare
+
+# API
+| Method | Example | Remark |
+| -- | -- | -- |
+| `constructor(freeObject = {}, validator = new Validator())` | | |
+| `static object2ModelIds(prefix, modelIds = [], object = {})` | | `('x',[],{a:{b:true,c:false,d:true}})`, modelIds will `['x.a.b','x.a.d']` |
+| `static parseSao(sao)` | `('x',[],{a:{b:true,c:false,d:true}})` -> `['x.a.b','x.a.d']` | sao is string[reg], array[string] or object |
+| `zzzXX[YYY]Listener(id,[ type,] listener)` | | `XX` is id or reg, `YYY` is Changed or Errored, `zzz` is add or rmv |
+| `fireYYYEvent(id, old, current)` | | |
+| `fireEvent(evt)` | | |
+| `getAllErrors()` | | |
+| `getErrors(id)` | | |
+| `setErrors(errors = {})` | | |
+| `getFreeObject()` | | |
+| `setFreeObject(freeObject = {})` | | |
+| `getValidator()` | | |
+| `hasErrors()` | | |
+| ... | ... | ... |
+| `skVal(id, value)` | | |
+| `addAllValidatorMonitor()` | | |
+| `zzzValidatorMonitor(modelId, config)` | | `zzz` is add or rmv |
+| `execValidate(ruleKey, modelId, ruleFunc, model, setting)` | | |
+| `validate(evt)` | | |
+| `validateAll()` | | |
+
+# Prepare
 ```json
 {
   "req": {
@@ -50,27 +79,3 @@
   }
 }
 ```
-
-#### API
-| Method | Example | Remark |
-| -- | -- | -- |
-| `constructor(freeObject = {}, validator = new Validator())` | | |
-| `static object2ModelIds(prefix, modelIds = [], object = {})` | | `('x',[],{a:{b:true,c:false,d:true}})`, modelIds will `['x.a.b','x.a.d']` |
-| `static parseSao(sao)` | `('x',[],{a:{b:true,c:false,d:true}})` -> `['x.a.b','x.a.d']` | sao is string[reg], array[string] or object |
-| `zzzXX[YYY]Listener(id,[ type,] listener)` | | `XX` is id or reg, `YYY` is Changed or Errored, `zzz` is add or rmv |
-| `fireYYYEvent(id, old, current)` | | |
-| `fireEvent(evt)` | | |
-| `getAllErrors()` | | |
-| `getErrors(id)` | | |
-| `setErrors(errors = {})` | | |
-| `getFreeObject()` | | |
-| `setFreeObject(freeObject = {})` | | |
-| `getValidator()` | | |
-| `hasErrors()` | | |
-| ... | ... | ... |
-| `skVal(id, value)` | | |
-| `addAllValidatorMonitor()` | | |
-| `zzzValidatorMonitor(modelId, config)` | | `zzz` is add or rmv |
-| `execValidate(ruleKey, modelId, ruleFunc, model, setting)` | | |
-| `validate(evt)` | | |
-| `validateAll()` | | |

@@ -39,7 +39,6 @@ export default class Codes {
           deferred.resolve();
         });
       }).fail(() => {
-        Codes.hash.env = SK.ENV_LOCAL;
         Proxy0.$.ajax({
           async,
           cache: false,
