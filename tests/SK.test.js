@@ -1,23 +1,6 @@
 import '../src/Polyfill';
 import SK from '../src/SK';
 
-let JSDOM = require('jsdom').JSDOM;
-global.document = new JSDOM('<html></html>', {url: "http://shaneking.org/", includeNodeLocations: true});
-global.window = document.window;
-
-function propagateToGlobal(window) {
-  for (var key in window) {
-    if (!window.hasOwnProperty(key)) {
-      continue;
-    }
-    if (key in global) {
-      continue;
-    }
-    global[key] = window[key];
-  }
-}
-propagateToGlobal(window);
-
 describe('SK', () => {
 
   let testData = {};
@@ -191,31 +174,6 @@ describe('SK', () => {
       expect(target.bar).toEqual(5);
     });
   });
-  describe('getCurrentHref', () => {
-    it('getCurrentHref', () => {
-      expect(SK.getCurrentHref()).toEqual('http://localhost/');
-    });
-  });
-  describe('getCurrentLanguage', () => {
-    it('getCurrentLanguage', () => {
-      expect(SK.getCurrentLanguage()).toEqual('en_US');
-    });
-  });
-  describe('getCurrentOrigin', () => {
-    it('getCurrentOrigin', () => {
-      expect(SK.getCurrentOrigin()).toEqual('http://localhost');
-    });
-  });
-  describe('getCurrentPath', () => {
-    it('getCurrentPath', () => {
-      expect(SK.getCurrentPath()).toEqual('/');
-    });
-  });
-  describe('getCurrentSearch', () => {
-    it('getCurrentSearch', () => {
-      expect(SK.getCurrentSearch()).toEqual('');
-    });
-  });
   describe('getSubPaths', () => {
     it('getSubPaths', () => {
       expect(SK.getSubPaths('a/b')).toEqual(['/', '/a/', '/a/b/']);
@@ -227,17 +185,6 @@ describe('SK', () => {
   describe('getValidPath', () => {
     it('getValidPath', () => {
       expect(SK.getValidPath('a/b')).toEqual('/a/b/');
-    });
-  });
-  describe('local', () => {
-    it('setter getter', () => {
-      SK.local('a', 1);
-      expect(SK.local('a')).toEqual('1');
-    });
-  });
-  describe('redirect', () => {
-    it('redirect', () => {
-      expect(SK.redirect('/a')).toEqual(undefined);
     });
   });
   describe('s4a', () => {
@@ -305,12 +252,6 @@ describe('SK', () => {
       expect(SK.s4s(null)).toEqual('');
       expect(SK.s4s(undefined, 'UNDEFINED')).toEqual('UNDEFINED');
       expect(SK.s4s(NaN)).toEqual('');
-    });
-  });
-  describe('session', () => {
-    it('setter getter', () => {
-      SK.session('a', 1);
-      expect(SK.session('a')).toEqual('1');
     });
   });
   describe('strMapping', () => {

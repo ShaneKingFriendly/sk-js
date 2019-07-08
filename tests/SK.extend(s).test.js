@@ -2,24 +2,6 @@ import '../src/Polyfill';
 import Proxy0 from '../src/Proxy0';
 import SK from '../src/SK';
 
-let JSDOM = require('jsdom').JSDOM;
-global.document = new JSDOM('<html></html>', {url: "http://shaneking.org/", includeNodeLocations: true});
-global.window = document.window;
-
-function propagateToGlobal(window) {
-  for (var key in window) {
-    if (!window.hasOwnProperty(key)) {
-      continue;
-    }
-    if (key in global) {
-      continue;
-    }
-    global[key] = window[key];
-  }
-}
-
-propagateToGlobal(window);
-
 describe('SK', () => {
   let testAEE1;
   let testAEE2;

@@ -1,6 +1,6 @@
 {
   "name": "sk-js",
-  "version": "0.4.2",
+  "version": "0.5.2",
   "description": "ShaneKing for JavaScript",
   "homepage": "https://github.com/ShaneKing/sk-js",
   "author": {
@@ -41,12 +41,13 @@
     "collectCoverage": true
   },
   "scripts": {
-    "build": "npm run build:dist && npm run build:lib",
+    "build": "npm run build:dist && npm run build:lib && npm run doc:build",
     "build:dist": "umi-lib build",
     "build:lib": "umi-tools build",
     "doc:build": "umi-lib doc build",
     "doc:deploy": "umi-lib doc deploy",
     "doc:dev": "umi-lib doc dev",
+    "prepublishOnly": "npm run build",
     "test": "umi test && codecov"
   },
   "dependencies": {
@@ -59,7 +60,6 @@
   },
   "devDependencies": {
     "codecov": "3.5.0",
-    "jsdom": "15.1.1",
     "umi": "2.8.9",
     "umi-library": "1.6.0",
     "umi-tools": "0.4.0"
