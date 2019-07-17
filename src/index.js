@@ -16,4 +16,5 @@ export SKL10nAdtVerFullEntity from './SKL10nAdtVerFullEntity';
 export SKRefAdtEntity from './SKRefAdtEntity';
 export SKRefAdtVerEntity from './SKRefAdtVerEntity';
 export SKRefAdtVerFullEntity from './SKRefAdtVerFullEntity';
+export Window0 from './Window0';
 
