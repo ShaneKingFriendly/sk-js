@@ -1,6 +1,6 @@
 {
   "name": "sk-js",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "ShaneKing for JavaScript",
   "homepage": "https://github.com/ShaneKing/sk-js",
   "author": {
@@ -55,13 +55,13 @@
     "jquery": "3.4.1",
     "js-cookie": "2.2.0",
     "js-md5": "0.7.3",
-    "lodash": "4.17.11",
+    "lodash": "4.17.14",
     "moment": "2.24.0"
   },
   "devDependencies": {
     "codecov": "3.5.0",
     "jsdom": "15.1.1",
-    "umi": "2.8.9",
+    "umi": "2.8.11",
     "umi-library": "1.6.0",
     "umi-tools": "0.4.0"
   }
