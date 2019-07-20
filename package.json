@@ -1,6 +1,6 @@
 {
   "name": "sk-js",
-  "version": "0.5.6",
+  "version": "0.5.9",
   "description": "ShaneKing for JavaScript",
   "homepage": "https://github.com/ShaneKing/sk-js",
   "author": {
@@ -24,8 +24,7 @@
   },
   "files": [
     "dist",
-    "lib",
-    "public",
+    "src",
     ".editorconfig",
     "LICENSE",
     "README.md",
@@ -35,15 +34,14 @@
     "ShaneKing",
     "SK"
   ],
-  "main": "lib/index.js",
-  "module": "lib/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
   "jest": {
     "collectCoverage": true
   },
   "scripts": {
-    "build": "npm run build:dist && npm run build:lib && npm run doc:build",
+    "build": "npm run build:dist && npm run doc:build",
     "build:dist": "umi-lib build",
-    "build:lib": "umi-tools build",
     "doc:build": "umi-lib doc build",
     "doc:deploy": "umi-lib doc deploy",
     "doc:dev": "umi-lib doc dev",
@@ -62,7 +60,6 @@
     "codecov": "3.5.0",
     "jsdom": "15.1.1",
     "umi": "2.8.12",
-    "umi-library": "1.6.0",
-    "umi-tools": "0.4.0"
+    "umi-library": "1.6.0"
   }
 }
