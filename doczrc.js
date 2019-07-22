@@ -3,5 +3,4 @@ export default {
   themeConfig: {
     mode: 'light',
   },
-  typescript: false,
 };
