@@ -32,7 +32,7 @@ ShaneKing is released under [Apache-2.0][].
 
 
 [sk-js]: https://github.com/ShaneKing/sk-js
-[shaneking.org/sk-js]: http://shaneking.org/
+[shaneking.org/sk-js]: http://shaneking.org/sk-js
 
 [versioneye]:https://www.versioneye.com/user/projects/56fa049335630e003e0a8ab9
 [versioneye img]:https://www.versioneye.com/user/projects/56fa049335630e003e0a8ab9/badge.svg
