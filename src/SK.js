@@ -566,7 +566,18 @@ export default class SK {
       uuidByteToHex[rnds[i++]], uuidByteToHex[rnds[i++]]]).join('');
   }
 
-  static uuidShort(uuid = SK.uuid(), dstSet = SK.SET_ARY_L62) {
+  static cMl40(uuid = SK.uuid(), dstSet = SK.SET_ARY_L62) {
+    return Date.now() + SK.CHAR_MINUS + SK.l22(uuid, dstSet);
+  }
+
+  static cUl40(uuid = SK.uuid(), dstSet = SK.SET_ARY_L62) {
+    return Date.now() + SK.CHAR_UNDERLINE + SK.l22(uuid, dstSet);
+  }
+
+  /**
+   * length less than 22
+   */
+  static l22(uuid = SK.uuid(), dstSet = SK.SET_ARY_L62) {
     return SK.strMapping(uuid.toLowerCase().replace(/-/g, SK.CHAR_EMPTY), dstSet, SK.SET_ARY_HEX);
   }
 }

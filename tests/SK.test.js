@@ -282,8 +282,8 @@ describe('SK', () => {
     let uuid = SK.uuid();
     expect(uuid).toEqual(uuid.toLowerCase());
   });
-  describe('uuidShort', () => {
-    let uuidShort = SK.uuidShort();
+  describe('l22', () => {
+    let uuidShort = SK.l22();
     expect(uuidShort.length).toBeLessThanOrEqual(22);
   });
 });
