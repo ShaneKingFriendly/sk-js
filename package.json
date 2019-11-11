@@ -1,6 +1,6 @@
 {
   "name": "sk-js",
-  "version": "0.5.21",
+  "version": "0.5.23",
   "description": "ShaneKing for JavaScript",
   "homepage": "https://github.com/ShaneKing/sk-js",
   "author": {
@@ -56,8 +56,8 @@
   },
   "devDependencies": {
     "codecov": "3.6.1",
-    "father": "2.24.0",
-    "jsdom": "15.2.0"
+    "father": "2.24.1",
+    "jsdom": "15.2.1"
   },
   "jest": {
     "collectCoverage": true

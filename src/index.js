@@ -15,8 +15,15 @@ export SKIdEntity from './SKIdEntity';
 export SKL10nAdtEntity from './SKL10nAdtEntity';
 export SKL10nAdtVerEntity from './SKL10nAdtVerEntity';
 export SKL10nAdtVerFullEntity from './SKL10nAdtVerFullEntity';
+export SKL10nIdEntity from './SKL10nIdEntity';
 export SKRefAdtEntity from './SKRefAdtEntity';
 export SKRefAdtVerEntity from './SKRefAdtVerEntity';
 export SKRefAdtVerFullEntity from './SKRefAdtVerFullEntity';
+export SKRefIdEntity from './SKRefIdEntity';
+export SKRelIdEntity from './SKRelIdEntity';
+export SKTreeAdtEntity from './SKTreeAdtEntity';
+export SKTreeAdtVerEntity from './SKTreeAdtVerEntity';
+export SKTreeAdtVerFullEntity from './SKTreeAdtVerFullEntity';
+export SKTreeIdEntity from './SKTreeIdEntity';
 export Window0 from './Window0';
 
