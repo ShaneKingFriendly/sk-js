@@ -16,7 +16,7 @@ export default class Console0 {
 
   static msg(message, type = 'log') {
     if (console[type]) {
-      console[type](`${Proxy0.moment().format(`${SK.DEFAULT_MOMENT_DATE}T${SK.DEFAULT_MOMENT_TIME}`)}: ${type}: ${JSON.stringify(message)}`);
+      console[type](`${Proxy0.moment().format(`${SK.DEFAULT_MOMENT_Y_M_D}T${SK.DEFAULT_MOMENT_H_MI_S}`)}: ${type}: ${JSON.stringify(message)}`);
     }
   }
 }

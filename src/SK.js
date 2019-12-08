@@ -13,7 +13,9 @@ export default class SK {
   static CHAR_ARROW = '→';
   static CHAR_ASTERISK = '*';
   static CHAR_BACKSLASH = '\\';
+  static CHAR_BACKSPACE = '\b';
   static CHAR_BLANK = ' ';
+  static CHAR_BR = '\n';
   static CHAR_CELSIUS = '℃';
   static CHAR_CIRCLE = '⊙';
   static CHAR_CIRCUMFERENCE = '○';
@@ -27,11 +29,12 @@ export default class SK {
   static CHAR_DIVIDE = '÷';
   static CHAR_DOT = '.';
   static CHAR_DOUBLE_QUOTATION = '"';
-  static CHAR_EMPTY = '';
   static CHAR_EQUAL = '=';
   static CHAR_EQUAL_APPROXIMATELY = '≌';
   static CHAR_EQUIVALENT = '≡';
+  static CHAR_ESCAPE_B = '\b';
   static CHAR_ESCAPE_N = '\n';
+  static CHAR_ESCAPE_R = '\r';
   static CHAR_ESCAPE_T = '\t';
   static CHAR_EXCLAMATION = '!';
   static CHAR_HENCE = '∴';
@@ -72,17 +75,18 @@ export default class SK {
   static CHAR_SQUARE = '√';
   static CHAR_TRIANGLE = '△';
   static CHAR_UNDERLINE = '_';
-  static CHAR_UNDERLINE_DOUBLE = '__';
   static CHAR_UNION = '∪';
   static CHAR_VARIES = '∝';
   static CHAR_VERTICAL = '|';
+
+  static CHAR_MALE = '♂';
+  static CHAR_FEMALE = '♀';
 
   static CHAR_Y = 'Y';
   static CHAR_N = 'N';
   static CHAR_T = 'T';
   static CHAR_F = 'F';
-  static CHAR_MALE = '♂';
-  static CHAR_FEMALE = '♀';
+  static CHAR_S = 'S';
 
   static FILE_TYPE_HTML = 'html';
   static FILE_TYPE_HTML_WITH_POINT = SK.CHAR_DOT + SK.FILE_TYPE_HTML;
@@ -102,8 +106,13 @@ export default class SK {
   static SET_ARY_BIN = '01';
   static SET_ARY_OCT = '01234567';
   static SET_ARY_DEC = '0123456789';
+  static SET_DIGITAL = SK.SET_ARY_DEC;
   static SET_ARY_HEX = '0123456789abcdef';
   static SET_ARY_L62 = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+  static STR_EMPTY = '';
+  static STR_NULL = 'NULL';
+  static STR_UNDERLINE_UNDERLINE = '__';
 
   static STR_DEFAULT = 'default';
   static STR_ERROR = 'error';
@@ -113,10 +122,17 @@ export default class SK {
   static DEFAULT_DOMAIN = '$sk';
   static DEFAULT_ENV = {};
   static DEFAULT_LANGUAGE = SK.LANGUAGE_en_US;
-  static DEFAULT_MOMENT_DATE = 'YYYY-MM-DD';
-  static DEFAULT_MOMENT_DATETIME = 'YYYY-MM-DD HH:mm:ss';
-  static DEFAULT_MOMENT_TIME = 'HH:mm:ss';
-  static DEFAULT_MOMENT_TIMEZONE = 'Z';
+  static DEFAULT_MOMENT_H_MI_S = 'HH:mm:ss';
+  static DEFAULT_MOMENT_HMIS = 'HHmmss';
+  static DEFAULT_MOMENT_SSS = 'SSS';
+  static DEFAULT_MOMENT_Y_M_D = 'YYYY-MM-DD';
+  static DEFAULT_MOMENT_YMD = 'YYYYMMDD';
+  static DEFAULT_MOMENT_YsMsD = 'YYYY/MM/DD';
+  static DEFAULT_MOMENT_Z = 'Z';//+08:00
+  static DEFAULT_MOMENT_DATE_TIME = SK.DEFAULT_MOMENT_Y_M_D + SK.CHAR_BLANK + SK.DEFAULT_MOMENT_H_MI_S;
+  static DEFAULT_MOMENT_DATE_TIME_SSS = SK.DEFAULT_MOMENT_DATE_TIME + SK.CHAR_DOT + SK.DEFAULT_MOMENT_SSS;
+  static DEFAULT_MOMENT_DATETIME = SK.DEFAULT_MOMENT_YMD + SK.DEFAULT_MOMENT_HMIS;
+  static DEFAULT_MOMENT_DATETIMESSS = SK.DEFAULT_MOMENT_DATETIME + SK.DEFAULT_MOMENT_SSS;
 
   /**
    * New or get namespace object.
@@ -566,8 +582,16 @@ export default class SK {
       uuidByteToHex[rnds[i++]], uuidByteToHex[rnds[i++]]]).join('');
   }
 
+  static cMl36(uuid = SK.uuid(), dstSet = SK.SET_ARY_L62) {
+    return Date.now() + SK.CHAR_MINUS + SK.l22(uuid, dstSet);
+  }
+
   static cMl40(uuid = SK.uuid(), dstSet = SK.SET_ARY_L62) {
     return Date.now() + SK.CHAR_MINUS + SK.l22(uuid, dstSet);
+  }
+
+  static cUl36(uuid = SK.uuid(), dstSet = SK.SET_ARY_L62) {
+    return Date.now() + SK.CHAR_UNDERLINE + SK.l22(uuid, dstSet);
   }
 
   static cUl40(uuid = SK.uuid(), dstSet = SK.SET_ARY_L62) {

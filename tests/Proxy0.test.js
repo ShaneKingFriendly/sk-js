@@ -39,7 +39,7 @@ describe('Proxy0', () => {
 
   describe('momentAny', () => {
     test('not nil', () => {
-      expect(Proxy0.momentAny('1949-10-01').format(SK.DEFAULT_MOMENT_DATETIME)).toEqual('1949-10-01 00:00:00');
+      expect(Proxy0.momentAny('1949-10-01').format(SK.DEFAULT_MOMENT_DATE_TIME)).toEqual('1949-10-01 00:00:00');
     });
   });
 
