@@ -118,7 +118,7 @@ export default class SK {
   static STR_ERROR = 'error';
   static STR_LANGUAGE = 'language';
 
-  static DEFAULT_CONTEXT_PATH = SK.CHAR_EMPTY;
+  static DEFAULT_CONTEXT_PATH = SK.STR_EMPTY;
   static DEFAULT_DOMAIN = '$sk';
   static DEFAULT_ENV = {};
   static DEFAULT_LANGUAGE = SK.LANGUAGE_en_US;
@@ -417,7 +417,7 @@ export default class SK {
    * @param search
    * @returns {*}
    */
-  static getRequestParameter(param, search = SK.CHAR_EMPTY) {
+  static getRequestParameter(param, search = SK.STR_EMPTY) {
     search = Proxy0._.startsWith(search, SK.CHAR_QUESTION) ? search.slice(1) : search;
     const reg = new RegExp(`(^|&)${param}=([^&]*)(&|$)`);
     const r = search.match(reg);
@@ -433,14 +433,14 @@ export default class SK {
   static getSubPaths(path) {
     const rtn = [SK.CHAR_SLASH];
     path.split(SK.CHAR_SLASH).reduce((sum, item) => {
-      if (SK.s4s(item) === SK.CHAR_EMPTY) {
+      if (SK.s4s(item) === SK.STR_EMPTY) {
         return sum;
       } else {
         const tmpValidPath = SK.getValidPath(sum + item);
         rtn.push(tmpValidPath);
         return tmpValidPath;
       }
-    }, SK.CHAR_EMPTY);
+    }, SK.STR_EMPTY);
     return rtn;
   }
 
@@ -451,7 +451,7 @@ export default class SK {
    * @returns {string}
    */
   static getValidPath(path) {
-    return (Proxy0._.startsWith(path, SK.CHAR_SLASH) ? SK.CHAR_EMPTY : SK.CHAR_SLASH) + path + (Proxy0._.endsWith(path, SK.CHAR_SLASH) ? SK.CHAR_EMPTY : SK.CHAR_SLASH);
+    return (Proxy0._.startsWith(path, SK.CHAR_SLASH) ? SK.STR_EMPTY : SK.CHAR_SLASH) + path + (Proxy0._.endsWith(path, SK.CHAR_SLASH) ? SK.STR_EMPTY : SK.CHAR_SLASH);
   }
 
   /**
@@ -510,17 +510,17 @@ export default class SK {
    * @param {string} defaultValue
    * @returns {string}
    */
-  static s4s(value, defaultValue = SK.CHAR_EMPTY) {
+  static s4s(value, defaultValue = SK.STR_EMPTY) {
     return (Proxy0._.isBoolean(value) || Proxy0._.isFinite(value) || Proxy0._.isString(value)) ? String(value) : defaultValue;
   }
 
-  static strMapping(str = SK.uuid().toLowerCase().replace(/-/g, SK.CHAR_EMPTY), dstSet = SK.SET_ARY_L62, srcSet = SK.SET_ARY_HEX) {
+  static strMapping(str = SK.uuid().toLowerCase().replace(/-/g, SK.STR_EMPTY), dstSet = SK.SET_ARY_L62, srcSet = SK.SET_ARY_HEX) {
     let i, divide, newlen,
       numberMap = {},
       fromBase = srcSet.length,
       toBase = dstSet.length,
       length = str.length,
-      result = SK.CHAR_EMPTY;
+      result = SK.STR_EMPTY;
 
     if (srcSet === dstSet) {
       return str;
@@ -602,6 +602,6 @@ export default class SK {
    * length less than 22
    */
   static l22(uuid = SK.uuid(), dstSet = SK.SET_ARY_L62) {
-    return SK.strMapping(uuid.toLowerCase().replace(/-/g, SK.CHAR_EMPTY), dstSet, SK.SET_ARY_HEX);
+    return SK.strMapping(uuid.toLowerCase().replace(/-/g, SK.STR_EMPTY), dstSet, SK.SET_ARY_HEX);
   }
 }

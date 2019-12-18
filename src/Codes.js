@@ -46,7 +46,7 @@ export default class Codes {
           method: SK.REQUEST_METHOD_GET,
           url: Codes.SERVER_URL + Codes.PATH_PREFIX + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT,
         }).done(resp => {
-          Mesgs.jsonNodeParser(resp, SK.CHAR_EMPTY, Codes.code);
+          Mesgs.jsonNodeParser(resp, SK.STR_EMPTY, Codes.code);
           Object.keys(Codes.code).forEach((item) => {
             Codes.loadMesg(Codes.code[item]);
           });
@@ -89,7 +89,7 @@ export default class Codes {
     Object.keys(pathObject).forEach((key) => {
       if (Proxy0._.isArray(pathObject[key])) {
         pathObject[key].forEach((item) => {
-          pathObject[key + SK.CHAR_UNDERLINE_DOUBLE + item.id] = item.text ? item.text : item.label;
+          pathObject[key + SK.STR_UNDERLINE_UNDERLINE + item.id] = item.text ? item.text : item.label;
         });
       }
     });

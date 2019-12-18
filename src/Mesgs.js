@@ -25,7 +25,7 @@ export default class Mesgs {
 
   static gets(keys, path = '/') {
     const keyArray = Proxy0._.isArray(keys) ? keys : keys.split(SK.CHAR_FEMALE);
-    const sep = SK.LANGUAGE_zh_CN === SK.getCurrentLanguage() ? SK.CHAR_EMPTY : SK.CHAR_BLANK;
+    const sep = SK.LANGUAGE_zh_CN === SK.getCurrentLanguage() ? SK.STR_EMPTY : SK.CHAR_BLANK;
     return keyArray.map((key) => {
       return Mesgs.get(key, path);
     }).join(sep);
@@ -88,7 +88,7 @@ export default class Mesgs {
           method: SK.REQUEST_METHOD_GET,
           url: Mesgs.SERVER_URL + Mesgs.PATH_PREFIX + SK.CHAR_UNDERLINE + SK.getCurrentLanguage() + SK.FILE_TYPE_JSON_WITH_POINT,
         }).done(resp => {
-          Mesgs.jsonNodeParser(resp, SK.CHAR_EMPTY, Mesgs.mesg);
+          Mesgs.jsonNodeParser(resp, SK.STR_EMPTY, Mesgs.mesg);
         }).always(() => {
           $Deferred.resolve();
         });

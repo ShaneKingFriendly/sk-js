@@ -6,4 +6,16 @@ export default {
   },
   entry: 'src/index.js',
   esm: 'babel',
+  umd: {
+    globals: {
+      'crypto-js': 'CryptoJS',
+      'jquery': '$',
+      'js-cookie': 'Cookies',
+      'js-md5': 'md5',
+      '_': 'lodash',
+      'moment': 'moment',
+    },
+    minFile: true,
+    sourcemap: true
+  },
 };
