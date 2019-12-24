@@ -1,0 +1,65 @@
+{
+  "name": "sk-js",
+  "version": "0.6.5",
+  "description": "ShaneKing for JavaScript",
+  "homepage": "https://github.com/ShaneKing/sk-js",
+  "author": {
+    "name": "ShaneKing",
+    "email": "github@azolla.org",
+    "url": "http://shaneking.org"
+  },
+  "bugs": {
+    "url": "https://github.com/ShaneKing/sk-js/issues"
+  },
+  "license": "Apache-2.0",
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "https://opensource.org/licenses/Apache-2.0"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ShaneKing/sk-js.git"
+  },
+  "files": [
+    "dist",
+    "es",
+    "lib",
+    "public",
+    ".editorconfig",
+    "LICENSE",
+    "README.md",
+    "SK_for_WebStorm_Code_Style.xml"
+  ],
+  "keywords": [
+    "ShaneKing",
+    "SK"
+  ],
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "scripts": {
+    "build": "father build && npm run doc:build",
+    "doc:build": "father doc build",
+    "doc:deploy": "father doc deploy",
+    "doc:dev": "father doc dev",
+    "prepublishOnly": "npm run build",
+    "test": "father test --coverage && codecov"
+  },
+  "dependencies": {
+    "crypto-js": "3.1.9-1",
+    "jquery": "3.4.1",
+    "js-cookie": "2.2.1",
+    "js-md5": "0.7.3",
+    "lodash": "4.17.15",
+    "moment": "2.24.0"
+  },
+  "devDependencies": {
+    "codecov": "3.6.1",
+    "father": "2.29.1",
+    "jsdom": "15.2.1"
+  },
+  "jest": {
+    "collectCoverage": true
+  }
+}

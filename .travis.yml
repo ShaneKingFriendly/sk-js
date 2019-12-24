@@ -1,0 +1,12 @@
+language: node_js
+sudo: false # faster builds
+
+node_js:
+  - stable
+
+#install: default run: npm install
+
+before_script:
+  - npm install -g father
+
+#script: default run: npm test
