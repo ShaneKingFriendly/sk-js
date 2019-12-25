@@ -43,7 +43,7 @@
     "doc:build": "father doc build",
     "doc:deploy": "father doc deploy",
     "doc:dev": "father doc dev",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm run build && rm -rf docs && cp -R .doc docs",
     "test": "father test --coverage && codecov"
   },
   "dependencies": {
