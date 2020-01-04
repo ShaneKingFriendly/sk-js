@@ -397,7 +397,7 @@ export default class SK {
   }
 
   /**
-   * language in cookies if exist, else defautl
+   * language in cookies if exist, else default
    *
    * @returns {string}
    */
