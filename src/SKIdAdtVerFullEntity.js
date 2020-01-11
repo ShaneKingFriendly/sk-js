@@ -4,6 +4,6 @@ import SKIdAdtVerEntity from './SKIdAdtVerEntity';
 export default SK.extends(true, {}, SKIdAdtVerEntity, {
   crtDateTime: undefined,
   crtUserId: undefined,
-  delDateTime: undefined,
-  delUserId: undefined,
+  ivdDateTime: undefined,
+  ivdUserId: undefined,
 })

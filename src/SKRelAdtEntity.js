@@ -1,7 +1,7 @@
 import SK from './SK';
-import SKIdEntity from './SKIdEntity';
+import SKIdAdtEntity from './SKIdAdtEntity';
 
-export default SK.extends(true, {}, SKIdEntity, {
+export default SK.extends(true, {}, SKIdAdtEntity, {
   invalid: undefined,
   ivdDateTime: undefined,
   ivdUserId: undefined,

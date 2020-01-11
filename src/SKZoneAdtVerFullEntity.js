@@ -3,6 +3,6 @@ import SKIdAdtVerFullEntity from './SKIdAdtVerFullEntity';
 
 export default SK.extends(true, {}, SKIdAdtVerFullEntity, {
   crtZone: undefined,
-  delZone: undefined,
+  ivdZone: undefined,
   modZone: undefined,
 })
