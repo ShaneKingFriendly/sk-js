@@ -8,12 +8,16 @@ import moment from 'moment';
 export default class Proxy0 {
   static CryptoJS = CryptoJS;
   static $ = $;
-  static $Any = any => $(any);
   static Cookies = Cookies;
   static md5 = md5;
-  static md5Any = any => md5(any);
   static _ = _;
-  static _Any = any => _(any);
   static moment = moment;
+
+  static $Any = any => $(any);
+
+  static md5Any = any => md5(any);
+
+  static _Any = any => _(any);
+
   static momentAny = any => moment(any);
 }

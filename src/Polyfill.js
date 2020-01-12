@@ -7,7 +7,10 @@ import Proxy0 from './Proxy0';
  */
 function _skParseSubId(subId) {
   const bracketIdx = subId.indexOf('[');
-  return bracketIdx > -1 ? {p: subId.substring(0, bracketIdx), i: subId.substring(bracketIdx + 1, subId.length - 1)} : {p: subId};
+  return bracketIdx > -1 ? {
+    p: subId.substring(0, bracketIdx),
+    i: subId.substring(bracketIdx + 1, subId.length - 1)
+  } : {p: subId};
 }
 
 if (!Array.prototype.skFilter) {
