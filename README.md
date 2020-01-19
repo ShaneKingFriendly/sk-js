@@ -46,8 +46,8 @@ ShaneKing is released under [Apache-2.0][].
 [travis]:https://travis-ci.org/ShaneKing/sk-js
 [travis img]:https://travis-ci.org/ShaneKing/sk-js.png
 
-[codecov]:https://codecov.io/github/ShaneKing/sk-js?branch=master
-[codecov img]:https://codecov.io/github/ShaneKing/sk-js/coverage.svg?branch=master
+[codecov]:https://codecov.io/gh/ShaneKing/sk-js
+[codecov img]:https://codecov.io/gh/ShaneKing/sk-js/branch/master/graph/badge.svg
 [codacy]:https://www.codacy.com/app/ShaneKing/sk-js
 [codacy img]:https://api.codacy.com/project/badge/grade/b3e08d356b334765939b1c77b5360a3f
 [saucelabs]:https://saucelabs.com/u/ShaneKing
