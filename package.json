@@ -47,7 +47,7 @@
     "test": "father test --coverage && codecov"
   },
   "dependencies": {
-    "crypto-js": "3.1.9-1",
+    "crypto-js": "3.2.1",
     "jquery": "3.4.1",
     "js-cookie": "2.2.1",
     "js-md5": "0.7.3",
