@@ -1,6 +1,6 @@
 {
   "name": "sk-js",
-  "version": "0.10.0",
+  "version": "0.20.0",
   "description": "JavaScript for ShaneKing",
   "homepage": "https://github.com/ShaneKing/sk-js",
   "author": {
@@ -47,7 +47,7 @@
     "test": "father test --coverage && codecov"
   },
   "dependencies": {
-    "crypto-js": "3.1.9-1",
+    "crypto-js": "4.0.0",
     "jquery": "3.4.1",
     "js-cookie": "2.2.1",
     "js-md5": "0.7.3",
@@ -55,11 +55,24 @@
     "moment": "2.24.0"
   },
   "devDependencies": {
-    "codecov": "3.6.1",
-    "father": "2.29.1",
-    "jsdom": "15.2.1"
+    "codecov": "3.6.5",
+    "father": "2.29.2",
+    "jsdom": "16.1.0"
   },
   "jest": {
-    "collectCoverage": true
+    "collectCoverage": true,
+    "transform": {
+      "\\.js$": [
+        "babel-jest",
+        {
+          "plugins": [
+            "@babel/plugin-proposal-class-properties"
+          ],
+          "presets": [
+            "@babel/env"
+          ]
+        }
+      ]
+    }
   }
 }
