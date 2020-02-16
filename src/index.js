@@ -16,7 +16,6 @@ export SKRefAdtEntity from './SKRefAdtEntity';
 export SKRefAdtVerEntity from './SKRefAdtVerEntity';
 export SKRefAdtVerFullEntity from './SKRefAdtVerFullEntity';
 export SKRefIdEntity from './SKRefIdEntity';
-export SKRelAdtEntity from './SKRelAdtEntity';
 export SKRelIdEntity from './SKRelIdEntity';
 export SKTreeAdtEntity from './SKTreeAdtEntity';
 export SKTreeAdtVerEntity from './SKTreeAdtVerEntity';

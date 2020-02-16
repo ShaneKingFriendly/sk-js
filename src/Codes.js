@@ -97,7 +97,7 @@ export default class Codes {
 
   static mesg(key, path = '/') {
     const validPath = SK.getValidPath(path);
-    const validPaths = Mesgs.getSubPaths(validPath, false);
+    const validPaths = Codes.getSubPaths(validPath, false);
     let rtn = SK.s4s(key);
     for (let i = 0; i < validPaths.length; i += 1) {
       const tmpRtn = SK.s4o(Codes.code[validPaths[i]]).skVal(key);

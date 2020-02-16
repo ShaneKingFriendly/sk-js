@@ -64,12 +64,6 @@ export default class Mesgs {
     pathObjects[existPath + SK.CHAR_SLASH] = pathObject;
   }
 
-  /**
-   *
-   * @param path
-   * @param async
-   * @returns {*} Promise
-   */
   static load(path = '/', async = true) {
     path = SK.getValidPath(path);
     if (Mesgs.mesg[path]) {
