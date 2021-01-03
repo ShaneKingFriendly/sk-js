@@ -8,7 +8,9 @@ export default class Window0 {
    * @returns {string}
    */
   static getCurrentHref() {
-    return window.location.href;
+    if (window && window.location) {
+      return window.location.href;
+    }
   }
 
   /**
@@ -17,7 +19,9 @@ export default class Window0 {
    * @returns {string}
    */
   static getCurrentOrigin() {
-    return window.location.origin;
+    if (window && window.location) {
+      return window.location.origin;
+    }
   }
 
   /**
@@ -28,10 +32,12 @@ export default class Window0 {
    * @returns {string}
    */
   static getCurrentPath() {
-    let path = window.location.pathname;
-    path = path.substring(SK.DEFAULT_CONTEXT_PATH.length, path.length);
-    path = Proxy0._.endsWith(path, SK.FILE_TYPE_HTML_WITH_POINT) ? path.substring(0, path.length - 5) : path;
-    return path;
+    if (window && window.location) {
+      let path = window.location.pathname;
+      path = path.substring(SK.DEFAULT_CONTEXT_PATH.length, path.length);
+      path = Proxy0._.endsWith(path, SK.FILE_TYPE_HTML_WITH_POINT) ? path.substring(0, path.length - 5) : path;
+      return path;
+    }
   }
 
   /**
@@ -40,7 +46,9 @@ export default class Window0 {
    * @returns {*}
    */
   static getCurrentSearch() {
-    return window.location.search;
+    if (window && window.location) {
+      return window.location.search;
+    }
   }
 
   /**
@@ -61,13 +69,15 @@ export default class Window0 {
    * @param value
    */
   static local(key, value) {
-    if (arguments.length > 1) {
-      localStorage.removeItem(key);
-      if (!Proxy0._.isNil(value)) {
-        return localStorage.setItem(key, value);
+    if (localStorage) {
+      if (arguments.length > 1) {
+        localStorage.removeItem(key);
+        if (!Proxy0._.isNil(value)) {
+          return localStorage.setItem(key, value);
+        }
+      } else {
+        return localStorage.getItem(key);
       }
-    } else {
-      return localStorage.getItem(key);
     }
   }
 
@@ -77,7 +87,9 @@ export default class Window0 {
    * @param url
    */
   static redirect(url) {
-    window.location.href = url;
+    if (window && window.location) {
+      window.location.href = url;
+    }
   }
 
   /**
@@ -87,13 +99,15 @@ export default class Window0 {
    * @param value
    */
   static session(key, value) {
-    if (arguments.length > 1) {
-      sessionStorage.removeItem(key);
-      if (!Proxy0._.isNil(value)) {
-        return sessionStorage.setItem(key, value);
+    if (sessionStorage) {
+      if (arguments.length > 1) {
+        sessionStorage.removeItem(key);
+        if (!Proxy0._.isNil(value)) {
+          return sessionStorage.setItem(key, value);
+        }
+      } else {
+        return sessionStorage.getItem(key);
       }
-    } else {
-      return sessionStorage.getItem(key);
     }
   }
 }

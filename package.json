@@ -24,7 +24,6 @@
   },
   "files": [
     "dist",
-    "es",
     "lib",
     "public",
     ".editorconfig",
@@ -37,27 +36,44 @@
     "SK"
   ],
   "main": "lib/index.js",
-  "module": "es/index.js",
   "scripts": {
-    "build": "father build && npm run doc:build",
-    "doc:build": "father doc build",
-    "doc:deploy": "father doc deploy",
-    "doc:dev": "father doc dev",
-    "prepublishOnly": "npm run build && rm -rf docs && cp -R .doc docs",
-    "test": "father test --coverage && codecov"
+    "build": "npm run build:dist && npm run build:lib",
+    "build:dist": "rm -rf dist && webpack --config webpack.config.dist.js",
+    "build:lib": "rm -rf lib && babel src -d lib",
+    "prepublishOnly": "npm run build",
+    "test": "jest && codecov"
   },
   "dependencies": {
     "crypto-js": "4.0.0",
-    "jquery": "3.4.1",
+    "jquery": "3.5.1",
     "js-cookie": "2.2.1",
     "js-md5": "0.7.3",
     "lodash": "4.17.15",
-    "moment": "2.24.0"
+    "moment": "2.25.3"
   },
   "devDependencies": {
+    "@babel/cli": "7.8.4",
+    "@babel/core": "7.9.6",
+    "@babel/plugin-proposal-class-properties": "7.8.3",
+    "@babel/plugin-proposal-export-default-from": "7.8.3",
+    "@babel/plugin-transform-modules-umd": "7.9.0",
+    "@babel/preset-env": "7.9.6",
+    "babel-jest": "26.0.1",
+    "babel-loader": "8.1.0",
     "codecov": "3.6.5",
-    "father": "2.29.2",
-    "jsdom": "16.1.0"
+    "jest": "26.0.1",
+    "jest-cli": "26.0.1",
+    "jsdom": "16.2.2",
+    "prettier": "2.0.5"
+  },
+  "babel": {
+    "presets": [
+      "@babel/env"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-proposal-export-default-from"
+    ]
   },
   "jest": {
     "collectCoverage": true,
